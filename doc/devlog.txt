@@ -19,6 +19,20 @@ Tuesday -- a web application for collaborators to track projects together and se
 
 johnnyW -- 2019-01-08 01:09
 --------------------------------------------------------------
-Added design.pdf, api_Accuweather.pdf, and api_Quotes.pdf to doc
+- Added design.pdf, api_Accuweather.pdf, and api_Quotes.pdf to doc
 directory.
+==============================================================
+thomasZ -- 2019-01-08 01:13
+--------------------------------------------------------------
+- Created the component map
+- Assisted with API research
+- Verbal assistance/feedback to teammates as they did their part
+==============================================================
+firstL -- 2019-01-00 00:00
+--------------------------------------------------------------
+WHAT DID YOU DO TODAY
+==============================================================
+firstL -- 2019-01-00 00:00
+--------------------------------------------------------------
+WHAT DID YOU DO TODAY
 ==============================================================
