@@ -89,6 +89,16 @@ def logout():
     flash('Successfully logged out!')
     return redirect(url_for('index'))
 
+
+@app.route('/get_snippet')
+def get_snippet():
+    snippet = request.args['snippet']
+    if snippet in ['login', 'register']:
+        return render_template('{}SNIPPET.html'.format(snippet))
+    else:
+        return 'Invalid Snippet!'
+
+
 if __name__ == '__main__':
     app.debug = True
     app.run()
