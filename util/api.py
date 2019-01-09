@@ -1,4 +1,4 @@
-import json, random
+import datetime, json, random
 import urllib
 from urllib import request
 
@@ -21,46 +21,46 @@ def getQuoteCategories():
         return None
 
     info = raw.read()
-    data = json.loads(info)
+    data = json.loads(info)['contents']['categories']
 
-    print(data)
-    return data
+    categories = []
+    for cat in data:
+        categories.append(cat)
+
+    print(categories)
+    return categories
 
 def getQuote():
+    base_url = "https://quotes.rest/qod?category="
+
+    categories = getQuoteCategories()
     
-    base_url = "https://quotes.rest/qod?category=inspire"
-    url = base_url
+    url = base_url + random.choice(categories)
+    
     header = {
             "Accept": "application/json",
             }
 
-
     r = request.Request(url, headers = header )
 
     try:
-        raw = request.urlopen(r)
+        raw = request.urlopen(r).read()
     except:
-        print("Error0")
-        return None
+        print("Error: Something went wrong with the request")
+        return "Error: Something went wrong with the request"
 
 
-    info = raw.read()
-    genres = json.loads(info)
+    quote = json.loads(raw)['contents']['quotes'][0]['quote']
 
-    req = request.Request(url, headers = header)
-    raw = request.urlopen(req).read()
-    data = json.loads(raw)
-
-    print(data)
-
-    return data
+    print(quote)
+    return quote
 
 ################################################### IPSUM API #################################################
-def getIpsum():
+def getIpsum(numWords, numPara):
     
     base_url = "http://dinoipsum.herokuapp.com/api/?format=json"
-    words = "&words=" + str(100) #this 100 can be swapped somehow
-    paragraphs = "&paragraphs=" + str(2) #this 2 can be swapped somehow
+    words = "&words=" + str(numWords)
+    paragraphs = "&paragraphs=" + str(numPara)
     url = base_url + words + paragraphs
     header = {
             "Accept": "application/json",
@@ -72,25 +72,24 @@ def getIpsum():
     try:
         raw = request.urlopen(r).read()
     except:
-        print("Error0")
-        return None
+        print("Error: Something went wrong with the request")
+        return "Error: Something went wrong with the request"
 
 
 
     data = json.loads(raw)
 
     print(data)
-
     return data
 
 
 ################################################### AVATAR API #################################################
-def getRandomAvatarLink():
-    url = "https://api.adorable.io/avatars/285/" + str(random.randint(0, 10000))
+def getAvatarLink(username):
+    url = "https://api.adorable.io/avatars/285/" + username
     print(url)
     return url
 
 
 
-getQuoteCategories()
+print(datetime.datetime.today().strftime('%Y-%m-%d'))
 
