@@ -16,35 +16,15 @@ Tuesday -- a web application for collaborators to track projects together and se
     \____/_/ \_____\/ \___/_(   \_____\/ \_____\/ \_____\/
 ==============================================================
 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-
-johnnyW -- 2019-01-08 01:09
+joanC -- 2019-01-09 09:26
 --------------------------------------------------------------
-- Added design.pdf, api_Accuweather.pdf, and api_Quotes.pdf to doc
-directory.
+- fixed index flashing
 ==============================================================
-thomasZ -- 2019-01-08 01:13
+johnnyW -- 2019-01-09 01:19
 --------------------------------------------------------------
-- Created the component map
-- Assisted with API research
-- Verbal assistance/feedback to teammates as they did their part
-==============================================================
-thomasZ -- 2019-01-08 20:13
---------------------------------------------------------------
-- Created a basic app.py
-- Wrote the base.html which contains the navbar
-- Wrote the landing page with aesthetics plus "Create New Project" and
-"Join Existing Project" buttons
-- Updated .gitignore
-==============================================================
-johnnyW -- 2019-01-08 22:20
---------------------------------------------------------------
-- Added database.py to /util and created tuesday.db
-- Added authentication route to app.py
-- Added logout route to app.py
-==============================================================
-joanC -- 2019-01-08 23:20
---------------------------------------------------------------
-- Finished (?) index.html, index.js
+- Added updated design.pdf to /doc
+- Removed the idea of project managers in Project Summary of design.pdf
+          - all members have equal privileges
 ==============================================================
 thomasZ -- 2019-01-09 00:09
 --------------------------------------------------------------
@@ -60,23 +40,34 @@ thomasZ -- 2019-01-09 00:09
               * landing.js and project.js correspond to landing.html and project.html
      - clarified that Bootstrap will be used as LetNogo's FEF
 ==============================================================
-johnnyW -- 2019-01-09 01:19
+joanC -- 2019-01-08 23:20
 --------------------------------------------------------------
-- Added updated design.pdf to /doc
-- Removed the idea of project managers in Project Summary of design.pdf
-          - all members have equal privileges
+- Finished (?) index.html, index.js
 ==============================================================
-johnnyW -- 2019-01-09 03:27
+johnnyW -- 2019-01-08 22:20
 --------------------------------------------------------------
-- Added flash messages to index.html
-- Cleaned up CSS and FEF on landing.html
-- Started work on table... need to implement project features in app.py
-- Started helper functions for project table in database.py
-- Need to maintain tuesday.db and make sure it does not get corrupted!!!
+- Added database.py to /util and created tuesday.db
+- Added authentication route to app.py
+- Added logout route to app.py
 ==============================================================
-firstL -- 2019-01-00 00:00
+thomasZ -- 2019-01-08 20:13
 --------------------------------------------------------------
-WHAT DID YOU DO TODAY
+- Created a basic app.py
+- Wrote the base.html which contains the navbar
+- Wrote the landing page with aesthetics plus "Create New Project" and
+"Join Existing Project" buttons
+- Updated .gitignore
+==============================================================
+thomasZ -- 2019-01-08 01:13
+--------------------------------------------------------------
+- Created the component map
+- Assisted with API research
+- Verbal assistance/feedback to teammates as they did their part
+==============================================================
+johnnyW -- 2019-01-08 01:09
+--------------------------------------------------------------
+- Added design.pdf, api_Accuweather.pdf, and api_Quotes.pdf to doc
+directory.
 ==============================================================
 firstL -- 2019-01-00 00:00
 --------------------------------------------------------------
