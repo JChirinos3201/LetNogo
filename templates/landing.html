@@ -1,79 +1,51 @@
-{% extends "base.html" %}
-<!doctype html> {% block content %}
-<head>
-  <style>
-    #proj:hover{
-      color: #85c1e9   ;
-    }
-  </style>
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <title>Home &bull; Tuesday</title>
 </head>
+
 <body>
 
-    <div class="container-fluid mt-5" align="center">
-
-        <div class="row">
-
-            <div class="col-xs-4 col-sm-4 col-md-6 col-lg-8">
-                <div class="alert alert-success shadow p-3 mb-5 rounded">
-
-                    <h2> Your Projects </h2>
-                    <button id="proj" type="button" class="btn btn-hover mr-5"><i><b>Create New Project</button>
-                    <button id="proj" type="button" class="btn btn-hover ml-5">Join Existing Project</b></i></button>
-                </div>
-            </div>
-
-
+    <div class="container-fluid">
+        <nav class="navbar navbar-light bg-success">
+            <a class="navbar-brand mb-0 h1" href="/home">
+                Tuesday
+            </a>
+            <a href="/logout">
+                <button type="button" class="btn btn-warning">Log out</button>
+            </a>
+        </nav>
+    </div>
+    <div class="container mt-5">
+        <div class="jumbotron py-2">
+            <h1 class="h1 text-center">Your Projects</h1>
         </div>
 
-        <div class="row">
-            <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2"> </div>
-
-            <div class="col-xs-2 col-sm-2 col-md-3 col-lg-4 pt-2">
-
-            </div>
-
-            <div class="col-xs-2 col-sm-2 col-md-3 col-lg-4 pt-2">
-
-            </div>
-
-            <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2"> </div>
+        <div class="btn-group" role="group" style="display: flex; flex: 1;">
+            <button class="btn btn-warning">New Project</button>
+            <button class="btn btn-info">Join Existing Project</button>
         </div>
 
-        <div class="container-fluid mt-3" align='center'>
-            <div class="row">
-                <div class="col-md-2"></div>
-                <div class="col-md-8">
-                    <table class="table table-hover table-striped pl-5 pr-5 table-bordered shadow-lg p-3 mb-5 rounded">
-                        <thead class="table-warning">
-                            <tr>
-                                <th class="text-center" scope="col">ID</th>
-                                <th class="text-center" scope="col">Project</th>
-                                <th class="text-center" scope="col">Summary</th>
-                            </tr>
-                        </thead>
-                        <tr class="table-success">
-                            <th class="text-center" scope="col">69</th>
-                            <th class="text-center" scope="col">Fill me XD</th>
-                            <th class="text-center" scope="col">I like bananas</th>
-                        </tr>
-                        <tr class="table-success">
-                            <th class="text-center" scope="col">420</th>
-                            <th class="text-center" scope="col">Fill me XD</th>
-                            <th class="text-center" scope="col">I like bananas</th>
-                        </tr>
-                        <tr class="table-success">
-                            <th class="text-center" scope="col">999</th>
-                            <th class="text-center" scope="col">Fill me XD</th>
-                            <th class="text-center" scope="col">I like bananas</th>
-                        </tr>
-                    </table>
-                </div>
-                <div class="col-md-2"></div>
-            </div>
+        <div id="content">
+
+
+
+
+
         </div>
     </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 </body>
-
-
-
-{% endblock %}
+</html>
