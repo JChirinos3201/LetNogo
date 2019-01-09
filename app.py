@@ -79,6 +79,16 @@ def authenticate():
     # try again
     return redirect(url_for('index'))
 
+@app.route('/logout')
+def logout():
+    '''
+    Logs user out if logged if logged in
+    '''
+    session.pop(user, None)
+    setUser(None)
+    flash('Successfully logged out!')
+    return redirect(url_for('index'))
+
 if __name__ == '__main__':
     app.debug = True
     app.run()
