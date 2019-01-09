@@ -5,6 +5,21 @@ from urllib import request
 ################################################### QUOTES API #################################################
 
 #THIS FUNCTION IS A WORK IN PROGRESS
+def getQuote():
+    today = datetime.datetime.today().strftime('%Y-%m-%d')
+    
+    file = open('./data/quote.txt')
+    quote = file.read()
+
+    if quote == "":
+        print("Empty text file!")
+        updateQuote()
+        
+    
+    print(today)
+    print(quote)
+    
+
 def getQuoteCategories():
     category_url = "https://quotes.rest/qod/categories"
     category_header = {
@@ -30,7 +45,7 @@ def getQuoteCategories():
     print(categories)
     return categories
 
-def getQuote():
+def updateQuote():
     base_url = "https://quotes.rest/qod?category="
 
     categories = getQuoteCategories()
@@ -91,5 +106,6 @@ def getAvatarLink(username):
 
 
 
-print(datetime.datetime.today().strftime('%Y-%m-%d'))
 
+
+getQuote()

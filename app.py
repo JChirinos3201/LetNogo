@@ -6,7 +6,7 @@ import os
 
 from flask import Flask, render_template, redirect, url_for, session, request, flash, get_flashed_messages
 
-from util import database
+from util import database, api
 
 #============instantiate Flask object================
 app = Flask(__name__)
@@ -108,3 +108,4 @@ def get_snippet():
 if __name__ == '__main__':
     app.debug = True
     app.run()
+

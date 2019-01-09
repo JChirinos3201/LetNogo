@@ -6,7 +6,7 @@ import os
 
 from flask import Flask, render_template, redirect, url_for, session, request, flash, get_flashed_messages
 
-from util import database
+from util import database, api
 
 #============instantiate Flask object================
 app = Flask(__name__)
@@ -35,6 +35,10 @@ def home():
     if user == None:
         return redirect(url_for('index'))
     return render_template('landing.html', username = user)
+
+@app.route('/project')
+def project():
+    return render_template('project.html', username = user)
 
 @app.route('/authenticate', methods=['POST'])
 def authenticate():
@@ -104,3 +108,5 @@ def get_snippet():
 if __name__ == '__main__':
     app.debug = True
     app.run()
+
+api.getAvatarLink('he')
