@@ -152,7 +152,7 @@ class DB_Manager:
         '''
         CREATES TABLE FOR PROJECTS
         '''
-        self.tableCreator('projects', 'pid text', 'username text', 'password text')
+        self.tableCreator('projects', 'pid text', 'username text', 'p_name text')
 
     def add_project(self, pid, username, p_name):
         '''
@@ -160,13 +160,32 @@ class DB_Manager:
         '''
         self.insertRow('projects', (pid, username, p_name))
 
-    def get_projects(self, username):
+    def get_projects(self, username, sort=False):
         '''
-        RETURNS A SET OF PROJECTS THAT CORRESPOND TO THE username
+        RETURNS A DICTIONARY OF PROJECTS WITH PAIRS OF p_name: pid THAT CORRESPOND TO THE username
         '''
-        pass
-        # fill this boy
+        c = self.openDB()
+        command = 'SELECT pid, p_name FROM projects WHERE username = "{0}"'.format(username)
+        c.execute(command)
+        selectedVal = c.fetchall()
+        projects = {}
+        for i in selectedVal:
+            projects[i[1]] = i[0]
+        if sort:
+            sorted_projects = {}
+            for key in sorted(projects.keys()):
+                sorted_projects[key] = projects[key]
+            return sorted_projects
+        return projects
 
+    def remove_project(self, pid):
+        '''
+        REMOVE A PROJECT FROM THE PROJECT TABLE GIVEN pid
+        '''
+        c = self.openDB()
+        command = 'DELETE FROM projects WHERE pid = {0}'.format(pid)
+        c.execute(command)
+        return True
 
     #====================== END OF TUESDAY FXNS ======================
 
@@ -183,7 +202,9 @@ initate = DB_Manager(DB_FILE)
 #initate.registerUser('a', 'a')
 
 #initate.create_projects()
-#initate.add_project('69', 'null', 'test')
+#initate.add_project('73', 'null', 'apple')
+#initate.remove_project('73')
 
+print(initate.get_projects('null', True))
 initate.save()
 '''

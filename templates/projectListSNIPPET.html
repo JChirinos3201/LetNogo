@@ -1,0 +1,5 @@
+{% for projectName, projectID in projectDict.items() %}
+<div class="container p-0 text-center">
+    <a class="btn btn-primary text-white w-100" href="/project/{{ projectName }}/{{ projectID }}">{{ projectName }}</a>
+</div>
+{% endfor %}
