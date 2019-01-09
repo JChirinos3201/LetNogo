@@ -34,14 +34,14 @@
                 </button>
               </div>
               <br>
-              <form>
+              <form action='/authenticate' method='POST'>
                 <div class="form-group mx-5">
                   <input type="text" class="form-control" name="username" placeholder="Username">
                 </div>
                 <div class="form-group mx-5">
                   <input type="password" class="form-control" name="password" placeholder="Password">
                 </div>
-                <button type="submit text-dark" class="btn-success">Log In</button>
+                <button type="submit" name='submit' value= 'Login' class="btn-success text-dark">Log In</button>
               </form>
             </div>
           </div>
