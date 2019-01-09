@@ -36,6 +36,10 @@ def home():
         return redirect(url_for('index'))
     return render_template('landing.html', username = user)
 
+@app.route('/project')
+def project():
+    return render_template('project.html', username = user)
+
 @app.route('/authenticate', methods=['POST'])
 def authenticate():
     '''
