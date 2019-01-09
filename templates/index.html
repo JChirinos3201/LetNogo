@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 
-  <head>
+<head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -13,22 +13,25 @@
 </head>
 
 <body>
-    {% set msgs = get_flashed_messages() %}
-    {% for each in msgs %}
+    {% set msgs = get_flashed_messages() %} {% for each in msgs %}
     <div class="container-fluid">
-      <div class="row">
-        <div class='col my-auto'>
-          {% if each == 'Successfully logged out!' %}
-          <div class="alert alert-info text-center">
-            {{each}}
-          </div>
-          {% else %}
-          <div class="alert alert-danger text-center">
-            {{each}}
-          </div>
-          {% endif %}
+        <div class="row">
+            <div class='col my-auto'>
+                {% if each == 'Successfully logged out!' %}
+                <div class="alert alert-info text-center">
+                    {{each}}
+                </div>
+                {% elif each[:4] == 'Succ' %}
+                <div class="alert alert-success text-center">
+                    {{each}}
+                </div>
+                {% else %}
+                <div class="alert alert-danger text-center">
+                    {{each}}
+                </div>
+                {% endif %}
+            </div>
         </div>
-      </div>
     </div>
     {% endfor %}
     <div class="container" style="height: 100vh;">

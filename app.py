@@ -70,7 +70,7 @@ def authenticate():
                 # add account to DB
                 data.registerUser(username, password)
                 data.save()
-                flash("Successfully registered account for user '{0}'".format(username))
+                flash('Successfully registered account for user "{0}"'.format(username))
             else:
                 flash('Password length insufficient!')
         elif len(username.strip()) == 0:
