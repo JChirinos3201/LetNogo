@@ -1,3 +1,5 @@
+// load login and register menu
+
 window.onload = function () {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
@@ -9,6 +11,7 @@ window.onload = function () {
     xhttp.send();
 };
 
+// display register form
 var toRegister = function () {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
@@ -20,6 +23,7 @@ var toRegister = function () {
     xhttp.send();
 };
 
+// display login form
 var toLogin = function () {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {

@@ -5,7 +5,7 @@ Johnny Wong
 Thomas Zhao
 pd 08
 ---------------------
-Tuesday -- a web application for collaborators to track projects together and set checkpoints and target goals 
+Tuesday -- a web application for collaborators to track projects together and set checkpoints and target goals
 
  ______   ______   __   __   __       ______   _______
 /_____/\ /_____/\ /_/\ /_/\ /_/\     /_____/\ /______/\
@@ -36,6 +36,12 @@ thomasZ -- 2019-01-08 20:13
 "Join Existing Project" buttons
 - Updated .gitignore
 ==============================================================
+johnnyW -- 2019-01-08 22:20
+--------------------------------------------------------------
+- Added database.py to /util and created tuesday.db
+- Added authentication route to app.py
+- Added logout route to app.py
+==============================================================
 joanC -- 2019-01-08 23:20
 --------------------------------------------------------------
 - Finished (?) index.html, index.js
@@ -45,6 +51,29 @@ thomasZ -- 2019-01-09 00:09
 - Worked on the API functions
 - Created cards for new APIs in the Knowledge Base
 - Updated Design
+     - addressed issue of "missing pages for popups such as to-do list
+     - clarified in component map that we will be using JavaScript to
+       display menus like the inbox, to-do list, and dashboard
+     - component map better reflects how each file is related...
+              * Data from APIs are requested and used in util.py
+              * app.py imports util.py and edits tuesday.db
+              * landing.js and project.js correspond to landing.html and project.html
+     - clarified that Bootstrap will be used as LetNogo's FEF
+==============================================================
+johnnyW -- 2019-01-09 01:19
+--------------------------------------------------------------
+- Added updated design.pdf to /doc
+- Removed the idea of project managers in Project Summary of design.pdf
+          - all members have equal privileges
+
+==============================================================
+johnnyW -- 2019-01-09 03:27
+--------------------------------------------------------------
+- Added flash messages to index.html
+- Cleaned up CSS and FEF on landing.html
+- Started work on table... need to implement project features in app.py
+- Started helper functions for project table in database.py
+- Need to maintain tuesday.db and make sure it does not get corrupted!!!
 ==============================================================
 firstL -- 2019-01-00 00:00
 --------------------------------------------------------------

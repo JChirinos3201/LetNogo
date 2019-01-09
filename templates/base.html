@@ -7,9 +7,10 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
     <style>
+
       .navbar-default {
-	  background-color: green;
-	  border-color: green;
+	  background-color: #28a745;
+	  border-color: #28a745;
       }
 
       .navbar-brand {
@@ -28,27 +29,29 @@
 	  color: black;
       }
      </style>
-
-    <title> Tuesday | 'USERNAME' </title>
+    <title class='titulo'> Tuesday | {{username}} </title>
   </head>
 
 
   <body>
     <nav class="navbar navbar-default">
       <div class="container-fluid">
-	<div class="navbar-header">
-	  <a class="navbar-brand" href="/home">Tuesday</a>
-	</div>
-	<ul class="nav navbar-nav">
-	  <li><span class="text">Hello, 'USERNAME HERE'</span></li>
-	  <li><a href="/logout">Log Out</a></li>
-	</ul>
+      	<div class="navbar-header">
+      	  <a class="navbar-brand" href="/home">
+            <img src="../static/letnogo.png" width='50' height='50' class="d-inline-block align-top" alt="">
+            <i>Tuesday</i>
+          </a>
+      	</div>
+      	<ul class="nav navbar-nav">
+      	  <li><span class="text">Hello, <i class="text-warning">{{username}}</i></span></li>
+      	  <li><a href="/logout">Log Out</a></li>
+      	</ul>
       </div>
     </nav>
 
     {% block content %}
 
     {% endblock %}
-
+  <footer class="-footer bg-dark fixed-bottom text-success text-right"> &copy; LetNogo 2019</footer>
   </body>
 </html>

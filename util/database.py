@@ -3,6 +3,7 @@
 # P02: The End
 
 import sqlite3   # enable control of an sqlite database
+import random
 
 class DB_Manager:
     '''
@@ -147,6 +148,25 @@ class DB_Manager:
 
     #====================== TUESDAY FXNS ======================
 
+    def create_projects(self):
+        '''
+        CREATES TABLE FOR PROJECTS
+        '''
+        self.tableCreator('projects', 'pid text', 'username text', 'password text')
+
+    def add_project(self, pid, username, p_name):
+        '''
+        ADDS A PROJECT TO THE TABLE OF PROJECTS
+        '''
+        self.insertRow('projects', (pid, username, p_name))
+
+    def get_projects(self, username):
+        '''
+        RETURNS A SET OF PROJECTS THAT CORRESPOND TO THE username
+        '''
+        pass
+        # fill this boy
+
 
     #====================== END OF TUESDAY FXNS ======================
 
@@ -158,7 +178,12 @@ class DB_Manager:
 '''
 DB_FILE = '../data/tuesday.db'
 initate = DB_Manager(DB_FILE)
-initate.createUsers()
-initate.registerUser('a', 'a')
+
+#initate.createUsers()
+#initate.registerUser('a', 'a')
+
+#initate.create_projects()
+#initate.add_project('69', 'null', 'test')
+
 initate.save()
 '''

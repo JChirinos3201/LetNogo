@@ -32,7 +32,9 @@ def index():
 
 @app.route('/home')
 def home():
-    return render_template('landing.html')
+    if user == None:
+        return redirect(url_for('index'))
+    return render_template('landing.html', username = user)
 
 @app.route('/authenticate', methods=['POST'])
 def authenticate():
@@ -52,7 +54,6 @@ def authenticate():
             session[username] = password
             setUser(username)
             data.save()
-            flash('Successfully logged in!')
             return redirect(url_for('home'))
         # user was found but password is incorrect
         elif data.findUser(username):
@@ -88,6 +89,7 @@ def logout():
     setUser(None)
     flash('Successfully logged out!')
     return redirect(url_for('index'))
+
 
 
 @app.route('/get_snippet')

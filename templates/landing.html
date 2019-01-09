@@ -2,50 +2,73 @@
 <!doctype html>
 {% block content %}
 
-<head>
-  <style>
-    .btn {
-	width: 100%;
-	display: block;
-	background-color: green;
-	border-radius: 0;
-    }
-  </style>
-</head>
-
 <body>
 
-<br><br>
-
-  <div class="container-fluid" align="center">
+  <div class="container-fluid mt-5" align="center">
 
     <div class-"row">
-      <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2"> </div>
 
-      <div class="col-xs-4 col-sm-4 col-md-6 col-lg-8" style="background-color:green;">
-	<h1> Your Projects</h1>
+      <div class="col-xs-4 col-sm-4 col-md-6 col-lg-8">
+	      <div class="alert alert-success shadow p-3 mb-5 rounded">
+
+          <h2> Your Projects </h2>
+          <button type="button" class="btn mr-5"><i><b>Create New Project</button>
+          <button type="button" class="btn ml-5">Join Existing Project</b></i></button>
+        </div>
       </div>
 
-      <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2"> </div>
+
     </div>
 
     <div class="row">
       <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2"> </div>
 
-      <div class="col-xs-2 col-sm-2 col-md-3 col-lg-4">
-	<button type="button" class="btn">Create New Project</button>
+      <div class="col-xs-2 col-sm-2 col-md-3 col-lg-4 pt-2">
+
       </div>
 
-      <div class="col-xs-2 col-sm-2 col-md-3 col-lg-4">
-	<button type="button" class="btn">Join Existing Project</button>
+      <div class="col-xs-2 col-sm-2 col-md-3 col-lg-4 pt-2">
+
       </div>
 
       <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2"> </div>
     </div>
+
+  <div class="container-fluid mt-3" align='center'>
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-8">
+        <table class="table table-hover table-striped pl-5 pr-5 table-bordered shadow-lg p-3 mb-5 rounded">
+          <thead class="table-warning">
+            <tr>
+              <th class="text-center" scope="col">ID</th>
+              <th class="text-center" scope="col">Project</th>
+              <th class="text-center" scope="col">Summary</th>
+            </tr>
+          </thead>
+          <tr class="table-success">
+              <th class="text-center" scope="col">69</th>
+              <th class="text-center" scope="col">Fill me XD</th>
+              <th class="text-center" scope="col">I like bananas</th>
+          </tr>
+          <tr class="table-success">
+              <th class="text-center" scope="col">420</th>
+              <th class="text-center" scope="col">Fill me XD</th>
+              <th class="text-center" scope="col">I like bananas</th>
+          </tr>
+          <tr class="table-success">
+              <th class="text-center" scope="col">999</th>
+              <th class="text-center" scope="col">Fill me XD</th>
+              <th class="text-center" scope="col">I like bananas</th>
+          </tr>
+        </table>
+      </div>
+      <div class="col-md-2"></div>
+    </div>
+  </div>
+</div>
 </body>
 
-<br>
 
-<p>Projects will display here, code has not been implemented to display existing projects</p>
 
 {% endblock %}
