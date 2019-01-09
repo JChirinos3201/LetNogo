@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 <!doctype html> {% block content %}
-
+<head>
+  <style>
+    #proj:hover{
+      color: #85c1e9   ;
+    }
+  </style>
+</head>
 <body>
 
     <div class="container-fluid mt-5" align="center">
@@ -11,8 +17,8 @@
                 <div class="alert alert-success shadow p-3 mb-5 rounded">
 
                     <h2> Your Projects </h2>
-                    <button type="button" class="btn mr-5"><i><b>Create New Project</button>
-                    <button type="button" class="btn ml-5">Join Existing Project</b></i></button>
+                    <button id="proj" type="button" class="btn btn-hover mr-5"><i><b>Create New Project</button>
+                    <button id="proj" type="button" class="btn btn-hover ml-5">Join Existing Project</b></i></button>
                 </div>
             </div>
 
