@@ -1,0 +1,15 @@
+<div class="card mt-3">
+    <div class="card-header">
+        <h2 class="h2">New Project</h2>
+    </div>
+    <div class="card-body">
+        <form>
+            <div class="form-group mb-2">
+                <input type="text" class="form-control" maxlength="30" placeholder="Project Name" oninput="updateNewProjectCharCount();" id="newProjectName">
+                <small class="my-0 py-0" id="newProjectCharCount">0/30</small>
+            </div>
+            <button type="button" class="btn btn-warning float-left" onclick="displayExistingProjects();">Cancel</button>
+            <button type="submit" class="btn btn-success float-right">Create New Project</button>
+        </form>
+    </div>
+</div>
