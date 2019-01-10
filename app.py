@@ -16,20 +16,12 @@ app.secret_key = os.urandom(32)
 #===========manage user data here====================
 
 DB_FILE = 'data/tuesday.db'
-user = None
-
-def setUser(userName):
-    '''
-    Sets the user global variable to userName
-    '''
-    global user
-    user = userName
 
 
 @app.route('/')
 def index():
     data = database.DB_Manager(DB_FILE)
-    
+
     today = datetime.datetime.today().strftime('%Y-%m-%d')
 
     api.checkQuote()
@@ -39,7 +31,7 @@ def index():
     print(quote)
 
     data.save()
-    
+
     return render_template('index.html', quote = quote)
 
 @app.route('/home')
@@ -67,8 +59,7 @@ def authenticate():
     if request.form['submit'] == 'Login':
         # username and password are valid
         if len(username.strip()) != 0 and len(password.strip()) != 0 and data.verifyUser(username, password):
-            session[username] = password
-            setUser(username)
+            session['username'] = username
             data.save()
             return redirect(url_for('home'))
         # user was found but password is incorrect
@@ -112,8 +103,9 @@ def logout():
 def get_snippet():
     snippet = request.args['snippet']
     if snippet in ['login', 'register', 'projectList', 'newProject', 'joinProject']:
-        if snippet == 'projectList':
-            projectDict = database.get_projects(username=session['username'])
+        if snippet == 'projectList' and 'username' in session:
+            data = database.DB_Manager(DB_FILE)
+            projectDict = data.get_projects(session['username'])
             return render_template('{}SNIPPET.html'.format(snippet), projectDict=projectDict)
         return render_template('{}SNIPPET.html'.format(snippet))
     else:
