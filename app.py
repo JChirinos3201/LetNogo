@@ -54,6 +54,18 @@ def new_project():
 
     return redirect(url_for('home'))
 
+@app.route('/join_project')
+def join_project():
+    '''
+    user joins a project
+    '''
+    data = database.DB_Manager(DB_FILE)
+    id = str(request.args['id'])
+    title = data.get_project(id)
+    data.add_project(id, session['username'], title)
+    data.save()
+    return redirect(url_for('home'))
+
 @app.route('/project')
 def project():
     return render_template('project.html', username = session['username'])
@@ -109,7 +121,6 @@ def logout():
     session.pop('username', None)
     flash('Successfully logged out!')
     return redirect(url_for('index'))
-
 
 
 @app.route('/get_snippet')

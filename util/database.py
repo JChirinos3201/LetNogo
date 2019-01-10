@@ -239,6 +239,17 @@ class DB_Manager:
         '''
         self.insertRow('projects', (pid, username, p_name))
 
+    def get_project(self, id):
+        '''
+        RETURNS p_name GIVEN id
+        '''
+        c = self.openDB()
+        command = 'SELECT p_name FROM projects WHERE pid = "{0}"'.format(id)
+        c.execute(command)
+        selectedVal = c.fetchone()
+        return selectedVal[0]
+
+
     def get_projects(self, username, sort=False):
         '''
         RETURNS A DICTIONARY OF PROJECTS WITH PAIRS OF p_name: pid THAT CORRESPOND TO THE username
