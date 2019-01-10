@@ -28,16 +28,10 @@ def setUser(userName):
 
 @app.route('/')
 def index():
-    data = database.DB_Manager(DB_FILE)
-    
-    today = datetime.datetime.today().strftime('%Y-%m-%d')
-
     api.checkQuote()
+    
+    data = database.DB_Manager(DB_FILE)
     quote = data.get_quote()
-
-    print('dis')
-    print(quote)
-
     data.save()
     
     return render_template('index.html', quote = quote)
