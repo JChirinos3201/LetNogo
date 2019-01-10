@@ -151,13 +151,14 @@ class DB_Manager:
         '''
         self.tableCreator('quotes', 'quote text', 'author text', 'date text')
 
-    def add_quote(self, quote, author, date):
+    def update_quote(self, quote, author, date):
         '''
         ADDS A QUOTE TO THE TABLE OF QUOTES
         '''
         db = sqlite3.connect(DB_FILE)
         c = db.cursor()
         command_tuple = (quote, author, date, date)
+        c.execute('DELETE FROM quotes')
         c.execute('INSERT INTO quotes SELECT ?,?,? WHERE NOT EXISTS (SELECT quote from quotes WHERE date=?)', command_tuple)
         db.commit()
         db.close()
@@ -226,8 +227,8 @@ DB_FILE = '../data/tuesday.db'
 initiate = DB_Manager(DB_FILE)
 
 initiate.creates_quotes()
-#initiate.add_quote("happy is me", "happy is you", datetime.date(datetime.today()))
-print(initiate.get_quote(datetime.date(datetime.today())))
+initiate.update_quote("happy is me", "happy is you", datetime.date(datetime.today()))
+#print(initiate.get_quote(datetime.date(datetime.today())))
 
 #initiate.createUsers()
 #initiate.registerUser('a', 'a')
