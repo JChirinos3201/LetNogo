@@ -14,12 +14,10 @@
 </head>
 
 <body>
-
-
     <nav class="navbar navbar-light bg-success">
-        <a class="navbar-brand mb-0 h1" href="/home">
-                Tuesday
-            </a>
+        <a class="navbar-brand mb-0" href="/home">
+            <h1><em>Tuesday</em></h1>
+        </a>
         <div>
             <img src="" id="avatar" style="border-radius: 25%;">
             <a href="/logout">
@@ -28,26 +26,21 @@
         </div>
     </nav>
 
-    <div class="container mt-5">
-        <div class="jumbotron py-2 mb-3">
-            <h1 class="h1 text-center">Your Projects</h1>
-        </div>
-
-        <div class="btn-group mb-1" role="group" style="display: flex; flex: 1;">
-            <button class="btn btn-warning" id="newProject" onclick="displayNewProject();">New Project</button>
-            <button class="btn btn-info" id="joinProject" onclick="displayJoinProject()">Join Existing Project</button>
-        </div>
-
-        <div id="content">
+    <div class="container-fluid mt-2">
+        <div class="row">
+            <div class="col-sm-4 col-md-3 col-lg-2 flex-column" bg-success id="buttonColumn">
+                <button class="btn btn-lg btn-block btn-warning" onclick="displayExistingProjects();">Your Projects</button>
+                <button class="btn btn-lg btn-block btn-warning" onclick="displayNewProject();">New Project</button>
+                <button class="btn btn-lg btn-block btn-warning" onclick="displayJoinProject();">Join Project</button>
+            </div>
+            <div class="col-sm-8 col-md-9 col-lg-10" id="contentColumn">
 
 
 
 
-
-
+            </div>
         </div>
     </div>
-
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
