@@ -216,11 +216,10 @@ class DB_Manager:
         RETURNS A LIST OF NOTES FOR username
         '''
         c = self.openDB()
-        command = 'SELECT note FROM notes WHERE username = "{0}"'
+        command = 'SELECT note FROM notes WHERE username = "{0}"'.format(username)
         c.execute(command)
         selectedVal = c.fetchall()
         user_notes = []
-        print(selectedVal)
         for i in selectedVal:
             user_notes.append(i[0])
         return user_notes
@@ -265,6 +264,98 @@ class DB_Manager:
         c.execute(command)
         return True
 
+    #======TASKS FXNS========
+    def create_tasks(self):
+        '''
+        CREATES tasks TABLE
+        '''
+        c = self.openDB()
+        def gen_table(tableName, col0, col1, col2, col3, col4, col5, col6):
+            '''
+            CREATES A 7 COLUMN TABLE IF tableName NOT TAKEN
+            ALL PARAMS ARE STRINGS
+            '''
+            if not self.isInDB(tableName):
+                command = 'CREATE TABLE "{0}"({1}, {2}, {3}, {4}, {5}, {6}, {7});'.format(tableName, col0, col1, col2, col3, col4, col5, col6)
+                c.execute(command)
+        gen_table('tasks', 'pid text', 'username text', 'task text', 'description text', 'priority int', 'due_date text', 'status text')
+
+    def add_task(self, pid, username, task, description, priority, due_date, status):
+        '''
+        ADDS A ROW TO tasks TABLE OF INPUT VALUES pid, username, task, description, priority, due_date, and status
+        @priority is the only int
+        other inputs are strings
+        '''
+        c = self.openDB()
+        data = (pid, username, task, description, priority, due_date, status)
+        command = 'INSERT INTO tasks VALUES(?, ?, ?, ?, ?, ?, ?)'
+        c.execute(command, data)
+        return True
+
+    def remove_task(self, pid, username, task):
+        '''
+        REMOVES A ROW FROM tasks GIVEN pid, username, and task
+        '''
+        c = self.openDB()
+        command = 'DELETE FROM tasks WHERE pid = "{0}" AND username = "{1}" AND task = "{2}"'.format(pid, username, task)
+        c.execute(command)
+        return True
+
+    def get_tasks(self, pid, username):
+        '''
+        RETURNS A DICTIONARY OF tasks FOR THE username IN THE FORMAT task: (description, priority, due_date, status)
+        '''
+        c = self.openDB()
+        command = 'SELECT task, description, priority, due_date, status FROM tasks where pid = "{0}" AND username = "{1}"'.format(pid, username)
+        c.execute(command)
+        selectedVal = c.fetchall()
+        task_dict = {}
+        for i in selectedVal:
+            task_dict[i[0]] = (i[1], i[2], i[3], i[4])
+        return task_dict
+
+
+    def set_description(self, description, pid, username, task):
+        '''
+        SET THE description OF A ROW IN tasks GIVEN pid, username, AND task
+        '''
+        c = self.openDB()
+        command = 'UPDATE tasks SET description = "{0}" WHERE pid = "{1}" AND username = "{2}" AND task = "{3}"'.format(description, pid, username, task)
+        c.execute(command)
+        return True
+
+    def set_priority(self, priority, pid, username, task):
+        '''
+        SET THE priority OF A ROW IN tasks GIVEN pid, username, AND task
+        '''
+        c = self.openDB()
+        command = 'UPDATE tasks SET priority = "{0}" WHERE pid = "{1}" AND username = "{2}" AND task = "{3}"'.format(priority, pid, username, task)
+        c.execute(command)
+        return True
+
+    def set_due_date(self, due_date, pid, username, task):
+        '''
+        SET THE due_date OF A ROW IN tasks GIVEN pid, username, AND task
+        '''
+        c = self.openDB()
+        command = 'UPDATE tasks SET due_date = "{0}" WHERE pid = "{1}" AND username = "{2}" AND task = "{3}"'.format(due_date, pid, username, task)
+        c.execute(command)
+        return True
+
+    def set_status(self, status, pid, username, task):
+        '''
+        SET THE status OF A ROW IN tasks GIVEN pid, username, AND task
+        '''
+        c = self.openDB()
+        command = 'UPDATE tasks SET status = "{0}" WHERE pid = "{1}" AND username = "{2}" AND task = "{3}"'.format(status, pid, username, task)
+        c.execute(command)
+        return True
+
+
+
+
+
+
     #====================== END OF TUESDAY FXNS ======================
 
 
@@ -272,7 +363,7 @@ class DB_Manager:
 #======================== END OF CLASS DB_Manager =========================
 
 # initiation process and TESTING
-'''
+
 DB_FILE = '../data/tuesday.db'
 initiate = DB_Manager(DB_FILE)
 
@@ -288,17 +379,23 @@ initiate = DB_Manager(DB_FILE)
 # TEST NOTES
 #initiate.create_notes()
 
-#initiate.add_note('null', 'bang')
-#initiate.add_note('null', 'pow')
-#initiate.add_note('peej', 'woo')
-#print(initiate.get_notes('peej'))
+#initiate.add_note('a', 'bang')
+#initiate.add_note('a', 'pow')
+#initiate.add_note('null', 'woo')
+#print(initiate.get_notes('a'))
 
 # TEST PROJECTS
 #initiate.create_projects()
-#initiate.add_project('73', 'null', 'apple')
-print(initiate.get_projects('73'))
+#initiate.add_project('79', 'null', 'poop')
+#print(initiate.get_projects('null'))
 #initiate.remove_project('73')
+
+# TEST TASKS
+#initiate.create_tasks()
+#initiate.add_task('79', 'a', 'dab on them', 'dab on them super hard', 1, 'tomorrowXD', 'incomplete')
+#initiate.remove_task('79', 'a', 'dab on them')
+#print(initiate.get_tasks('79', 'a'))
+#initiate.set_description('yeet on them', '79', 'a', 'dab on them')
 
 #print(initiate.get_projects('null', True))
 initiate.save()
-'''
