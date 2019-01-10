@@ -66,9 +66,13 @@ def join_project():
     data.save()
     return redirect(url_for('home'))
 
-@app.route('/project')
-def project():
-    return render_template('project.html', username = session['username'])
+@app.route('/project/<title>/<id>')
+def project(title, id):
+    '''
+    pull project info here???
+    <fill me XD>
+    '''
+    return render_template('project.html', username = session['username'], project_name = title)
 
 @app.route('/authenticate', methods=['POST'])
 def authenticate():

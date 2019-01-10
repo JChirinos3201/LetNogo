@@ -16,6 +16,14 @@ Tuesday -- a web application for collaborators to track projects together and se
     \____/_/ \_____\/ \___/_(   \_____\/ \_____\/ \_____\/
 ==============================================================
 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+
+johnnyW -- 2019-01-10 03:33
+--------------------------------------------------------------
+- worked on database.py
+- added join_project route to app.py
+- started project route
+==============================================================
+
 joanC -- 2019-01-10 03:16
 --------------------------------------------------------------
 - Worked on linking app.py with the DB and the landing page
