@@ -2,7 +2,7 @@
 # SoftDev1 pd8
 # P02: The End
 
-import os
+import datetime, os
 
 from flask import Flask, render_template, redirect, url_for, session, request, flash, get_flashed_messages
 
@@ -28,7 +28,19 @@ def setUser(userName):
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    data = database.DB_Manager(DB_FILE)
+    
+    today = datetime.datetime.today().strftime('%Y-%m-%d')
+
+    api.checkQuote()
+    quote = data.get_quote()
+
+    print('dis')
+    print(quote)
+
+    data.save()
+    
+    return render_template('index.html', quote = quote)
 
 @app.route('/home')
 def home():

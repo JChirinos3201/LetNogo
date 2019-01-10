@@ -163,17 +163,19 @@ class DB_Manager:
         c.execute('INSERT INTO quotes VALUES(?,?,?)', command_tuple)
         return True;
 
-    def get_quote(self, date):
+    def get_quote(self):
         '''
         RETURNS A DICTIONARY OF QUOTES
         '''
-        dict = {"quote":[], "date": []}
+        dict = {"quote":[], "date": [], "author":[]}
         c = self.openDB()
-        c.execute('SELECT quote FROM quotes WHERE date = "{0}"'.format(date))
+        c.execute('SELECT quote FROM quotes')
         dict['quote'] = c.fetchone()[0]
         c.execute('SELECT date FROM quotes')
         dict['date'] = c.fetchone()[0]
-        return today
+        c.execute('SELECT author FROM quotes')
+        dict['author'] = c.fetchone()[0]
+        return dict
 
 
     #======NOTES FXNS========

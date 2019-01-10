@@ -1,27 +1,27 @@
 import datetime, json, random
 import urllib
 from urllib import request
+from util import database
 
 DB_FILE = "data/tuesday.db"
 
 ################################################### QUOTES API #################################################
 
-#THIS FUNCTION IS A WORK IN PROGRESS
-def getQuote():
+#CAUTION: DUE TO QUOTE API LIMIT, THIS FUNC HAS NOT BEEN TESTED
+def checkQuote():
     today = datetime.datetime.today().strftime('%Y-%m-%d')
 
     data = database.DB_Manager(DB_FILE)
 
-    #CREATE TABLE "quote" IF IT DOES NOT EXIST WITH VALUES (DATE, AUTHOR, QUOTE)
+    data.creates_quotes()
+        
+    if data.get_quote()['date'] != today:
+        info = updateQuote()
+        data.update_quote(info[0], info[1], info[2])
+        return False
+
+    return True
     
-    #if DATE IS NOT EQUAL TO today:
-        #CALL updateQuote() and update with the new values (look at the func down there)
-    #else:
-        #return DATE, AUTHOR, QUOTE from the db
-
-
-    
-
     #-------- IGNORE -------
     #with open('./data/quote.txt') as textfile:
     #    quote = textfile.read()
@@ -30,10 +30,6 @@ def getQuote():
     #    print("Empty text file!")
     #    updateQuote()
     #-----------------------
-    
-        
-    
-    
     
 
 def getQuoteCategories():
@@ -85,8 +81,8 @@ def updateQuote():
     author = info['contents']['quotes'][0]['author']
     date = info['contents']['quotes'][0]['date']
     
-    print(date, author, quote)
-    return (date, author, quote)
+    print(quote, author, date)
+    return (quote, author, date)
 
 ################################################### IPSUM API #################################################
 def getIpsum(numWords, numPara):
@@ -124,6 +120,3 @@ def getAvatarLink(username):
 
 
 
-
-
-updateQuote()
