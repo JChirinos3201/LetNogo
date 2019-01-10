@@ -21,23 +21,23 @@ def checkQuote():
             info = updateQuote()
         except:
             info = ["LetNogo is the best language!", 'Joan "HoneyNut" Cheerios', "2019-01-10"]
-            
+
         data.update_quote(info[0], info[1], info[2])
         data.save()
         return False
 
     data.save()
     return True
-    
+
     #-------- IGNORE -------
     #with open('./data/quote.txt') as textfile:
     #    quote = textfile.read()
-        
+
     #if quote == "":
     #    print("Empty text file!")
     #    updateQuote()
     #-----------------------
-    
+
 
 def getQuoteCategories():
     category_url = "https://quotes.rest/qod/categories"
@@ -68,9 +68,9 @@ def updateQuote():
     base_url = "https://quotes.rest/qod?category="
 
     categories = getQuoteCategories()
-    
+
     url = base_url + random.choice(categories)
-    
+
     header = {
             "Accept": "application/json",
             }
@@ -87,13 +87,13 @@ def updateQuote():
     quote = info['contents']['quotes'][0]['quote']
     author = info['contents']['quotes'][0]['author']
     date = info['contents']['quotes'][0]['date']
-    
+
     print(quote, author, date)
     return (quote, author, date)
 
 ################################################### IPSUM API #################################################
 def getIpsum(numWords, numPara):
-    
+
     base_url = "http://dinoipsum.herokuapp.com/api/?format=json"
     words = "&words=" + str(numWords)
     paragraphs = "&paragraphs=" + str(numPara)
@@ -121,9 +121,6 @@ def getIpsum(numWords, numPara):
 
 ################################################### AVATAR API #################################################
 def getAvatarLink(username):
-    url = "https://api.adorable.io/avatars/285/" + username
+    url = "https://api.adorable.io/avatars/50/{}.png".format(username)
     print(url)
     return url
-
-
-
