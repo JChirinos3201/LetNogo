@@ -145,9 +145,11 @@ class DB_Manager:
         return False
 
     #====================== TUESDAY FXNS ======================
+
+    #======QUOTE FXNS========
     def creates_quotes(self):
         '''
-            CREATES TABLE FOR QUOTES
+        CREATES TABLE FOR QUOTES
         '''
         self.tableCreator('quotes', 'quote text', 'author text', 'date text')
 
@@ -155,13 +157,10 @@ class DB_Manager:
         '''
         ADDS A QUOTE TO THE TABLE OF QUOTES
         '''
-        db = sqlite3.connect(DB_FILE)
-        c = db.cursor()
+        c = self.openDB()
         command_tuple = (quote, author, date)
         c.execute('DELETE FROM quotes')
-        c.execute('INSERT INTO quotes VALUES(?,?,?))', command_tuple)
-        db.commit()
-        db.close()
+        c.execute('INSERT INTO quotes VALUES(?,?,?)', command_tuple)
         return True;
 
     def get_quote(self, date):
@@ -169,16 +168,64 @@ class DB_Manager:
         RETURNS A DICTIONARY OF QUOTES
         '''
         dict = {"quote":[], "date": []}
-        db = sqlite3.connect(DB_FILE)
-        c = db.cursor()
+        c = self.openDB()
         c.execute('SELECT quote FROM quotes WHERE date = "{0}"'.format(date))
         dict['quote'] = c.fetchone()[0]
         c.execute('SELECT date FROM quotes')
         dict['date'] = c.fetchone()[0]
-        db.commit()
-        db.close()
         return today
 
+
+    #======NOTES FXNS========
+    def create_notes(self):
+        '''
+        CREATES TABLE FOR NOTES
+        '''
+        c = self.openDB()
+        if not self.isInDB('notes'):
+            command = 'CREATE TABLE "{0}"({1}, {2});'.format('notes', 'username text', 'note text')
+            c.execute(command)
+
+    def add_note(self, username, note):
+        '''
+        ADDS note FOR username IN NOTES TABLE
+        '''
+        c = self.openDB()
+        def insertNote(data):
+           '''
+             APPENDS data INTO THE TABLE THAT CORRESPONDS WITH tableName
+             @tableName is the name the table being written to
+             @data is a tuple containing data to be entered
+           '''
+           command = 'INSERT INTO "{0}" VALUES(?, ?)'
+           c.execute(command.format('notes'), data)
+        insertNote((username, note))
+        return True
+
+    def remove_note(self, username, note):
+        '''
+        REMOVES note FOR username IN NOTES TABLE
+        '''
+        c = self.openDB()
+        command = 'DELETE FROM notes WHERE username = "{0}" AND note = "{1}"'.format(username, note)
+        c.execute(command)
+        return True
+
+    def get_notes(self, username):
+        '''
+        RETURNS A LIST OF NOTES FOR username
+        '''
+        c = self.openDB()
+        command = 'SELECT note FROM notes WHERE username = "{0}"'
+        c.execute(command)
+        selectedVal = c.fetchall()
+        user_notes = []
+        print(selectedVal)
+        for i in selectedVal:
+            user_notes.append(i[0])
+        return user_notes
+
+    #======PROJECTS FXNS========
     def create_projects(self):
         '''
         CREATES TABLE FOR PROJECTS
@@ -224,22 +271,34 @@ class DB_Manager:
     #======================== DB FXNS =========================
 #======================== END OF CLASS DB_Manager =========================
 
-# initiation process
-
+# initiation process and TESTING
+'''
 DB_FILE = '../data/tuesday.db'
 initiate = DB_Manager(DB_FILE)
 
-initiate.creates_quotes()
-initiate.update_quote("happy is me", "happy is you", datetime.date(datetime.today()))
+# TEST QUOTES
+#initiate.creates_quotes()
+#initiate.update_quote("happy is me", "happy is you", datetime.date(datetime.today()))
 #print(initiate.get_quote(datetime.date(datetime.today())))
 
+# TEST USERS
 #initiate.createUsers()
 #initiate.registerUser('a', 'a')
 
-initiate.create_projects()
-initiate.add_project('73', 'null', 'apple')
-initiate.get_projects('73')
+# TEST NOTES
+#initiate.create_notes()
+
+#initiate.add_note('null', 'bang')
+#initiate.add_note('null', 'pow')
+#initiate.add_note('peej', 'woo')
+#print(initiate.get_notes('peej'))
+
+# TEST PROJECTS
+#initiate.create_projects()
+#initiate.add_project('73', 'null', 'apple')
+print(initiate.get_projects('73'))
 #initiate.remove_project('73')
 
 #print(initiate.get_projects('null', True))
-#initiate.save()
+initiate.save()
+'''
