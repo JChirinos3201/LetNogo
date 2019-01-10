@@ -16,6 +16,13 @@ Tuesday -- a web application for collaborators to track projects together and se
     \____/_/ \_____\/ \___/_(   \_____\/ \_____\/ \_____\/
 ==============================================================
 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+joanC -- 2019-01-10 03:16
+--------------------------------------------------------------
+- Worked on linking app.py with the DB and the landing page
+- Worked on index.html and landing.html
+- Worked on the JS for landing page
+==============================================================
+
 thomasZ -- 2019-01-10 01:45
 --------------------------------------------------------------
 - Worked on the API functions
@@ -25,6 +32,7 @@ thomasZ -- 2019-01-10 01:45
 gracefully if API is not nice (will provide nice quote from Joan)
 - Currently, the quote resides in index.html
 ==============================================================
+
 johnnyW -- 2019-01-10 01:08
 --------------------------------------------------------------
 - worked on database.py
@@ -32,31 +40,37 @@ johnnyW -- 2019-01-10 01:08
 - added projects fxns
 - added task fxns
 ==============================================================
+
 joanC -- 2019-01-09 14:05
 --------------------------------------------------------------
 - worked on index and landing
 ==============================================================
+
 thomasZ -- 2019-01-09 14:01
 --------------------------------------------------------------
 - Almost finished API functions
 - There is a limitation on the Quotes API (~10 calls/hr); will
 need to read/write quotes to text file later on
 ==============================================================
+
 thomasZ -- 2019-01-09 13:17
 --------------------------------------------------------------
 - Added the /project route
 - Working on project.html
 ==============================================================
+
 joanC -- 2019-01-09 09:26
 --------------------------------------------------------------
 - fixed index flashing
 ==============================================================
+
 johnnyW -- 2019-01-09 01:19
 --------------------------------------------------------------
 - Added updated design.pdf to /doc
 - Removed the idea of project managers in Project Summary of design.pdf
           - all members have equal privileges
 ==============================================================
+
 thomasZ -- 2019-01-09 00:09
 --------------------------------------------------------------
 - Worked on the API functions
@@ -71,16 +85,19 @@ thomasZ -- 2019-01-09 00:09
               * landing.js and project.js correspond to landing.html and project.html
      - clarified that Bootstrap will be used as LetNogo's FEF
 ==============================================================
+
 joanC -- 2019-01-08 23:20
 --------------------------------------------------------------
 - Finished (?) index.html, index.js
 ==============================================================
+
 johnnyW -- 2019-01-08 22:20
 --------------------------------------------------------------
 - Added database.py to /util and created tuesday.db
 - Added authentication route to app.py
 - Added logout route to app.py
 ==============================================================
+
 thomasZ -- 2019-01-08 20:13
 --------------------------------------------------------------
 - Created a basic app.py
@@ -89,12 +106,14 @@ thomasZ -- 2019-01-08 20:13
 "Join Existing Project" buttons
 - Updated .gitignore
 ==============================================================
+
 thomasZ -- 2019-01-08 01:13
 --------------------------------------------------------------
 - Created the component map
 - Assisted with API research
 - Verbal assistance/feedback to teammates as they did their part
 ==============================================================
+
 johnnyW -- 2019-01-08 01:09
 --------------------------------------------------------------
 - Added design.pdf, api_Accuweather.pdf, and api_Quotes.pdf to doc
