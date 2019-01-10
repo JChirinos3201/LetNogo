@@ -20,11 +20,13 @@ def checkQuote():
         try:
             info = updateQuote()
         except:
-            info = ["LetNogo is the best language!", '"Joan HoneyNut Cheerios"', "2019-01-10"]
+            info = ["LetNogo is the best language!", 'Joan "HoneyNut" Cheerios', "2019-01-10"]
             
         data.update_quote(info[0], info[1], info[2])
+        data.save()
         return False
 
+    data.save()
     return True
     
     #-------- IGNORE -------
