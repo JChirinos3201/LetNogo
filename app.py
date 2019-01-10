@@ -35,9 +35,9 @@ def index():
 
 @app.route('/home')
 def home():
-    if 'username' in session:
-        return render_template('landing.html', username = session['username'])
-    return redirect(url_for('index'))
+    if 'username' not in session:
+        return redirect(url_for('index'))
+    return render_template('landing.html', username = session['username'])
 
 @app.route('/new_project', methods=["POST"])
 def new_project():
@@ -60,6 +60,8 @@ def join_project():
     '''
     user joins a project
     '''
+    if 'username' not in session:
+        return redirect(url_for('index'))
     data = database.DB_Manager(DB_FILE)
     id = str(request.form['id'])
     title = data.get_project(id)
@@ -69,6 +71,8 @@ def join_project():
 
 @app.route('/project/<title>/<id>')
 def project(title, id):
+    if 'username' not in session:
+        return redirect(url_for('index'))
     '''
     pull project info here???
     <fill me XD>
@@ -80,12 +84,12 @@ def authenticate():
     '''
     References DB_FILE and handles authentication and registration
     '''
-    if 'username' in session:
-        return redirect(url_for('home'))
     data = database.DB_Manager(DB_FILE)
     username, password = request.form['username'], request.form['password']
 
     #=====LOG IN=====
+    if 'submit' not in request.form:
+        return redirect(url_for('index'))
     print(request.form['submit'])
     if request.form['submit'] == 'Login':
         # username and password are valid
@@ -123,6 +127,8 @@ def logout():
     '''
     Logs user out if logged if logged in
     '''
+    if 'username' not in session:
+        return redirect(url_for('index'))
     session.pop('username', None)
     flash('Successfully logged out!')
     return redirect(url_for('index'))
