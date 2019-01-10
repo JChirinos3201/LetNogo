@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='effects.css') }}">
+
+    <title>{{ username }} &bull; Tuesday</title>
+</head>
+
+<body>
+
+
+    <nav class="navbar navbar-light bg-success">
+        <a class="navbar-brand mb-0 h1" href="/home">
+                Tuesday
+            </a>
+        <div>
+            <img src="" id="avatar" style="border-radius: 25%;">
+            <a href="/logout">
+                    <button type="button" class="btn btn-warning">Log out</button>
+                </a>
+        </div>
+    </nav>
+
+    <div class="container text-center">
+      <div class="row">
+	<div class="col-md-4"></div>
+        <div class="col-md-4"><h1 class="display-4 text-center">{{ username }}</h1></div>
+	<div class="col-md-4"></div>
+      </div>
+      <div class="row">
+	<div class="col">
+	  <img src={{url}}> <br><br>
+	  <button class="btn btn-warning" id="changeAvatar" onclick=";">Change Profile Avatar</button>
+	</div>
+      </div>
+      <br>
+      <div class="row">
+	<div class="col-md-4 text-right">
+	  <p>First Name:</p>
+	  <p>Last Name:</p>
+	  <p>Email:</p>
+	  <p>Phone Number:</p>
+	</div>
+	<div class="col-md-4">
+	  <!-- Empty -->
+	</div>
+	<div class="col-md-4 text-left">
+	  <p>Dickleberry</p>
+	  <p>Finn</p>
+	  <p>dickleberries@gmail.com</p>
+	  <p>(123)-456-7890</p>
+	</div>
+      </div>
+      <div class="row text-center">
+	<p>Biography:</p> <br>
+	<p>I am a dickleberry!</p>
+      </div>
+      
+    </div>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='project.js') }}"></script>
+</body>
+
+</html>
+
+<!--
+{% extends "base.html" %}
+<!doctype html> {% block content %}
+<head>
+  <style>
+    #proj:hover{
+	color: #85c1e9   ;
+    }
+  </style>
+</head>
+<body>
+
+    <div class="row" style="background-color:lightgreen;">
+      <div class="container-fluid mt-5" align="left" margin="0">
+	<h2> {{project_name}}</h2>
+      </div>
+    </div>
+
+    <div class="row" style="height:100vh;">
+
+      <div class="col-sm-3 col-md-3 col-lg-3" style="background-color:gray;">
+	<p> column0 </p>
+
+      </div>
+      <div class="col-sm-9 col-md-9 col-lg-9">
+	<p> column1 </p>
+
+      </div>
+
+    </div>
+</body>
+
+
+
+{% endblock %}
+-->
