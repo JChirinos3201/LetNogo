@@ -4,6 +4,7 @@
 
 import sqlite3   # enable control of an sqlite database
 import random
+from datetime import datetime
 
 class DB_Manager:
     '''
@@ -75,7 +76,6 @@ class DB_Manager:
         c.execute(command)
         #print(c.fetchall())
 
-
     def save(self):
         '''
         COMMITS CHANGES TO DATABASE AND CLOSES THE FILE
@@ -101,7 +101,6 @@ class DB_Manager:
         c.execute(command)
         selectedVal = c.fetchall()
         return dict(selectedVal)
-
 
     def registerUser(self, userName, password):
         '''
@@ -145,8 +144,36 @@ class DB_Manager:
             return True
         return False
 
-
     #====================== TUESDAY FXNS ======================
+    def creates_quotes(self):
+        '''
+            CREATES TABLE FOR QUOTES
+        '''
+        self.tableCreator('quotes', 'quote text', 'author text', 'date text')
+
+    def add_quote(self, quote, author, date):
+        '''
+        ADDS A QUOTE TO THE TABLE OF QUOTES
+        '''
+        db = sqlite3.connect(DB_FILE)
+        c = db.cursor()
+        command_tuple = (quote, author, date, date)
+        c.execute('INSERT INTO quotes SELECT ?,?,? WHERE NOT EXISTS (SELECT quote from quotes WHERE date=?)', command_tuple)
+        db.commit()
+        db.close()
+        return True;
+
+    def get_quote(self, date):
+        '''
+        RETURNS A DICTIONARY OF QUOTES
+        '''
+        db = sqlite3.connect(DB_FILE)
+        c = db.cursor()
+        c.execute('SELECT quote FROM quotes WHERE date = "{0}"'.format(date))
+        today = c.fetchone()[0]
+        db.commit()
+        db.close()
+        return today
 
     def create_projects(self):
         '''
@@ -193,18 +220,22 @@ class DB_Manager:
     #======================== DB FXNS =========================
 #======================== END OF CLASS DB_Manager =========================
 
-# initation process
-'''
+# initiation process
+
 DB_FILE = '../data/tuesday.db'
-initate = DB_Manager(DB_FILE)
+initiate = DB_Manager(DB_FILE)
 
-#initate.createUsers()
-#initate.registerUser('a', 'a')
+initiate.creates_quotes()
+#initiate.add_quote("happy is me", "happy is you", datetime.date(datetime.today()))
+print(initiate.get_quote(datetime.date(datetime.today())))
 
-#initate.create_projects()
-#initate.add_project('73', 'null', 'apple')
-#initate.remove_project('73')
+#initiate.createUsers()
+#initiate.registerUser('a', 'a')
 
-print(initate.get_projects('null', True))
-initate.save()
-'''
+initiate.create_projects()
+initiate.add_project('73', 'null', 'apple')
+initiate.get_projects('73')
+#initiate.remove_project('73')
+
+#print(initiate.get_projects('null', True))
+#initiate.save()
