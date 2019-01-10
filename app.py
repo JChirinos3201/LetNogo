@@ -2,9 +2,10 @@
 # SoftDev1 pd8
 # P02: The End
 
-import datetime, os
+import os
 
 from flask import Flask, render_template, redirect, url_for, session, request, flash, get_flashed_messages
+import datetime
 
 from util import database, api
 
@@ -23,7 +24,6 @@ def setUser(userName):
     '''
     global user
     user = userName
-
 
 
 @app.route('/')
@@ -105,7 +105,10 @@ def logout():
 @app.route('/get_snippet')
 def get_snippet():
     snippet = request.args['snippet']
-    if snippet in ['login', 'register']:
+    if snippet in ['login', 'register', 'projectList', 'newProject', 'joinProject']:
+        if snippet == 'projectList':
+            projectDict = database.get_projects(username=session['username'])
+            return render_template('{}SNIPPET.html'.format(snippet), projectDict=projectDict)
         return render_template('{}SNIPPET.html'.format(snippet))
     else:
         return 'Invalid Snippet!'
@@ -114,4 +117,3 @@ def get_snippet():
 if __name__ == '__main__':
     app.debug = True
     app.run()
-
