@@ -20,15 +20,12 @@ DB_FILE = 'data/tuesday.db'
 
 @app.route('/')
 def index():
-<<<<<<< HEAD
     data = database.DB_Manager(DB_FILE)
 
     today = datetime.datetime.today().strftime('%Y-%m-%d')
 
-=======
->>>>>>> 9d599f1c85c1a6c863c245600e2ad5ef1e5dd1b2
     api.checkQuote()
-    
+
     data = database.DB_Manager(DB_FILE)
     quote = data.get_quote()
     data.save()
