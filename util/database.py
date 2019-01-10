@@ -168,10 +168,13 @@ class DB_Manager:
         '''
         RETURNS A DICTIONARY OF QUOTES
         '''
+        dict = {"quote":[], "date": []}
         db = sqlite3.connect(DB_FILE)
         c = db.cursor()
         c.execute('SELECT quote FROM quotes WHERE date = "{0}"'.format(date))
-        today = c.fetchone()[0]
+        dict['quote'] = c.fetchone()[0]
+        c.execute('SELECT date FROM quotes')
+        dict['date'] = c.fetchone()[0]
         db.commit()
         db.close()
         return today
