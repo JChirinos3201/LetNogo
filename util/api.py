@@ -120,7 +120,7 @@ def getIpsum(numWords, numPara):
 
 
 ################################################### AVATAR API #################################################
-def getAvatarLink(username):
-    url = "https://api.adorable.io/avatars/50/{}.png".format(username)
+def getAvatarLink(size, username):
+    url = "https://api.adorable.io/avatars/{}/{}.png".format(size, username)
     print(url)
     return url

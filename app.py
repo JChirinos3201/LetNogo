@@ -145,7 +145,7 @@ def get_snippet():
 @app.route('/get_avatar')
 def get_avatar():
     username = session['username']
-    url = api.getAvatarLink(username)
+    url = api.getAvatarLink(str(50), username)
     print('GETTING AVATAR\n\tUsername: {}\n\tURL: {}\n'.format(username, url))
     return url
 
