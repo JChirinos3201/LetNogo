@@ -365,8 +365,178 @@ class DB_Manager:
         return True
 
 
+    #=====PROFILE FXNS=====
+    def create_profiles(self):
+        '''
+        CREATES profiles TABLE
+        '''
+        c = self.openDB()
+        def gen_table(tableName, col0, col1, col2, col3, col4, col5):
+            '''
+            CREATES A 6 COLUMN TABLE IF tableName NOT TAKEN
+            ALL PARAMS ARE STRINGS
+            '''
+            if not self.isInDB(tableName):
+                command = 'CREATE TABLE "{0}"({1}, {2}, {3}, {4}, {5}, {6});'.format(tableName, col0, col1, col2, col3, col4, col5)
+                c.execute(command)
+        gen_table('profiles', 'username text', 'first_name text', 'last_name text', 'email text', 'phone_num text', 'bio text')
+
+    def get_profile(self, username):
+        '''
+        RETURNS A DICTIONARY OF user PROFILE
+        '''
+        c = self.openDB()
+        command = 'SELECT first_name, last_name, email, phone_num, bio FROM profiles where username = "{0}"'.format(username)
+        c.execute(command)
+        selectedVal = c.fetchone()
+        profile = {}
+        profile['first_name'], profile['last_name'], profile['email'], profile['phone_num'], profile['bio'] = selectedVal[0], selectedVal[1], selectedVal[2], selectedVal[3], selectedVal[4], selectedVal[5]
+        return profile
 
 
+    def set_first_name(self, username, first_name):
+        '''
+        SET THE first_name OF A ROW IN tasks GIVEN username
+        '''
+        c = self.openDB()
+        command = 'UPDATE profiles SET first_name = "{0}" WHERE username = "{1}"'.format(first_name, username)
+        c.execute(command)
+        return True
+
+    def set_last_name(self, username, last_name):
+        '''
+        SET THE last_name OF A ROW IN tasks GIVEN username
+        '''
+        c = self.openDB()
+        command = 'UPDATE profiles SET last_name = "{0}" WHERE username = "{1}"'.format(last_name, username)
+        c.execute(command)
+        return True
+
+    def set_email(self, username, email):
+        '''
+        SET THE email OF A ROW IN tasks GIVEN username
+        '''
+        c = self.openDB()
+        command = 'UPDATE profiles SET email = "{0}" WHERE username = "{1}"'.format(email, username)
+        c.execute(command)
+        return True
+
+    def set_phone(self, username, phone_num):
+        '''
+        SET THE phone_num OF A ROW IN tasks GIVEN username
+        '''
+        c = self.openDB()
+        command = 'UPDATE profiles SET phone_num = "{0}" WHERE username = "{1}"'.format(phone_num, username)
+        c.execute(command)
+        return True
+
+    def set_bio(self, username, bio):
+        '''
+        SET THE bio OF A ROW IN tasks GIVEN username
+        '''
+        c = self.openDB()
+        command = 'UPDATE profiles SET bio = "{0}" WHERE username = "{1}"'.format(bio, username)
+        c.execute(command)
+        return True
+
+    #=====T_MESSAGES FXNS=====
+    def create_msgs(self):
+        '''
+        CREATES msgs TABLE
+        '''
+        c = self.openDB()
+        def gen_table(tableName, col0, col1, col2, col3, col4):
+            '''
+            CREATES A 5 COLUMN TABLE IF tableName NOT TAKEN
+            ALL PARAMS ARE STRINGS
+            '''
+            if not self.isInDB(tableName):
+                command = 'CREATE TABLE "{0}"({1}, {2}, {3}, {4}, {5})'.format(tableName, col0, col1, col2, col3, col4)
+                c.execute(command)
+        gen_table('msgs', 'pid text', 'address text', 'user text', 'msg text', 'msg_id text')
+
+    def add_msg(self, pid, address, user, msg, msg_id):
+        '''
+        ADDS A ROW TO msgs TABLE OF INPUT VALUES pid, address, user, msg, and msg_id
+        ALL INPUTS ARE STRINGS
+        '''
+        c = self.openDB()
+        data = (pid, address, user, msg, msg_id)
+        command = 'INSERT INTO msgs VALUES(?, ?, ?, ?, ?)'
+        c.execute(command, data)
+        return True
+
+    def remove_msg(self, pid, msg_id):
+        '''
+        REMOVES A ROW FROM msgs GIVEN pid and msg_id
+        '''
+        c = self.openDB()
+        command = 'DELETE FROM msgs WHERE pid = "{0}" AND msg_id = "{1}"'.format(pid, msg_id)
+        c.execute(command)
+        return True
+
+    def get_msgs(self, pid):
+        '''
+        RETURNS A LIST OF MESSAGE TUPLES GIVEN pid
+        '''
+        c = self.openDB()
+        command = 'SELECT msg, user FROM msgs WHERE pid = "{0}"'.format(pid)
+        c.execute(command)
+        selectedVal = c.fetchall()
+        messages = []
+        for i in selectedVal:
+            messages.add(i)
+        return messages
+
+    #=====P_MESSAGES FXN====
+    '''WORK ON THIS'''
+    def create_msgs(self):
+        '''
+        CREATES p_msgs TABLE
+        '''
+        c = self.openDB()
+        def gen_table(tableName, col0, col1, col2, col3, col4):
+            '''
+            CREATES A 5 COLUMN TABLE IF tableName NOT TAKEN
+            ALL PARAMS ARE STRINGS
+            '''
+            if not self.isInDB(tableName):
+                command = 'CREATE TABLE "{0}"({1}, {2}, {3}, {4}, {5})'.format(tableName, col0, col1, col2, col3, col4)
+                c.execute(command)
+        gen_table('p_msgs', 'pid text', 'address text', 'user text', 'msg text', 'msg_id text')
+
+    def add_msg(self, pid, address, user, msg, msg_id):
+        '''
+        ADDS A ROW TO tasks TABLE OF INPUT VALUES pid, address, user, msg, and msg_id
+        ALL INPUTS ARE STRINGS
+        '''
+        c = self.openDB()
+        data = (pid, address, user, msg, msg_id)
+        command = 'INSERT INTO msgs VALUES(?, ?, ?, ?, ?)'
+        c.execute(command, data)
+        return True
+
+    def remove_msg(self, pid, msg_id):
+        '''
+        REMOVES A ROW FROM msgs GIVEN pid and msg_id
+        '''
+        c = self.openDB()
+        command = 'DELETE FROM msgs WHERE pid = "{0}" AND msg_id = "{1}"'.format(pid, msg_id)
+        c.execute(command)
+        return True
+
+    def get_msgs(self, pid):
+        '''
+        RETURNS A LIST OF MESSAGES GIVEN pid
+        '''
+        c = self.openDB()
+        command = 'SELECT msg FROM msgs WHERE pid = "{0}"'.format(pid)
+        c.execute(command)
+        selectedVal = c.fetchall()
+        messages = []
+        for i in selectedVal:
+            messages.add(i[0])
+        return messages
 
 
     #====================== END OF TUESDAY FXNS ======================
@@ -376,9 +546,9 @@ class DB_Manager:
 #======================== END OF CLASS DB_Manager =========================
 
 # initiation process and TESTING
-
-#DB_FILE = '../data/tuesday.db'
-#initiate = DB_Manager(DB_FILE)
+'''
+DB_FILE = '../data/tuesday.db'
+initiate = DB_Manager(DB_FILE)
 
 # TEST QUOTES
 #initiate.creates_quotes()
@@ -410,5 +580,14 @@ class DB_Manager:
 #print(initiate.get_tasks('79', 'a'))
 #initiate.set_description('yeet on them', '79', 'a', 'dab on them')
 
+# TEST PROFILE
+#initiate.create_profiles()
+
+# TEST MSGS
+#initiate.create_msgs()
+
+# TEST AVATAR
+
 #print(initiate.get_projects('null', True))
-#initiate.save()
+initiate.save()
+'''
