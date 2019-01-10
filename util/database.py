@@ -157,9 +157,9 @@ class DB_Manager:
         '''
         db = sqlite3.connect(DB_FILE)
         c = db.cursor()
-        command_tuple = (quote, author, date, date)
+        command_tuple = (quote, author, date)
         c.execute('DELETE FROM quotes')
-        c.execute('INSERT INTO quotes SELECT ?,?,? WHERE NOT EXISTS (SELECT quote from quotes WHERE date=?)', command_tuple)
+        c.execute('INSERT INTO quotes VALUES(?,?,?))', command_tuple)
         db.commit()
         db.close()
         return True;
