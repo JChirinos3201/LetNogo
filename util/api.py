@@ -14,9 +14,14 @@ def checkQuote():
     data = database.DB_Manager(DB_FILE)
 
     data.creates_quotes()
-        
+    print(today)
     if data.get_quote()['date'] != today:
-        info = updateQuote()
+
+        try:
+            info = updateQuote()
+        except:
+            info = ["LetNogo is the best language!", '"Joan HoneyNut Cheerios"', "2019-01-10"]
+            
         data.update_quote(info[0], info[1], info[2])
         return False
 

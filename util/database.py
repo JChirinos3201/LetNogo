@@ -366,8 +366,8 @@ class DB_Manager:
 
 # initiation process and TESTING
 
-DB_FILE = '../data/tuesday.db'
-initiate = DB_Manager(DB_FILE)
+#DB_FILE = '../data/tuesday.db'
+#initiate = DB_Manager(DB_FILE)
 
 # TEST QUOTES
 #initiate.creates_quotes()
@@ -400,4 +400,4 @@ initiate = DB_Manager(DB_FILE)
 #initiate.set_description('yeet on them', '79', 'a', 'dab on them')
 
 #print(initiate.get_projects('null', True))
-initiate.save()
+#initiate.save()
