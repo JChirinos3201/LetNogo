@@ -39,13 +39,14 @@ def home():
         return render_template('landing.html', username = session['username'])
     return redirect(url_for('index'))
 
-@app.route('/new_project')
+@app.route('/new_project', methods=["POST"])
 def new_project():
     if 'username' not in session:
         return redirect(url_for('index'))
 
     data = database.DB_Manager(DB_FILE)
-    projectName = request.args['newProjectName']
+    print(request.form)
+    projectName = request.form['newProjectName']
     pid = str(uuid.uuid1())
 
     print('CREATING NEW PROJECT\n\tProject Name: {}\n\tProject ID: {}\n\tUsername: {}\n'.format(projectName, pid, session['username']))
@@ -54,13 +55,13 @@ def new_project():
 
     return redirect(url_for('home'))
 
-@app.route('/join_project')
+@app.route('/join_project', methods=["POST"])
 def join_project():
     '''
     user joins a project
     '''
     data = database.DB_Manager(DB_FILE)
-    id = str(request.args['id'])
+    id = str(request.form['id'])
     title = data.get_project(id)
     data.add_project(id, session['username'], title)
     data.save()
@@ -141,6 +142,12 @@ def get_snippet():
     else:
         return 'Invalid Snippet!'
 
+@app.route('/get_avatar')
+def get_avatar():
+    username = session['username']
+    url = api.getAvatarLink(username)
+    print('GETTING AVATAR\n\tUsername: {}\n\tURL: {}\n'.format(username, url))
+    return url
 
 if __name__ == '__main__':
     app.debug = True

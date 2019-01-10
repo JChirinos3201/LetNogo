@@ -5,7 +5,7 @@
     <div class="card-body">
         <form action="/new_project" method="POST">
             <div class="form-group mb-2">
-                <input name="title" type="text" class="form-control" maxlength="30" placeholder="Project Name" oninput="updateNewProjectCharCount();" id="newProjectName" name="newProjectName">
+                <input type="text" class="form-control" maxlength="30" placeholder="Project Name" oninput="updateNewProjectCharCount();" id="newProjectName" name="newProjectName">
                 <small class="my-0 py-0" id="newProjectCharCount">0/30</small>
             </div>
             <button type="button" class="btn btn-warning float-left" onclick="displayExistingProjects();">Cancel</button>
