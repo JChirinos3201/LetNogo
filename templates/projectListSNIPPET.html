@@ -1,5 +1,12 @@
-{% for projectName, projectID in projectDict.items() %}
+{% if projectDict.items()|length > 0 %}
 <div class="container p-0 text-center">
-    <a class="btn btn-primary text-white w-100" href="/project/{{ projectName }}/{{ projectID }}">{{ projectName }}</a>
+    {% for projectName, projectID in projectDict.items() %}
+    <a class="btn btn-primary text-white w-100 my-1" href="/project/{{ projectName }}/{{ projectID }}">{{ projectName }}</a> {% endfor %}
 </div>
-{% endfor %}
+{% else %}
+
+<div class="container p-0 text-center">
+    <div class="alert alert-warning my-3">You're corrently not part of any projects! You can create or join one above!</div>
+</div>
+
+{% endif %}

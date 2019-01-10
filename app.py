@@ -6,6 +6,7 @@ import os
 
 from flask import Flask, render_template, redirect, url_for, session, request, flash, get_flashed_messages
 import datetime
+import uuid # tentative
 
 from util import database, api
 
@@ -34,21 +35,36 @@ def index():
 
 @app.route('/home')
 def home():
-    if user == None:
+    if 'username' in session:
+        return render_template('landing.html', username = session['username'])
+    return redirect(url_for('index'))
+
+@app.route('/new_project')
+def new_project():
+    if 'username' not in session:
         return redirect(url_for('index'))
-    return render_template('landing.html', username = user)
+
+    data = database.DB_Manager(DB_FILE)
+    projectName = request.args['newProjectName']
+    pid = str(uuid.uuid1())
+
+    print('CREATING NEW PROJECT\n\tProject Name: {}\n\tProject ID: {}\n\tUsername: {}\n'.format(projectName, pid, session['username']))
+    data.add_project(pid, session['username'], projectName)
+    data.save()
+
+    return redirect(url_for('home'))
 
 @app.route('/project')
 def project():
-    return render_template('project.html', username = user)
+    return render_template('project.html', username = session['username'])
 
 @app.route('/authenticate', methods=['POST'])
 def authenticate():
     '''
     References DB_FILE and handles authentication and registration
     '''
-    if user in session:
-        return redirect(url_for('index'))
+    if 'username' in session:
+        return redirect(url_for('home'))
     data = database.DB_Manager(DB_FILE)
     username, password = request.form['username'], request.form['password']
 
@@ -90,8 +106,7 @@ def logout():
     '''
     Logs user out if logged if logged in
     '''
-    session.pop(user, None)
-    setUser(None)
+    session.pop('username', None)
     flash('Successfully logged out!')
     return redirect(url_for('index'))
 
@@ -101,9 +116,11 @@ def logout():
 def get_snippet():
     snippet = request.args['snippet']
     if snippet in ['login', 'register', 'projectList', 'newProject', 'joinProject']:
+        print('Getting snippet: {}'.format(snippet))
         if snippet == 'projectList' and 'username' in session:
             data = database.DB_Manager(DB_FILE)
             projectDict = data.get_projects(session['username'])
+            print('Project dict: {}'.format(projectDict))
             return render_template('{}SNIPPET.html'.format(snippet), projectDict=projectDict)
         return render_template('{}SNIPPET.html'.format(snippet))
     else:
