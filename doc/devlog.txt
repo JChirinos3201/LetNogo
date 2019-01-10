@@ -16,6 +16,15 @@ Tuesday -- a web application for collaborators to track projects together and se
     \____/_/ \_____\/ \___/_(   \_____\/ \_____\/ \_____\/
 ==============================================================
 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+thomasZ -- 2019-01-10 01:45
+--------------------------------------------------------------
+- Worked on the API functions
+- Had Johnny/Susan create DB functions for quotes
+- The basic feature of our usage of Quotes API is functional
+(meaning quotes will show up on the webpage); quotes will also fail
+gracefully if API is not nice (will provide nice quote from Joan)
+- Currently, the quote resides in index.html
+==============================================================
 johnnyW -- 2019-01-10 01:08
 --------------------------------------------------------------
 - worked on database.py
