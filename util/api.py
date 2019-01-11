@@ -124,3 +124,22 @@ def getAvatarLink(size, username):
     url = "https://api.adorable.io/avatars/{}/{}.png".format(size, username)
     print(url)
     return url
+
+def bodyParts():
+    url = "http://avatars.adorable.io/avatars/list"
+    
+    r = request.Request(url)
+
+    try:
+        raw = request.urlopen(r).read()
+    except:
+        print("Error: Something went wrong with the request")
+        return "Error: Something went wrong with the request"
+
+    info = json.loads(raw)
+    print(info)
+    
+def customAvatarLink(eyes, nose, mouth, color): #written by thomas b/c idk if susan wrote
+    url = "https://api.adorable.io/avatars/face/:eyes/:nose/:mouth/:color.png".format(eyes, nose, mouth, color)
+
+    
