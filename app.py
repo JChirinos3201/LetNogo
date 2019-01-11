@@ -52,6 +52,10 @@ def profile():
     
     return render_template('profile.html', username = username, url = url, link = link)
 
+@app.route('/avatar')
+def avatar():
+    return render_template('avatar.html')
+
 @app.route('/new_project', methods=["POST"])
 def new_project():
     if 'username' not in session:
