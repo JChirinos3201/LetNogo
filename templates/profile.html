@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 
-<head>
+  <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -11,22 +11,29 @@
 
     <link rel="stylesheet" href="{{ url_for('static', filename='effects.css') }}">
 
-    <title>{{ username }} &bull; Tuesday</title>
-</head>
+    <style>
+      .btn-md {
+	  border-radius: 10%;
+	  
+      }
+    </style>
 
-<body>
+    <title>{{ username }} &bull; Tuesday</title>
+  </head>
+
+  <body>
 
 
     <nav class="navbar navbar-light bg-success">
-        <a class="navbar-brand mb-0 h1" href="/home">
-                Tuesday
-            </a>
-        <div>
-            <img src="" id="avatar" style="border-radius: 25%;">
-            <a href="/logout">
-                    <button type="button" class="btn btn-warning">Log out</button>
-                </a>
-        </div>
+      <a class="navbar-brand mb-0 h1" href="/home">
+        Tuesday
+      </a>
+      <div>
+        <img src="" id="avatar" style="border-radius: 25%;">
+        <a href="/logout">
+          <button type="button" class="btn btn-warning">Log out</button>
+        </a>
+      </div>
     </nav>
 
     <div class="container text-center">
@@ -35,33 +42,81 @@
         <div class="col-md-4"><h1 class="display-4 text-center">{{ username }}</h1></div>
 	<div class="col-md-4"></div>
       </div>
+      
       <div class="row">
 	<div class="col">
 	  <img src={{url}}> <br><br>
-	  <button class="btn btn-warning" id="changeAvatar" onclick=";">Change Profile Avatar</button>
+	  <button class="btn-md btn-warning" id="changeAvatar" onclick=";">Change Profile Avatar</button>
 	</div>
       </div>
       <br>
+      
       <div class="row">
-	<div class="col-md-4 text-right">
+	<div class="col text-right">
 	  <p>First Name:</p>
-	  <p>Last Name:</p>
-	  <p>Email:</p>
-	  <p>Phone Number:</p>
 	</div>
-	<div class="col-md-4">
-	  <!-- Empty -->
-	</div>
-	<div class="col-md-4 text-left">
+	
+	<div class="col text-left">
 	  <p>Dickleberry</p>
-	  <p>Finn</p>
-	  <p>dickleberries@gmail.com</p>
-	  <p>(123)-456-7890</p>
+	</div>
+	<div class="col text-left">
+	  <p> <button type="button" class="btn-md btn-warning">Update First Name</button> </p>
 	</div>
       </div>
-      <div class="row text-center">
-	<p>Biography:</p> <br>
-	<p>I am a dickleberry!</p>
+      
+      <div class="row">
+	<div class="col text-right">
+	  <p>Last Name:</p>
+	</div>
+	<div class="col text-left">
+	  <p>Finn</p>
+	</div>
+	<div class="col text-left">
+	  <p> <button type="button" class="btn-md btn-warning">Update Last Name</button> </p>
+	</div>
+      </div>
+
+      <div class="row">
+	<div class="col text-right">
+	  <p>Email:</p>
+	</div>
+	<div class="col text-left">
+	  <p>dickleberries@gmail.com</p>
+	</div>
+	<div class="col text-left">
+	  <p> <button type="button" class="btn-md btn-warning">Update Email</button> </p>
+	</div>
+      </div>
+
+      <div class="row">
+	<div class="col text-right">
+	  <p>Phone Number:</p>
+	</div>
+	<div class="col text-left">
+	  <p>(123)-456-7890</p>
+	</div>
+	<div class="col text-left">
+	  <p> <button type="button" class="btn-md btn-warning">Update Phone Number</button> </p>
+	</div>
+      </div>
+
+      <br>
+      
+      <div class="row">
+	<div class="col">
+	  <p>Biography:</p>
+	  <p>I am a dickleberry! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque mauris mauris, viverra sed elementum quis, suscipit in dolor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam feugiat risus ut dui vestibulum, eu scelerisque metus euismod. Maecenas accumsan nisl non pellentesque lobortis. Aliquam quis mattis elit. Nunc semper lectus non ullamcorper pulvinar. Praesent suscipit quam at nulla cursus vulputate.
+
+Sed sodales vulputate viverra. Suspendisse auctor metus lectus. Etiam vehicula varius ante. Duis ut urna tincidunt, consequat sapien id, convallis massa. Duis ornare sapien in ex dictum, id pulvinar ligula dictum. Integer faucibus nibh ipsum, quis posuere ex imperdiet at. Proin sed finibus massa, ut ultricies neque. Ut in odio non libero finibus fringilla.
+
+Ut odio magna, placerat non facilisis sit amet, tincidunt vitae orci. Aliquam erat ligula, accumsan nec risus in, volutpat vulputate sapien. Etiam eget turpis vitae justo viverra semper a sit amet diam. Praesent finibus blandit vestibulum. Praesent cursus ipsum a ipsum finibus venenatis. Aenean porttitor nibh non ipsum blandit consectetur ac sit amet nulla. Phasellus pulvinar nibh in mauris sodales ultrices. Proin dapibus neque vitae arcu elementum, ac ultrices nunc lacinia. Nunc sem enim, venenatis vel ipsum ut, bibendum mattis risus. Suspendisse gravida, dolor id bibendum laoreet, nisi dolor consequat nisi, vitae porttitor elit nibh nec libero. Aliquam nec dignissim eros. Phasellus sed leo nisl. Donec a sollicitudin enim. Vestibulum ac luctus felis.</p>
+	</div>
+      </div>
+
+      <div class="row" style="padding-bottom:50px;">
+	<div class="col">
+	  <p> <button type="button" class="btn-md btn-warning">Update Biography</button> </p>
+	</div>
       </div>
       
     </div>
@@ -73,40 +128,40 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
     <script src="{{ url_for('static', filename='project.js') }}"></script>
-</body>
+  </body>
 
 </html>
 
 <!--
-{% extends "base.html" %}
-<!doctype html> {% block content %}
-<head>
-  <style>
-    #proj:hover{
+    {% extends "base.html" %}
+    <!doctype html> {% block content %}
+    <head>
+      <style>
+	#proj:hover{
 	color: #85c1e9   ;
-    }
-  </style>
-</head>
+	}
+      </style>
+    </head>
 <body>
 
-    <div class="row" style="background-color:lightgreen;">
-      <div class="container-fluid mt-5" align="left" margin="0">
-	<h2> {{project_name}}</h2>
-      </div>
+  <div class="row" style="background-color:lightgreen;">
+    <div class="container-fluid mt-5" align="left" margin="0">
+      <h2> {{project_name}}</h2>
     </div>
+  </div>
 
-    <div class="row" style="height:100vh;">
+  <div class="row" style="height:100vh;">
 
-      <div class="col-sm-3 col-md-3 col-lg-3" style="background-color:gray;">
-	<p> column0 </p>
-
-      </div>
-      <div class="col-sm-9 col-md-9 col-lg-9">
-	<p> column1 </p>
-
-      </div>
+    <div class="col-sm-3 col-md-3 col-lg-3" style="background-color:gray;">
+      <p> column0 </p>
 
     </div>
+    <div class="col-sm-9 col-md-9 col-lg-9">
+      <p> column1 </p>
+
+    </div>
+
+  </div>
 </body>
 
 
