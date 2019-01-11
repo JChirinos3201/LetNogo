@@ -127,19 +127,25 @@ def getAvatarLink(size, username):
 
 def bodyParts():
     url = "http://avatars.adorable.io/avatars/list"
+
+    #-- Not sure why I can't urlopen "r" w/o internal server error 500
+    #r = request.Request(url)
     
-    r = request.Request(url)
+    #try:
+    #    raw = request.urlopen(r).read()
+        
+    #except:
+    #    print("Error: Something went wrong with the request")
+    #    return "Error: Something went wrong with the request"
+    
+    #info = json.loads(raw)
 
-    try:
-        raw = request.urlopen(r).read()
-    except:
-        print("Error: Something went wrong with the request")
-        return "Error: Something went wrong with the request"
-
-    info = json.loads(raw)
+    info = {"eyes":["eyes1","eyes10","eyes2","eyes3","eyes4","eyes5","eyes6","eyes7","eyes9"],"nose":["nose2","nose3","nose4","nose5","nose6","nose7","nose8","nose9"],"mouth":["mouth1","mouth10","mouth11","mouth3","mouth5","mouth6","mouth7","mouth9"]}
+    
     print(info)
+    return info
     
 def customAvatarLink(eyes, nose, mouth, color): #written by thomas b/c idk if susan wrote
-    url = "https://api.adorable.io/avatars/face/:eyes/:nose/:mouth/:color.png".format(eyes, nose, mouth, color)
-
+    url = "https://api.adorable.io/avatars/face/{}/{}/{}/{}.png".format(eyes, nose, mouth, color) #color is in hex
+    return url
     

@@ -41,10 +41,16 @@ def home():
 
 @app.route('/profile')
 def profile():
+    if 'username' not in session:
+        return redirect(url_for('index'))
+    
     username = session['username']
     
     url = api.getAvatarLink(str(250), username)
-    return render_template('profile.html', username = username, url = url)
+    bodyParts = api.bodyParts()
+    link = api.customAvatarLink('eyes1', 'nose1', 'mouth1', 'DD00DD')
+    
+    return render_template('profile.html', username = username, url = url, link = link)
 
 @app.route('/new_project', methods=["POST"])
 def new_project():
