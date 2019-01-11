@@ -439,103 +439,85 @@ class DB_Manager:
         c.execute(command)
         return True
 
-    #=====T_MESSAGES FXNS=====
-    def create_msgs(self):
+    #=====MESSAGES FXNS=====
+    def create_t_msgs(self):
         '''
-        CREATES msgs TABLE
+        CREATES t_msgs TABLE
         '''
         c = self.openDB()
-        def gen_table(tableName, col0, col1, col2, col3, col4):
+        def gen_table(tableName, col0, col1, col2, col3, col4, col5):
             '''
-            CREATES A 5 COLUMN TABLE IF tableName NOT TAKEN
+            CREATES A 6 COLUMN TABLE IF tableName NOT TAKEN
             ALL PARAMS ARE STRINGS
             '''
             if not self.isInDB(tableName):
-                command = 'CREATE TABLE "{0}"({1}, {2}, {3}, {4}, {5})'.format(tableName, col0, col1, col2, col3, col4)
+                command = 'CREATE TABLE "{0}"({1}, {2}, {3}, {4}, {5}, {6})'.format(tableName, col0, col1, col2, col3, col4, col5)
                 c.execute(command)
-        gen_table('msgs', 'pid text', 'address text', 'user text', 'msg text', 'msg_id text')
+        gen_table('msgs', 'pid text', 'address text', 'user text', 'msg text', 'msg_id text', 'timestamp text')
 
-    def add_msg(self, pid, address, user, msg, msg_id):
+    def create_p_msgs(self):
         '''
-        ADDS A ROW TO msgs TABLE OF INPUT VALUES pid, address, user, msg, and msg_id
-        ALL INPUTS ARE STRINGS
+        CREATES p_msgs TABLE
         '''
         c = self.openDB()
-        data = (pid, address, user, msg, msg_id)
-        command = 'INSERT INTO msgs VALUES(?, ?, ?, ?, ?)'
+        def gen_table(tableName, col0, col1, col2, col3, col4, col5):
+            '''
+            CREATES A 6 COLUMN TABLE IF tableName NOT TAKEN
+            ALL PARAMS ARE STRINGS
+            '''
+            if not self.isInDB(tableName):
+                command = 'CREATE TABLE "{0}"({1}, {2}, {3}, {4}, {5}, {6})'.format(tableName, col0, col1, col2, col3, col4, col5)
+                c.execute(command)
+        gen_table('msgs', 'pid text', 'address text', 'user text', 'msg text', 'msg_id text', 'timestamp text')
+
+    def add_msg(self, pid, address, user, msg, msg_id, timestamp, private=0):
+        '''
+        ADDS A ROW TO msgs TABLE OF INPUT VALUES pid, address, user, msg, msg_id, and private
+        ALL INPUTS ARE STRINGS EXCEPT private
+        '''
+        c = self.openDB()
+        data = (pid, address, user, msg, msg_id, timestamp)
+        if private == 1:
+            command = 'INSERT INTO p_msgs VALUES(?, ?, ?, ?, ?, ?)'
+            c.execute(command, data)
+            return True
+        command = 'INSERT INTO t_msgs VALUES(?, ?, ?, ?, ?, ?)'
         c.execute(command, data)
         return True
 
-    def remove_msg(self, pid, msg_id):
+
+    def remove_msg(self, pid, msg_id, private=0):
         '''
         REMOVES A ROW FROM msgs GIVEN pid and msg_id
         '''
         c = self.openDB()
-        command = 'DELETE FROM msgs WHERE pid = "{0}" AND msg_id = "{1}"'.format(pid, msg_id)
+        if private == 1:
+            command = 'DELETE FROM p_msgs WHERE pid = "{0}" AND msg_id = "{1}"'.format(pid, msg_id)
+            c.execute(command)
+            return True
+        command = 'DELETE FROM t_msgs WHERE pid = "{0}" AND msg_id = "{1}"'.format(pid, msg_id)
         c.execute(command)
         return True
 
-    def get_msgs(self, pid):
+    def get_msgs(self, pid, private=0):
         '''
         RETURNS A LIST OF MESSAGE TUPLES GIVEN pid
         '''
         c = self.openDB()
-        command = 'SELECT msg, user FROM msgs WHERE pid = "{0}"'.format(pid)
+        if private == 1:
+            command = 'SELECT msg, user FROM p_msgs WHERE pid = "{0}"'.format(pid)
+            c.execute(command)
+            selectedVal = c.fetchall()
+            messages = []
+            for i in selectedVal:
+                messages.add(i)
+            return messages
+        command = 'SELECT msg, user FROM t_msgs WHERE pid = "{0}"'.format(pid)
         c.execute(command)
         selectedVal = c.fetchall()
         messages = []
         for i in selectedVal:
             messages.add(i)
-        return messages
-
-    #=====P_MESSAGES FXN====
-    '''WORK ON THIS'''
-    def create_msgs(self):
-        '''
-        CREATES p_msgs TABLE
-        '''
-        c = self.openDB()
-        def gen_table(tableName, col0, col1, col2, col3, col4):
-            '''
-            CREATES A 5 COLUMN TABLE IF tableName NOT TAKEN
-            ALL PARAMS ARE STRINGS
-            '''
-            if not self.isInDB(tableName):
-                command = 'CREATE TABLE "{0}"({1}, {2}, {3}, {4}, {5})'.format(tableName, col0, col1, col2, col3, col4)
-                c.execute(command)
-        gen_table('p_msgs', 'pid text', 'address text', 'user text', 'msg text', 'msg_id text')
-
-    def add_msg(self, pid, address, user, msg, msg_id):
-        '''
-        ADDS A ROW TO tasks TABLE OF INPUT VALUES pid, address, user, msg, and msg_id
-        ALL INPUTS ARE STRINGS
-        '''
-        c = self.openDB()
-        data = (pid, address, user, msg, msg_id)
-        command = 'INSERT INTO msgs VALUES(?, ?, ?, ?, ?)'
-        c.execute(command, data)
-        return True
-
-    def remove_msg(self, pid, msg_id):
-        '''
-        REMOVES A ROW FROM msgs GIVEN pid and msg_id
-        '''
-        c = self.openDB()
-        command = 'DELETE FROM msgs WHERE pid = "{0}" AND msg_id = "{1}"'.format(pid, msg_id)
-        c.execute(command)
-        return True
-
-    def get_msgs(self, pid):
-        '''
-        RETURNS A LIST OF MESSAGES GIVEN pid
-        '''
-        c = self.openDB()
-        command = 'SELECT msg FROM msgs WHERE pid = "{0}"'.format(pid)
-        c.execute(command)
-        selectedVal = c.fetchall()
-        messages = []
-        for i in selectedVal:
-            messages.add(i[0])
         return messages
 
 
