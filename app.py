@@ -54,7 +54,18 @@ def profile():
 
 @app.route('/avatar')
 def avatar():
-    return render_template('avatar.html')
+    if 'username' not in session:
+        return redirect(url_for('index'))
+    username = session['username']
+
+    # this will be replaced with data from the db
+    eyes_testing = ['eyes1', 'eyes2', 'eyes3', 'eyes4']
+    noses_testing = ['noses1', 'noses2', 'noses3', 'noses4']
+    mouths_testing = ['mouths1', 'mouths2', 'mouths3', 'mouths4']
+    color_testing = ['color1', 'color2', 'color3', 'color4']
+    
+    url = api.getAvatarLink(str(285), username)
+    return render_template('avatar.html', username = username, url = url, eyes = eyes_testing, noses = noses_testing, mouths = mouths_testing, color = color_testing)
 
 @app.route('/new_project', methods=["POST"])
 def new_project():
