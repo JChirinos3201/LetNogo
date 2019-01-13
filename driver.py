@@ -13,7 +13,8 @@ app.secret_key = os.urandom(32)
 DB_FILE = 'data/tuesday.db'
 db.create_db()
 
-db.get_quote()
+#db.add_value('eyes', 'u', 'eyes')
+db.get_current('u', 'eyes')
 
 
 

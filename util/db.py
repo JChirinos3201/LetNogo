@@ -482,15 +482,15 @@ def get_msgs(pid, private=0):
 
 #=====AVATARS FXNS=====
 
-def add_value(value, username, type):
+def add_value(value, username, typee):
     '''
     UPDATES VALUES AVAILABLE IN TABLE OF AVATARS
     '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
 
-    c.execute('SELECT value FROM avatars WHERE username=? and type=?', (username, type))
-    print('\n\n')
+    c.execute('SELECT value FROM avatars WHERE username = (?) AND type = (?)', (username, typee))
+    #print('\n\n')
     tuple = c.fetchone()[0].split(',')
     list = []
     for i in tuple:
@@ -501,8 +501,14 @@ def add_value(value, username, type):
     word = ""
     for i in list:
         word += i + ","
+    if len(list) > 1:
+        #print('length is greater than 1')
+        #print(word)
+        #print(word[0:len(word) - 1])
+        word = word[0:len(word) - 1]
+        #print(word)
         
-    c.execute('UPDATE avatars SET value = ? WHERE username = ? and type = ?', (word, username, type))
+    c.execute('UPDATE avatars SET value = (?) WHERE username = (?) AND type = (?)', (word, username, typee))
 
     db.commit()
     db.close()
@@ -516,9 +522,9 @@ def update_current(username, typee, num):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
 
-    c.execute('UPDATE avatars SET current =? WHERE username=? and type=? and value =?', ('yes', num, username, typee))
+    c.execute('UPDATE avatars SET current = (?) WHERE username = (?) AND type = (?)', (num, username, typee))
 
-    db.commit()
+    db.commit() #the num is the index of the current
     db.close()
 
     return True;
@@ -530,7 +536,7 @@ def get_value(username, typee):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
 
-    c.execute('SELECT value FROM avatars WHERE username =? and type =?', (username, typee))
+    c.execute('SELECT value FROM avatars WHERE username = (?) and type = (?)', (username, typee))
     value = c.fetchall()
 
     db.close()
@@ -543,9 +549,15 @@ def get_current(username, typee):
     '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    c.execute('SELECT value FROM avatars WHERE username = (?) and type = (?) and current = (?)', (username, typee, 'yes'))
+    c.execute('SELECT value, current FROM avatars WHERE username = (?) AND type = (?)', (username, typee))
 
-    current = c.fetchone()[0]
+    results = c.fetchall()[0]
+    values = results[0]
+    currentIndex = results[1]
+
+    current = values.split(',')[int(currentIndex)]
+    
+    print(current)
 
     db.close()
 
@@ -554,5 +566,3 @@ def get_current(username, typee):
 if __name__ == '__main__':
      create_db()
 
-registerUser('u', 'password', 's', 's', 's', 's')
-add_value("eye5", 'u', 'eyes')
