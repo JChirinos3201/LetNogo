@@ -157,17 +157,49 @@ var updateFirstName = function () {
 };
 
 var updateLastName = function () {
-
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+            displayLastName();
+        }
+    };
+    var newText = document.getElementById('LastName').value;
+    xhttp.open("GET", "/update_info?what=last&newVal=" + newText + "&username=" + username, true);
+    xhttp.send();
 };
 
 var updateEmail = function () {
-
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+            displayEmail();
+        }
+    };
+    var newText = document.getElementById('Email').value;
+    xhttp.open("GET", "/update_info?what=email&newVal=" + newText + "&username=" + username, true);
+    xhttp.send();
 };
 
 var updatePhone = function () {
-
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+            displayPhone();
+        }
+    };
+    var newText = document.getElementById('Phone').value;
+    xhttp.open("GET", "/update_info?what=phone&newVal=" + newText + "&username=" + username, true);
+    xhttp.send();
 };
 
 var updateBio = function () {
-
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+            displayBio();
+        }
+    };
+    var newText = document.getElementById('newBio').value;
+    xhttp.open("GET", "/update_info?what=bio&newVal=" + newText + "&username=" + username, true);
+    xhttp.send();
 };
