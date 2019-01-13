@@ -56,8 +56,8 @@ def avatar():
 
     # this will be replaced with data from the db
     eyes_testing = ['eyes1', 'eyes2', 'eyes3', 'eyes4']
-    noses_testing = ['noses1', 'noses2', 'noses3', 'noses4']
-    mouths_testing = ['mouths1', 'mouths2', 'mouths3', 'mouths4']
+    noses_testing = ['nose2', 'nose3', 'nose4', 'nose5']
+    mouths_testing = ['mouth1', 'mouth3', 'mouth5', 'mouth6']
     color_testing = ['color1', 'color2', 'color3', 'color4']
 
     url = api.getAvatarLink(str(285), username)
