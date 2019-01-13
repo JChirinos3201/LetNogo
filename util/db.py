@@ -143,5 +143,70 @@ def get_quote():
     db.close()
     return dict
 
+#======PROJECTS FXNS========
+
+def add_project(pid, username, p_name):
+    '''
+    ADDS A PROJECT TO THE TABLE OF PROJECTS
+    '''
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    
+    c.execute('INSERT INTO projects VALUES (?,?,?)', (pid, username, p_name))
+
+    db.commit()
+    db.close()
+
+    
+def get_project(id):
+        '''
+        RETURNS p_name GIVEN id
+        '''
+        db = sqlite3.connect(DB_FILE)
+        c = db.cursor()
+        
+        cmd = 'SELECT p_name FROM projects WHERE pid = "{0}"'.format(id)
+        c.execute(cmd)
+        selectedVal = c.fetchone()
+
+        db.close()
+        
+        return selectedVal[0]
+
+def remove_project(self, pid):
+        '''
+        REMOVE A PROJECT FROM THE PROJECT TABLE GIVEN pid
+        '''
+        db = sqlite3.connect(DB_FILE)
+        c = db.cursor()
+        
+        cmd = 'DELETE FROM projects WHERE pid = {0}'.format(pid)
+        c.execute(cmd)
+
+        db.commit()
+        db.close()
+        
+        return True
+
+
+#======PROFILE FXNS========
+def get_info(username):
+    '''
+    RETURNS (first, last, email, phone, bio) OF username
+    '''
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    c.execute('SELECT first_name, last_name, email, phone_num, bio FROM profiles WHERE username = (?)', (username,))
+    data = c.fetchone()
+    print(data)
+    db.close()
+    return data
+
+
+
+
+
+
+
 if __name__ == '__main__':
      create_db()
