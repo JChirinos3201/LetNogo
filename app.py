@@ -143,10 +143,11 @@ def authenticate():
             flash('Invalid last name!')
         elif ' ' in email or len(email.strip()) == 0 or '@' not in email or '.' not in email:
             flash('Invalid email address!')
-        elif re.match('\(?\d{3,3}\)? ?\d{3,3}-?\d{4,4}', phone) == None:
+        elif len(phone.strip()) > 0 and re.match('\(?\d{3,3}\)? ?\d{3,3}-?\d{4,4}', phone) == None:
             flash('Invalid phone number! Try the format (XXX) XXX-XXXX')
         else:
-            phone = re.match('\(?\d{3,3}\)? ?\d{3,3}-?\d{4,4}', phone).group()
+            if phone.strip() != "":
+                phone = re.match('\(?\d{3,3}\)? ?\d{3,3}-?\d{4,4}', phone).group()
             db.registerUser(username, password, firstname, lastname, email, phone)
             #db.save()
             flash('Successfully registered account for user "{0}"'.format(username))
