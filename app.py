@@ -42,9 +42,15 @@ def profile():
 
     username = session['username']
 
-    url = api.getAvatarLink(str(250), username)
+    eyes = db.get_current(username, 'eyes')
+    nose = db.get_current(username, 'noses')
+    mouth = db.get_current(username, 'mouths')
+    color = db.get_current(username, 'color')
+    
+    url = api.customAvatarLink(eyes, nose, mouth, color)
+
     bodyParts = api.bodyParts()
-    link = api.customAvatarLink('eyes1', 'nose1', 'mouth1', 'DD00DD')
+    link = api.customAvatarLink(eyes, nose, mouth, color)
 
     return render_template('profile.html', username = username, url = url, link = link)
 
