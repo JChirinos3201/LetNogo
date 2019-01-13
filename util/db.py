@@ -3,7 +3,7 @@
 # P02: The End
 
 import sqlite3, uuid   # enable control of an sqlite database
-import random
+import uuid
 from datetime import datetime
 
 DB_FILE = "data/tuesday.db"
@@ -23,7 +23,7 @@ def create_db():
     c.execute("CREATE TABLE IF NOT EXISTS tasks (pid TEXT, username TEXT, task TEXT, description TEXT, priority INT, due_date TEXT, status TEXT)")
     c.execute("CREATE TABLE IF NOT EXISTS notes(username TEXT, note TEXT)")
     c.execute("CREATE TABLE IF NOT EXISTS quotes (quote TEXT, author TEXT, date TEXT)")
-    c.execute("CREATE TABLE IF NOT EXISTS users (user_name TEXT, passwords TEXT, user_id INTEGER)")
+    c.execute("CREATE TABLE IF NOT EXISTS users (user_name TEXT PRIMARY KEY, passwords TEXT)")
 
     return True;
 
@@ -42,35 +42,28 @@ def getUsers():
     db.close()
     return dict(selectedVal)
 
-def registerUser(userName, password, frist, lsat, email, phone):
+def registerUser(username, password, firstname, lastname, email, phone):
     '''
     REGISTERS USERS
     '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
 
-    cmd = 'SELECT user_id FROM users WHERE user_id = (SELECT max(user_id) FROM users)'
-    c.execute(cmd)
-    
-    selectedVal = c.fetchone()
-    max_id = 0
-    if selectedVal != None:
-        max_id = selectedVal[0]
-    else:
-        max_id = 0
-        # userName is already in database -- do not continue to add
+    # username is already in database -- do not continue to add
 
-    if findUser(userName):
+    if findUser(username):
         return False
-    # userName not in database -- continue to add
+    # username not in database -- continue to add
     else:
-        c.execute('INSERT INTO users VALUES (?,?,?);', (userName, password, max_id + 1))
-        c.execute('INSERT INTO profiles VALUES (?,?,?,?);', (frist, lsat, email, phone))
-        #row = (userName, "eyes", "", "")
+        print('\n\nREGISTERING USER\n\n')
+        print('\n\tusername: {}\n\tPassword: {}\n\tFirst: {}\n\tLast: {}\n\tEmail: {}\n\tPhone: {}\n\n\n'.format(username, password, firstname, lastname, email, phone))
+        c.execute('INSERT INTO users VALUES (?,?)', (username, password))
+        c.execute('INSERT INTO profiles VALUES (?,?,?,?,?,?);', (username, firstname, lastname, email, phone, ""))
+        #row = (username, "eyes", "", "")
         #self.insertRow('avatars', row)
-        #row = (userName, "nose", "", "")
+        #row = (username, "nose", "", "")
         #self.insertRow('avatars', row)
-        #row = (userName, "mouth", "", "")
+        #row = (username, "mouth", "", "")
         #self.insertRow('avatars', row)
         #print ('works')
 
@@ -79,30 +72,29 @@ def registerUser(userName, password, frist, lsat, email, phone):
 
         return True
 
-def findUser(userName):
+def findUser(username):
     '''
-    CHECKS IF userName IS UNIQUE
+    CHECKS IF username IS UNIQUE
     '''
     users = getUsers()
-    return userName in users
+    return username in users
 
-def verifyUser(userName, password):
+def verifyUser(username, password):
     '''
-    CHECKS IF userName AND password MATCH THOSE FOUND IN DATABASE
+    CHECKS IF username AND password MATCH THOSE FOUND IN DATABASE
     '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    
-    cmd = ('SELECT user_name, passwords FROM users WHERE user_name = (?)', (userName))
-    c.execute(cmd)
-    
+
+    c.execute('SELECT user_name, passwords FROM users WHERE user_name = (?)', (username,))
+
     selectedVal = c.fetchone()
 
     db.close()
-    
+
     if selectedVal == None:
         return False
-    if userName == selectedVal[0] and password == selectedVal[1]:
+    if username == selectedVal[0] and password == selectedVal[1]:
         return True
     return False
 
@@ -114,13 +106,13 @@ def update_quote(quote, author, date):
     '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    
+
     c.execute('DELETE FROM quotes')
     c.execute('INSERT INTO quotes VALUES(?,?,?)', (quote, author, date))
 
     db.commit()
     db.close()
-    
+
     return True;
 
 def get_quote():
@@ -128,7 +120,7 @@ def get_quote():
     RETURNS A DICTIONARY OF QUOTES
     '''
     dict = {"quote":[], "date": [], "author":[]}
-    
+
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
 
@@ -142,11 +134,14 @@ def get_quote():
         dict['date'] = ''
         dict['author'] = ''
         #print(dict)
-        
+
     else:
         dict['quote'] = data[0][0]
         dict['date'] = data[0][2]
         dict['author'] = data[0][1]
-        
+
     db.close()
     return dict
+
+if __name__ == '__main__':
+     create_db()

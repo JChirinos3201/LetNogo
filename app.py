@@ -130,8 +130,15 @@ def authenticate():
 
     #=====REGISTER=====
     else:
+        passwordCheck = request.form['passwordConfirmation']
         firstname, lastname, email, phone = request.form['firstname'], request.form['lastname'], request.form['email'], request.form['phone']
-        if ' ' in username or len(username.strip()) == 0:
+
+        print('\n\nREGISTERING USER\n\n')
+        print('\n\tUsername: {}\n\tPassword: {}\n\tPassword Check: {}\n\tFirst: {}\n\tLast: {}\n\tEmail: {}\n\tPhone: {}\n\n\n'.format(username, password, passwordCheck, firstname, lastname, email, phone))
+
+        if password != passwordCheck:
+            flash('Passwords don\'t match!')
+        elif ' ' in username or len(username.strip()) == 0:
             flash('Invalid username!')
         elif db.findUser(username):
             flash('Username exists!')
