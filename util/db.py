@@ -27,7 +27,6 @@ def create_db():
 
     return True;
 
-
 def getUsers():
     '''
     RETURNS A DICTIONARY CONTAINING ALL CURRENT users AND CORRESPONDING PASSWORDS
@@ -60,10 +59,10 @@ def registerUser(username, password, firstname, lastname, email, phone):
         c.execute('INSERT INTO users VALUES (?,?)', (username, password))
         c.execute('INSERT INTO profiles VALUES (?,?,?,?,?,?);', (username, firstname, lastname, email, phone, ""))
 
-        c.execute('INSERT INTO avatars VALUES (?,?,?,?)', (username, 'eyes', 'eyes1', 'yes'))
-        c.execute('INSERT INTO avatars VALUES (?,?,?,?)', (username, 'noses', 'nose2', 'yes'))
-        c.execute('INSERT INTO avatars VALUES (?,?,?,?)', (username, 'mouths', 'mouth1', 'yes'))
-        c.execute('INSERT INTO avatars VALUES (?,?,?,?)', (username, 'color', 'FFFF33', 'yes'))
+        c.execute('INSERT INTO avatars VALUES (?,?,?,?)', (username, 'eyes', 'eyes1', '0'))
+        c.execute('INSERT INTO avatars VALUES (?,?,?,?)', (username, 'noses', 'nose2', '0'))
+        c.execute('INSERT INTO avatars VALUES (?,?,?,?)', (username, 'mouths', 'mouth1', '0'))
+        c.execute('INSERT INTO avatars VALUES (?,?,?,?)', (username, 'color', 'FFFF33', '0'))
 
         db.commit()
         db.close()
@@ -483,15 +482,27 @@ def get_msgs(pid, private=0):
 
 #=====AVATARS FXNS=====
 
-def add_value(value, username, typee):
+def add_value(value, username, type):
     '''
     UPDATES VALUES AVAILABLE IN TABLE OF AVATARS
     '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
 
-    c.execute('SELECT value FROM avatars WHERE username = (?) and type = (?)', (username, typee))
-    c.execute('UPDATE avatars SET value = ? WHERE username = (?) and type = (?)', (value, username, typee))
+    c.execute('SELECT value FROM avatars WHERE username=? and type=?', (username, type))
+    print('\n\n')
+    tuple = c.fetchone()[0].split(',')
+    list = []
+    for i in tuple:
+        if len(i) > 1 and i != None:
+            list.append(i)
+    if value not in list:
+        list.append(value)
+    word = ""
+    for i in list:
+        word += i + ","
+        
+    c.execute('UPDATE avatars SET value = ? WHERE username = ? and type = ?', (word, username, type))
 
     db.commit()
     db.close()
@@ -504,7 +515,8 @@ def update_current(username, typee, num):
     '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    c.execute('UPDATE avatars SET current = (?) WHERE username = (?) and type = (?) and value = (?)', ('yes', num, username, typee))
+
+    c.execute('UPDATE avatars SET current =? WHERE username=? and type=? and value =?', ('yes', num, username, typee))
 
     db.commit()
     db.close()
@@ -517,8 +529,8 @@ def get_value(username, typee):
     '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    c.execute('SELECT value FROM avatars WHERE username = (?) and type = (?)', (username, typee))
 
+    c.execute('SELECT value FROM avatars WHERE username =? and type =?', (username, typee))
     value = c.fetchall()
 
     db.close()
@@ -541,3 +553,6 @@ def get_current(username, typee):
 
 if __name__ == '__main__':
      create_db()
+
+registerUser('u', 'password', 's', 's', 's', 's')
+add_value("eye5", 'u', 'eyes')
