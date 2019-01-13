@@ -68,14 +68,14 @@ def new_project():
     if 'username' not in session:
         return redirect(url_for('index'))
 
-    data = database.DB_Manager(DB_FILE)
+    #data = database.DB_Manager(DB_FILE)
     print(request.form)
     projectName = request.form['newProjectName']
     pid = str(uuid.uuid1())
 
     print('CREATING NEW PROJECT\n\tProject Name: {}\n\tProject ID: {}\n\tUsername: {}\n'.format(projectName, pid, session['username']))
-    data.add_project(pid, session['username'], projectName)
-    data.save()
+    db.add_project(pid, session['username'], projectName)
+    #data.save()
 
     return redirect(url_for('home'))
 
