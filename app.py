@@ -18,7 +18,6 @@ app.secret_key = os.urandom(32)
 
 DB_FILE = 'data/tuesday.db'
 
-
 @app.route('/')
 def index():
     data = database.DB_Manager(DB_FILE)
@@ -114,7 +113,7 @@ def authenticate():
     '''
     data = database.DB_Manager(DB_FILE)
     username, password = request.form['username'], request.form['password']
-
+    firstname, lastname, email, phone = request.form['firstname'], request.form['lastname'], request.form['email'], request.form['phone']
     #=====LOG IN=====
     if 'submit' not in request.form:
         return redirect(url_for('index'))
@@ -127,20 +126,29 @@ def authenticate():
             return redirect(url_for('home'))
         # user was found but password is incorrect
         elif data.findUser(username):
-            flash('Incorrect password!')
+            flash('Incorrect credentials!')
         # user not found in DB at all
         else:
-            flash('Incorrect username!')
+            flash('Incorrect credentials!')
         data.save()
 
     #=====REGISTER=====
     else:
         if len(username.strip()) != 0 and not data.findUser(username):
             if len(password.strip()) != 0:
-                # add account to DB
-                data.registerUser(username, password)
-                data.save()
-                flash('Successfully registered account for user "{0}"'.format(username))
+                if len(firstname.strip()) and len(lastname.strip()) and len(email.strip()) != 0:
+                    if '@' and '.' in email:
+                        if (len(phone.strip()) == 0 or len(phone.strip())) == 10 and not phone.upper().isupper():
+                            # add account to DB
+                            data.registerUser(username, password)
+                            data.save()
+                            flash('Successfully registered account for user "{0}"'.format(username))
+                        else:
+                            flash('Please enter a valid phone number (digits only)!')
+                    else:
+                        flash('Please enter a valid email address!')
+                else:
+                    flash('One or more of the fields (first name / last name / email address)')
             else:
                 flash('Password length insufficient!')
         elif len(username.strip()) == 0:

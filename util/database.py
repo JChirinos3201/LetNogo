@@ -542,10 +542,10 @@ def creates_avatars(self):
 
 # initiation process and TESTING
 
-DB_FILE = '../data/tuesday.db'
-initiate = DB_Manager(DB_FILE)
+#DB_FILE = '../data/tuesday.db'
+#initiate = DB_Manager(DB_FILE)
 
-initiate.creates_avatars()
+#initiate.creates_avatars()
 '''
 # TEST QUOTES
 #initiate.creates_quotes()
