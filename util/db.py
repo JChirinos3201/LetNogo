@@ -37,12 +37,12 @@ def getUsers():
 
     cmd = 'SELECT user_name, passwords FROM users'
     c.execute(cmd)
-    selectedValue = c.fetchall()
+    selectedVal = c.fetchall()
 
     db.close()
     return dict(selectedVal)
 
-def registerUser(userName, password, frist, lsat, email, phone_):
+def registerUser(userName, password, frist, lsat, email, phone):
     '''
     REGISTERS USERS
     '''
