@@ -143,3 +143,31 @@ var displayBioForm = function () {
     xhttp.open("GET", "/get_profile_button?val=Bio&username=" + username, true);
     xhttp.send();
 };
+
+var updateFirstName = function () {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+            displayFirstName();
+        }
+    };
+    var newText = document.getElementById('FirstName').value;
+    xhttp.open("GET", "/update_info?what=first&newVal=" + newText + "&username=" + username, true);
+    xhttp.send();
+};
+
+var updateLastName = function () {
+
+};
+
+var updateEmail = function () {
+
+};
+
+var updatePhone = function () {
+
+};
+
+var updateBio = function () {
+
+};

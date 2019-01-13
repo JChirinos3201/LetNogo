@@ -232,6 +232,25 @@ def get_profile_button():
 
     return json.dumps(d)
 
+@app.route('/update_info')
+def update_info():
+    username = request.args['username']
+    what = request.args['what']
+    newVal = request.args['newVal']
+
+    if what == 'first':
+        db.set_first_name(username, newVal)
+    elif what == 'last':
+        db.set_last_name(username, newVal)
+    elif what == 'email':
+        db.set_email(username, newVal)
+    elif what == 'phone':
+        db.set_email(username, newVal)
+    elif what == 'bio':
+        db.set_bio(username, newVal)
+
+    return "K we good"
+
 
 
 if __name__ == '__main__':
