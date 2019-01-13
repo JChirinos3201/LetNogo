@@ -1,1 +1,47 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md">
 
+            <h2 class="text-center">Team Progress</h2>
+            <div class="progress">
+                <div class="progress-bar bg-success" role="progressbar" style="width: 0%"></div>
+                <div class="progress-bar bg-warning" role="progressbar" style="width: 0%"></div>
+                <div class="progress-bar bg-danger" role="progressbar" style="width: 0%"></div>
+            </div>
+            <hr>
+            <h2 class="text-center">Recent Messages</h2>
+            <div id="messages">
+
+                <div class="container-fluid">
+                    {% for message in messages[:5] %}
+                    <div class="row">
+                        <img class="rounded-circle mr-2 img-thumbnail my-auto" src="{{ message [2] }}">
+                        <div class="col bg-info rounded p-1 my-auto">
+                            {{ message[0] }} says "<em>{{ message[1] }}</em>"
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+            <hr>
+            <h2 class="text-center">What You're Working On</h2>
+            <div id="workingOn">
+
+                <div class="container-fluid">
+                    {% for task in tasks %}
+                    <div class="row">
+                        &nbsp;{{ task }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+            <hr class="d-md-none">
+        </div>
+        <div class="col-md">
+            <h2 class="text-center">Team Members</h2>
+
+        </div>
+    </div>
+</div>
