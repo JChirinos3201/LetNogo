@@ -5,8 +5,7 @@
 import os
 
 from flask import Flask, render_template, redirect, url_for, session, request, flash, get_flashed_messages
-import datetime
-import uuid # tentative
+import datetime, uuid, re
 
 from util import db, api
 
@@ -60,7 +59,7 @@ def avatar():
     noses_testing = ['noses1', 'noses2', 'noses3', 'noses4']
     mouths_testing = ['mouths1', 'mouths2', 'mouths3', 'mouths4']
     color_testing = ['color1', 'color2', 'color3', 'color4']
-    
+
     url = api.getAvatarLink(str(285), username)
     return render_template('avatar.html', username = username, url = url, eyes = eyes_testing, noses = noses_testing, mouths = mouths_testing, color = color_testing)
 
@@ -132,29 +131,25 @@ def authenticate():
     #=====REGISTER=====
     else:
         firstname, lastname, email, phone = request.form['firstname'], request.form['lastname'], request.form['email'], request.form['phone']
-        if len(username.strip()) != 0 and not data.findUser(username):
-            if len(password.strip()) != 0:
-                if len(firstname.strip()) and len(lastname.strip()) and len(email.strip()) != 0:
-                    if '@' and '.' in email:
-                        if (len(phone.strip()) == 0 or len(phone.strip())) == 10 and not phone.upper().isupper():
-                            # add account to DB
-                            data.registerUser(username, password, firstname, lastname, email, phone)
-                            data.save()
-                            flash('Successfully registered account for user "{0}"'.format(username))
-                        else:
-                            flash('Please enter a valid phone number (digits only)!')
-                    else:
-                        flash('Please enter a valid email address!')
-                else:
-                    flash('One or more of the fields (first name / last name / email address)')
-            else:
-                flash('Password length insufficient!')
-        elif len(username.strip()) == 0:
-            flash('Username length insufficient!')
+        if ' ' in username or len(username.strip() == 0):
+            flash('Invalid username!')
+        elif data.findUser(username):
+            flash('Username exists!')
+        elif ' ' in password or len(password.strip() == 0):
+            flash('Invalid password!')
+        elif ' ' in firstname or len(firstname.strip()) == 0:
+            flash('Invalid first name!')
+        elif ' ' in lastname or len(lastname.strip()) == 0:
+            flash('Invalid last name!')
+        elif ' ' in email or len(email.strip()) == 0 or '@' not in email or '.' not in email:
+            flash('Invalid email address!')
+        elif 0 < len(phone.strip()) < 10 or len(phone.strip()) > 10 or re.match('\(\d{3,3}\) \d{3,3}-\d{4,4}', phone) == None:
+            flash('Invalid phone number!')
         else:
-            flash('Username already exists!')
-    # try again
-    return redirect(url_for('index'))
+            data.registerUser(username, password, firstname, lastname, email, phone)
+            data.save()
+            flash('Successfully registered account for user "{0}"'.format(username))
+        return redirect(url_for('index'))
 
 @app.route('/logout')
 def logout():

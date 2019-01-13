@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 
-  <head>
+<head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -11,116 +11,75 @@
 
     <link rel="stylesheet" href="{{ url_for('static', filename='effects.css') }}">
 
-    <style>
-      .btn-md {
-	  border-radius: 10%;
-	  
-      }
-    </style>
-
     <title>{{ username }} &bull; Tuesday</title>
-  </head>
+</head>
 
-  <body>
+<body>
 
 
     <nav class="navbar navbar-light bg-success">
-      <a class="navbar-brand mb-0 h1" href="/home">
+        <a class="navbar-brand mb-0 h1" href="/home">
         Tuesday
       </a>
-      <div>
-        <img src="" id="avatar" style="border-radius: 25%;">
-        <a href="/logout">
-          <button type="button" class="btn btn-warning">Log out</button>
-        </a>
-      </div>
+        <div>
+            <img src="" id="avatar" style="border-radius: 25%;">
+            <a href="/logout">
+                <button type="button" class="btn btn-warning">Log out</button>
+            </a>
+        </div>
     </nav>
 
     <div class="container text-center">
-      <div class="row">
-	<div class="col-md-4"></div>
-        <div class="col-md-4"><h1 class="display-4 text-center">{{ username }}</h1></div>
-	<div class="col-md-4"></div>
-      </div>
-      
-      <div class="row">
-	<div class="col">
-	  <img src={{url}}> <br><br>
-	  <a href="/avatar" <button class="btn-md btn-warning" id="changeAvatar" onclick=";">Change Profile Avatar</button> </a>
-	</div>
-      </div>
-      <br>
-      
-      <div class="row">
-	<div class="col text-right">
-	  <p>First Name:</p>
-	</div>
-	
-	<div class="col text-left">
-	  <p>Dickleberry</p>
-	</div>
-	<div class="col text-left">
-	  <p> <button type="button" class="btn-md btn-warning">Update First Name</button> </p>
-	</div>
-      </div>
-      
-      <div class="row">
-	<div class="col text-right">
-	  <p>Last Name:</p>
-	</div>
-	<div class="col text-left">
-	  <p>Finn</p>
-	</div>
-	<div class="col text-left">
-	  <p> <button type="button" class="btn-md btn-warning">Update Last Name</button> </p>
-	</div>
-      </div>
+        <h1 class="display-4 text-center">{{ username }}</h1>
 
-      <div class="row">
-	<div class="col text-right">
-	  <p>Email:</p>
-	</div>
-	<div class="col text-left">
-	  <p>dickleberries@gmail.com</p>
-	</div>
-	<div class="col text-left">
-	  <p> <button type="button" class="btn-md btn-warning">Update Email</button> </p>
-	</div>
-      </div>
+        <div class="my-3">
+            <img src="{{ url }}" class="img-fluid img-thumbnail">
+            <div class="card-body">
+                <a href="avatar.html" class="btn btn-warning rounded">Update Avatar</a>
+            </div>
+        </div>
 
-      <div class="row">
-	<div class="col text-right">
-	  <p>Phone Number:</p>
-	</div>
-	<div class="col text-left">
-	  <p>(123)-456-7890</p>
-	</div>
-	<div class="col text-left">
-	  <p> <button type="button" class="btn-md btn-warning">Update Phone Number</button> </p>
-	</div>
-      </div>
+        <table class="table border mx-auto" style="max-width: 700px;">
+            <tbody>
+                <tr>
+                    <th scope="row">First Name:</th>
+                    <td>{{ first }}</td>
+                    <td>
+                        <button type="button" class="btn rounded btn-warning btn-block">Update First Name</button>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">Last Name:</th>
+                    <td>{{ last }}</td>
+                    <td>
+                        <button type="button" class="btn rounded btn-warning btn-block">Update Last Name</button>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">Email</th>
+                    <td>{{ email }}</td>
+                    <td>
+                        <button type="button" class="btn rounded btn-warning btn-block">Update Email</button>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">Phone Number</th>
+                    <td>{{ phone }}</td>
+                    <td>
+                        <button type="button" class="btn rounded btn-warning btn-block">Update Phone Number</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 
-      <br>
-      
-      <div class="row">
-	<div class="col">
-	  <p>Biography:</p>
-	  <p>I am a dickleberry! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque mauris mauris, viverra sed elementum quis, suscipit in dolor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam feugiat risus ut dui vestibulum, eu scelerisque metus euismod. Maecenas accumsan nisl non pellentesque lobortis. Aliquam quis mattis elit. Nunc semper lectus non ullamcorper pulvinar. Praesent suscipit quam at nulla cursus vulputate.
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Biography</h4>
+                <p class="card-text">I am a dickleberry! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque mauris mauris, viverra sed elementum quis, suscipit in dolor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam feugiat risus ut dui vestibulum, eu scelerisque metus euismod. Maecenas accumsan nisl non pellentesque lobortis. Aliquam quis mattis elit. Nunc semper lectus non ullamcorper pulvinar. Praesent suscipit quam at nulla cursus vulputate. Sed sodales vulputate viverra. Suspendisse auctor metus lectus. Etiam vehicula varius ante.</p>
+                <button type="button" class="rounded btn btn-warning">Update Biography</button>
+            </div>
+        </div>
 
-Sed sodales vulputate viverra. Suspendisse auctor metus lectus. Etiam vehicula varius ante. Duis ut urna tincidunt, consequat sapien id, convallis massa. Duis ornare sapien in ex dictum, id pulvinar ligula dictum. Integer faucibus nibh ipsum, quis posuere ex imperdiet at. Proin sed finibus massa, ut ultricies neque. Ut in odio non libero finibus fringilla.
-
-Ut odio magna, placerat non facilisis sit amet, tincidunt vitae orci. Aliquam erat ligula, accumsan nec risus in, volutpat vulputate sapien. Etiam eget turpis vitae justo viverra semper a sit amet diam. Praesent finibus blandit vestibulum. Praesent cursus ipsum a ipsum finibus venenatis. Aenean porttitor nibh non ipsum blandit consectetur ac sit amet nulla. Phasellus pulvinar nibh in mauris sodales ultrices. Proin dapibus neque vitae arcu elementum, ac ultrices nunc lacinia. Nunc sem enim, venenatis vel ipsum ut, bibendum mattis risus. Suspendisse gravida, dolor id bibendum laoreet, nisi dolor consequat nisi, vitae porttitor elit nibh nec libero. Aliquam nec dignissim eros. Phasellus sed leo nisl. Donec a sollicitudin enim. Vestibulum ac luctus felis.</p>
-	</div>
-      </div>
-
-      <div class="row" style="padding-bottom:50px;">
-	<div class="col">
-	  <p> <button type="button" class="btn-md btn-warning">Update Biography</button> </p>
-	</div>
-      </div>
-
-      <img src={{ link }}> this is testing stuff
-      
     </div>
 
 
@@ -130,7 +89,7 @@ Ut odio magna, placerat non facilisis sit amet, tincidunt vitae orci. Aliquam er
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
     <script src="{{ url_for('static', filename='profile.js') }}"></script>
-  </body>
+</body>
 
 </html>
 
