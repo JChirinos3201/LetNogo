@@ -59,13 +59,11 @@ def registerUser(username, password, firstname, lastname, email, phone):
         print('\n\tusername: {}\n\tPassword: {}\n\tFirst: {}\n\tLast: {}\n\tEmail: {}\n\tPhone: {}\n\n\n'.format(username, password, firstname, lastname, email, phone))
         c.execute('INSERT INTO users VALUES (?,?)', (username, password))
         c.execute('INSERT INTO profiles VALUES (?,?,?,?,?,?);', (username, firstname, lastname, email, phone, ""))
-        #row = (username, "eyes", "", "")
-        #self.insertRow('avatars', row)
-        #row = (username, "nose", "", "")
-        #self.insertRow('avatars', row)
-        #row = (username, "mouth", "", "")
-        #self.insertRow('avatars', row)
-        #print ('works')
+
+        c.execute('INSERT INTO avatars VALUES (?,?)'(username, 'eyes', 'eyes1', 'yes'))
+        c.execute('INSERT INTO avatars VALUES (?,?)'(username, 'noses', 'nose1', 'yes'))
+        c.execute('INSERT INTO avatars VALUES (?,?)'(username, 'mouths', 'mouth1', 'yes'))
+        c.execute('INSERT INTO avatars VALUES (?,?)'(username, 'color', 'FFFF33', 'yes'))   
 
         db.commit()
         db.close()
