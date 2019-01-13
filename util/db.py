@@ -61,7 +61,7 @@ def registerUser(username, password, firstname, lastname, email, phone):
         c.execute('INSERT INTO profiles VALUES (?,?,?,?,?,?);', (username, firstname, lastname, email, phone, ""))
 
         c.execute('INSERT INTO avatars VALUES (?,?,?,?)', (username, 'eyes', 'eyes1', 'yes'))
-        c.execute('INSERT INTO avatars VALUES (?,?,?,?)', (username, 'noses', 'nose1', 'yes'))
+        c.execute('INSERT INTO avatars VALUES (?,?,?,?)', (username, 'noses', 'nose2', 'yes'))
         c.execute('INSERT INTO avatars VALUES (?,?,?,?)', (username, 'mouths', 'mouth1', 'yes'))
         c.execute('INSERT INTO avatars VALUES (?,?,?,?)', (username, 'color', 'FFFF33', 'yes'))   
 
@@ -525,18 +525,19 @@ def get_value(username, typee):
 
     return dict
 
-def get_current(self, username, typee):
+def get_current(username, typee):
     '''
     RETURNS CURRENT VALUE OF GIVEN TYPE
     '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    command_tuple = (username, typee)
     c.execute('SELECT current FROM avatars WHERE username = (?) and type = (?)', (username, typee))
-
+    
+    current = c.fetchone()[0]
+    
     db.close()
     
-    return c.fetchone()[0]
+    return current
 
 if __name__ == '__main__':
      create_db()

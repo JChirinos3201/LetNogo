@@ -185,7 +185,13 @@ def get_snippet():
 @app.route('/get_avatar')
 def get_avatar():
     username = session['username']
-    url = api.getAvatarLink(str(50), username)
+
+    eyes = db.get_current(username, 'eyes')
+    nose = db.get_current(username, 'noses')
+    mouth = db.get_current(username, 'mouths')
+    color = db.get_current(username, 'color')
+    
+    url = api.customAvatarLink(eyes, nose, mouth, color)
     print('GETTING AVATAR\n\tUsername: {}\n\tURL: {}\n'.format(username, url))
     return url
 
@@ -245,7 +251,7 @@ def update_info():
     elif what == 'email':
         db.set_email(username, newVal)
     elif what == 'phone':
-        db.set_email(username, newVal)
+        db.set_phone(username, newVal)
     elif what == 'bio':
         db.set_bio(username, newVal)
 
