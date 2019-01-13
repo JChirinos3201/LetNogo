@@ -49,9 +49,11 @@ class DB_Manager:
          @data is a tuple containing data to be entered
        '''
        c = self.openDB()
-       command = 'INSERT INTO "{0}" VALUES(?, ?, ?)'
+       questions = ', '.join(['?' for i in range(len(data))])
+       command = 'INSERT INTO "{0}" VALUES(' + questions + ')'
+       print(command.format(tableName), data)
        c.execute(command.format(tableName), data)
-
+       #self.save()
 
     def isInDB(self, tableName):
         '''
@@ -82,16 +84,10 @@ class DB_Manager:
         '''
         self.db.commit()
         self.db.close()
+
     #========================HELPER FXNS=======================
 
     #======================== DB FXNS =========================
-    def createUsers(self):
-        '''
-        #CREATES TABLE OF users
-        '''
-        self.tableCreator('users', 'user_name text', 'passwords text', 'user_id integer')
-        return True
-
     def getUsers(self):
         '''
         RETURNS A DICTIONARY CONTAINING ALL CURRENT users AND CORRESPONDING PASSWORDS
@@ -102,7 +98,7 @@ class DB_Manager:
         selectedVal = c.fetchall()
         return dict(selectedVal)
 
-    def registerUser(self, userName, password):
+    def registerUser(self, userName, password, first_name, last_name, email, phone):
         '''
         ADDS user TO DATABASE
         '''
@@ -122,6 +118,20 @@ class DB_Manager:
         else:
             row = (userName, password, max_id + 1)
             self.insertRow('users', row)
+
+            row = (userName, first_name, last_name, email, phone, '')
+            self.insertRow('profiles', row)
+
+            #row = (userName, "eyes", "", "")
+            #self.insertRow('avatars', row)
+            #row = (userName, "nose", "", "")
+            #self.insertRow('avatars', row)
+            #row = (userName, "mouth", "", "")
+            #self.insertRow('avatars', row)
+            #print ('works')
+
+            self.save()
+
             return True
 
     def findUser(self, userName):
@@ -147,11 +157,12 @@ class DB_Manager:
     #====================== TUESDAY FXNS ======================
 
     #======QUOTE FXNS========
+
     def creates_quotes(self):
-        '''
+       '''
         CREATES TABLE FOR QUOTES
         '''
-        self.tableCreator('quotes', 'quote text', 'author text', 'date text')
+       self.tableCreator('quotes', 'quote text', 'author text', 'date text')
 
     def update_quote(self, quote, author, date):
         '''
@@ -179,14 +190,6 @@ class DB_Manager:
 
 
     #======NOTES FXNS========
-    def create_notes(self):
-        '''
-        CREATES TABLE FOR NOTES
-        '''
-        c = self.openDB()
-        if not self.isInDB('notes'):
-            command = 'CREATE TABLE "{0}"({1}, {2});'.format('notes', 'username text', 'note text')
-            c.execute(command)
 
     def add_note(self, username, note):
         '''
@@ -227,11 +230,6 @@ class DB_Manager:
         return user_notes
 
     #======PROJECTS FXNS========
-    def create_projects(self):
-        '''
-        CREATES TABLE FOR PROJECTS
-        '''
-        self.tableCreator('projects', 'pid text', 'username text', 'p_name text')
 
     def add_project(self, pid, username, p_name):
         '''
@@ -248,7 +246,6 @@ class DB_Manager:
         c.execute(command)
         selectedVal = c.fetchone()
         return selectedVal[0]
-
 
     def get_projects(self, username, sort=False):
         '''
@@ -278,20 +275,6 @@ class DB_Manager:
         return True
 
     #======TASKS FXNS========
-    def create_tasks(self):
-        '''
-        CREATES tasks TABLE
-        '''
-        c = self.openDB()
-        def gen_table(tableName, col0, col1, col2, col3, col4, col5, col6):
-            '''
-            CREATES A 7 COLUMN TABLE IF tableName NOT TAKEN
-            ALL PARAMS ARE STRINGS
-            '''
-            if not self.isInDB(tableName):
-                command = 'CREATE TABLE "{0}"({1}, {2}, {3}, {4}, {5}, {6}, {7});'.format(tableName, col0, col1, col2, col3, col4, col5, col6)
-                c.execute(command)
-        gen_table('tasks', 'pid text', 'username text', 'task text', 'description text', 'priority int', 'due_date text', 'status text')
 
     def add_task(self, pid, username, task, description, priority, due_date, status):
         '''
@@ -366,20 +349,6 @@ class DB_Manager:
 
 
     #=====PROFILE FXNS=====
-    def create_profiles(self):
-        '''
-        CREATES profiles TABLE
-        '''
-        c = self.openDB()
-        def gen_table(tableName, col0, col1, col2, col3, col4, col5):
-            '''
-            CREATES A 6 COLUMN TABLE IF tableName NOT TAKEN
-            ALL PARAMS ARE STRINGS
-            '''
-            if not self.isInDB(tableName):
-                command = 'CREATE TABLE "{0}"({1}, {2}, {3}, {4}, {5}, {6});'.format(tableName, col0, col1, col2, col3, col4, col5)
-                c.execute(command)
-        gen_table('profiles', 'username text', 'first_name text', 'last_name text', 'email text', 'phone_num text', 'bio text')
 
     def get_profile(self, username):
         '''
@@ -392,7 +361,6 @@ class DB_Manager:
         profile = {}
         profile['first_name'], profile['last_name'], profile['email'], profile['phone_num'], profile['bio'] = selectedVal[0], selectedVal[1], selectedVal[2], selectedVal[3], selectedVal[4], selectedVal[5]
         return profile
-
 
     def set_first_name(self, username, first_name):
         '''
@@ -440,36 +408,6 @@ class DB_Manager:
         return True
 
     #=====MESSAGES FXNS=====
-    def create_t_msgs(self):
-        '''
-        CREATES t_msgs TABLE
-        '''
-        c = self.openDB()
-        def gen_table(tableName, col0, col1, col2, col3, col4, col5):
-            '''
-            CREATES A 6 COLUMN TABLE IF tableName NOT TAKEN
-            ALL PARAMS ARE STRINGS
-            '''
-            if not self.isInDB(tableName):
-                command = 'CREATE TABLE "{0}"({1}, {2}, {3}, {4}, {5}, {6})'.format(tableName, col0, col1, col2, col3, col4, col5)
-                c.execute(command)
-        gen_table('msgs', 'pid text', 'address text', 'user text', 'msg text', 'msg_id text', 'timestamp text')
-
-    def create_p_msgs(self):
-        '''
-        CREATES p_msgs TABLE
-        '''
-        c = self.openDB()
-        def gen_table(tableName, col0, col1, col2, col3, col4, col5):
-            '''
-            CREATES A 6 COLUMN TABLE IF tableName NOT TAKEN
-            ALL PARAMS ARE STRINGS
-            '''
-            if not self.isInDB(tableName):
-                command = 'CREATE TABLE "{0}"({1}, {2}, {3}, {4}, {5}, {6})'.format(tableName, col0, col1, col2, col3, col4, col5)
-                c.execute(command)
-        gen_table('msgs', 'pid text', 'address text', 'user text', 'msg text', 'msg_id text', 'timestamp text')
-
     def add_msg(self, pid, address, user, msg, msg_id, timestamp, private=0):
         '''
         ADDS A ROW TO msgs TABLE OF INPUT VALUES pid, address, user, msg, msg_id, and private
@@ -521,70 +459,112 @@ class DB_Manager:
         return messages
 
     #=====AVATARS FXNS=====
-def creates_avatars(self):
-    '''
-    CREATES TABLE FOR AVATARS
-    '''
-    def gen_table(tableName, col0, col1, col2, col3,):
-        '''
-        CREATES A 6 COLUMN TABLE IF tableName NOT TAKEN
-        ALL PARAMS ARE STRINGS
-        '''
-        if not self.isInDB(tableName):
-            command = 'CREATE TABLE "{0}"({1}, {2}, {3}, {4}, {5}, {6})'.format(tableName, col0, col1, col2, col3)
-            c.execute(command)
-        gen_table('avatars', 'username TEXT', 'type TEXT', 'value TEXT', 'current TEXT')
-    #====================== END OF TUESDAY FXNS ======================
 
+    def add_value(self, value, username, type):
+        '''
+        UPDATES VALUES AVAILABLE IN TABLE OF AVATARS
+        '''
+        c = self.openDB()
+        command_tuple = (username, type)
+        c.execute('SELECT value FROM avatars WHERE username = ? and type = ?', command_tuple)
+        command_tuple = (value + c.fetchone(), username, type)
+        c.execute('UPDATE avatars SET value = ? WHERE username = ? and type = ?', command_tuple)
+        return True;
+
+    def update_current(self, username, type, num):
+        '''
+        UPDATES CURRENT IN TABLE OF AVATARS
+        '''
+        c = self.openDB()
+        command_tuple = (num, username, type)
+        c.execute('UPDATE avatars SET current = ? WHERE username = ? and type = ?', command_tuple)
+        return True;
+
+    def get_value(self, username, type):
+        '''
+        RETURNS DICTIONARY OF VALUES OF GIVEN TYPE
+        '''
+        c = self.openDB()
+        command_tuple = (username, type)
+        c.execute('SELECT value FROM avatars WHERE username = ? and type = ?', command_tuple)
+        dict = {type: []}
+        dict[type] = c.fetchall()
+        return dict
+
+    def get_current(self, username, type):
+            '''
+            RETURNS CURRENT VALUE OF GIVEN TYPE
+            '''
+            c = self.openDB()
+            command_tuple = (username, type)
+            c.execute('SELECT current FROM avatars WHERE username = ? and type = ?', command_tuple)
+            c.save()
+            return c.fetchone()[0]
+    #====================== END OF TUESDAY FXNS ======================
 
     #======================== DB FXNS =========================
 #======================== END OF CLASS DB_Manager =========================
 
 # initiation process and TESTING
 
+    def create_db(self):
+        '''
+        CREATES TABLE FOR AVATARS
+        '''
+        c = self.openDB()
+
+        c.execute("CREATE TABLE IF NOT EXISTS avatars(username TEXT, type TEXT, value TEXT, current TEXT)")
+        c.execute("CREATE TABLE IF NOT EXISTS p_msgs(pid TEXT, address TEXT, user TEXT, msg TEXT, msg_id TEXT, timestamp TEXT)")
+        c.execute("CREATE TABLE IF NOT EXISTS t_msgs(pid TEXT, address TEXT, user TEXT, msg TEXT, msg_id TEXT, timestamp TEXT)")
+        c.execute("CREATE TABLE IF NOT EXISTS profiles (username TEXT, first_name TEXT, last_name TEXT, email TEXT, phone_num TEXT, bio TEXT)")
+        c.execute("CREATE TABLE IF NOT EXISTS projects (pid TEXT, username TEXT, p_name TEXT)")
+        c.execute("CREATE TABLE IF NOT EXISTS tasks (pid TEXT, username TEXT, task TEXT, description TEXT, priority INT, due_date TEXT, status TEXT)")
+        c.execute("CREATE TABLE IF NOT EXISTS notes(username TEXT, note TEXT)")
+        c.execute("CREATE TABLE IF NOT EXISTS quotes (quote TEXT, author TEXT, date TEXT)")
+        c.execute("CREATE TABLE IF NOT EXISTS users (user_name TEXT, passwords TEXT, user_id INTEGER)")
+
+        return True;
+
 #DB_FILE = '../data/tuesday.db'
 #initiate = DB_Manager(DB_FILE)
 
-#initiate.creates_avatars()
+#initiate.create_db()
+#initiate.registerUser('coolii', 'ni', 'tas', 'hao', 'tsss@stuy.edu', '9922233339')
+#initiate.add_value("eye1", 'a', "eyes")
+#print(initiate.get_value('a', "eyes"))
+#initiate.update_quote("happy is me", "happy is you", datetime.date(datetime.today()))
+
 '''
 # TEST QUOTES
-#initiate.creates_quotes()
 #initiate.update_quote("happy is me", "happy is you", datetime.date(datetime.today()))
 #print(initiate.get_quote(datetime.date(datetime.today())))
 
 # TEST USERS
-#initiate.createUsers()
-#initiate.registerUser('a', 'a')
+initiate.registerUser('a', 'a')
 
 # TEST NOTES
-#initiate.create_notes()
-
 #initiate.add_note('a', 'bang')
 #initiate.add_note('a', 'pow')
 #initiate.add_note('null', 'woo')
 #print(initiate.get_notes('a'))
 
 # TEST PROJECTS
-#initiate.create_projects()
 #initiate.add_project('79', 'null', 'poop')
 #print(initiate.get_projects('null'))
 #initiate.remove_project('73')
 
 # TEST TASKS
-#initiate.create_tasks()
 #initiate.add_task('79', 'a', 'dab on them', 'dab on them super hard', 1, 'tomorrowXD', 'incomplete')
 #initiate.remove_task('79', 'a', 'dab on them')
 #print(initiate.get_tasks('79', 'a'))
 #initiate.set_description('yeet on them', '79', 'a', 'dab on them')
 
 # TEST PROFILE
-#initiate.create_profiles()
 
 # TEST MSGS
-#initiate.create_msgs()
 
 # TEST AVATAR
 
 #print(initiate.get_projects('null', True))
-initiate.save()
+
 '''
