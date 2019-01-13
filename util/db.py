@@ -60,10 +60,10 @@ def registerUser(username, password, firstname, lastname, email, phone):
         c.execute('INSERT INTO users VALUES (?,?)', (username, password))
         c.execute('INSERT INTO profiles VALUES (?,?,?,?,?,?);', (username, firstname, lastname, email, phone, ""))
 
-        c.execute('INSERT INTO avatars VALUES (?,?)'(username, 'eyes', 'eyes1', 'yes'))
-        c.execute('INSERT INTO avatars VALUES (?,?)'(username, 'noses', 'nose1', 'yes'))
-        c.execute('INSERT INTO avatars VALUES (?,?)'(username, 'mouths', 'mouth1', 'yes'))
-        c.execute('INSERT INTO avatars VALUES (?,?)'(username, 'color', 'FFFF33', 'yes'))   
+        c.execute('INSERT INTO avatars VALUES (?,?,?,?)', (username, 'eyes', 'eyes1', 'yes'))
+        c.execute('INSERT INTO avatars VALUES (?,?,?,?)', (username, 'noses', 'nose1', 'yes'))
+        c.execute('INSERT INTO avatars VALUES (?,?,?,?)', (username, 'mouths', 'mouth1', 'yes'))
+        c.execute('INSERT INTO avatars VALUES (?,?,?,?)', (username, 'color', 'FFFF33', 'yes'))   
 
         db.commit()
         db.close()
