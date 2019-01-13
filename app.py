@@ -194,7 +194,7 @@ def get_info():
     req = request.args['val']
     user = request.args['username']
 
-    userInfo = get_info(user)
+    userInfo = db.get_info(user)
     pairs = ['first', 'last', 'email', 'phone', 'bio']
     return userInfo[pairs.index(req)]
 
