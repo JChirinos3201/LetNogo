@@ -43,29 +43,29 @@
             <tbody>
                 <tr>
                     <th scope="row">First Name:</th>
-                    <td>{{ first }}</td>
-                    <td>
+                    <td id="firstName">{{ first }}</td>
+                    <td id="firstNameButton">
                         <button type="button" class="btn rounded btn-warning btn-block">Update First Name</button>
                     </td>
                 </tr>
                 <tr>
                     <th scope="row">Last Name:</th>
-                    <td>{{ last }}</td>
-                    <td>
+                    <td id="lastName">{{ last }}</td>
+                    <td id="lastNameButton">
                         <button type="button" class="btn rounded btn-warning btn-block">Update Last Name</button>
                     </td>
                 </tr>
                 <tr>
                     <th scope="row">Email</th>
-                    <td>{{ email }}</td>
-                    <td>
+                    <td id="email">{{ email }}</td>
+                    <td id="emailButton">
                         <button type="button" class="btn rounded btn-warning btn-block">Update Email</button>
                     </td>
                 </tr>
                 <tr>
                     <th scope="row">Phone Number</th>
-                    <td>{{ phone }}</td>
-                    <td>
+                    <td id="phone">{{ phone }}</td>
+                    <td id="idButton">
                         <button type="button" class="btn rounded btn-warning btn-block">Update Phone Number</button>
                     </td>
                 </tr>
@@ -75,8 +75,10 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Biography</h4>
-                <p class="card-text">I am a dickleberry! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque mauris mauris, viverra sed elementum quis, suscipit in dolor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam feugiat risus ut dui vestibulum, eu scelerisque metus euismod. Maecenas accumsan nisl non pellentesque lobortis. Aliquam quis mattis elit. Nunc semper lectus non ullamcorper pulvinar. Praesent suscipit quam at nulla cursus vulputate. Sed sodales vulputate viverra. Suspendisse auctor metus lectus. Etiam vehicula varius ante.</p>
-                <button type="button" class="rounded btn btn-warning">Update Biography</button>
+                <p class="card-text" id="bio">I am a dickleberry! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque mauris mauris, viverra sed elementum quis, suscipit in dolor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam feugiat risus ut dui vestibulum, eu scelerisque metus euismod. Maecenas accumsan nisl non pellentesque lobortis. Aliquam quis mattis elit. Nunc semper lectus non ullamcorper pulvinar. Praesent suscipit quam at nulla cursus vulputate. Sed sodales vulputate viverra. Suspendisse auctor metus lectus. Etiam vehicula varius ante.</p>
+                <div id="bioButton">
+                    <button type="button" class="rounded btn btn-warning">Update Biography</button>
+                </div>
             </div>
         </div>
 
@@ -92,40 +94,3 @@
 </body>
 
 </html>
-
-<!--
-    {% extends "base.html" %}
-    <!doctype html> {% block content %}
-    <head>
-      <style>
-	#proj:hover{
-	color: #85c1e9   ;
-	}
-      </style>
-    </head>
-<body>
-
-  <div class="row" style="background-color:lightgreen;">
-    <div class="container-fluid mt-5" align="left" margin="0">
-      <h2> {{project_name}}</h2>
-    </div>
-  </div>
-
-  <div class="row" style="height:100vh;">
-
-    <div class="col-sm-3 col-md-3 col-lg-3" style="background-color:gray;">
-      <p> column0 </p>
-
-    </div>
-    <div class="col-sm-9 col-md-9 col-lg-9">
-      <p> column1 </p>
-
-    </div>
-
-  </div>
-</body>
-
-
-
-{% endblock %}
--->

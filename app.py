@@ -177,8 +177,7 @@ def get_snippet():
     snippet = request.args['snippet']
     print('Getting snippet: {}'.format(snippet))
     if snippet == 'projectList' and 'username' in session:
-        data = database.DB_Manager(DB_FILE)
-        projectDict = data.get_projects(session['username'])
+        projectDict = db.get_projects(session['username'])
         print('Project dict: {}'.format(projectDict))
         return render_template('{}SNIPPET.html'.format(snippet), projectDict=projectDict)
     return render_template('{}SNIPPET.html'.format(snippet))
@@ -189,6 +188,22 @@ def get_avatar():
     url = api.getAvatarLink(str(50), username)
     print('GETTING AVATAR\n\tUsername: {}\n\tURL: {}\n'.format(username, url))
     return url
+
+@app.route('/get_info')
+def get_info():
+    req = request.args['val']
+    user = request.args['username']
+
+    userInfo = get_info(username)
+    pairs = ['first', 'last', 'email', 'phone', 'bio']
+    return userInfo[pairs.index(req)]
+
+@app.route('/get_username')
+def get_username():
+    if 'username' in session:
+        return session['username']
+    else:
+        return 'NOT LOGGED IN'
 
 if __name__ == '__main__':
     app.debug = True
