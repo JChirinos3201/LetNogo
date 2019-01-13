@@ -11,7 +11,7 @@
 
     <link rel="stylesheet" href="{{ url_for('static', filename='effects.css') }}">
 
-    <title>{{ username }} &bull; Tuesday</title>
+    <title>{{ username }}'s Profile &bull; Tuesday</title>
 </head>
 
 <body>
@@ -39,45 +39,45 @@
             </div>
         </div>
 
-        <table class="table border mx-auto" style="max-width: 700px;">
+        <table class="table border mx-auto" style="max-width: 1000px;">
             <tbody>
                 <tr>
-                    <th scope="row">First Name:</th>
-                    <td id="firstName">{{ first }}</td>
-                    <td id="firstNameButton">
-                        <button type="button" class="btn rounded btn-warning btn-block">Update First Name</button>
+                    <th scope="row" style="width: 20%;">First Name:</th>
+                    <td id="firstName" style="width: 40%;">{{ first }}</td>
+                    <td id="firstNameButton" style="width: 30%;">
+                        <button type="button" class="btn rounded btn-warning btn-block" onclick="displayFirstNameForm();">Update First Name</button>
                     </td>
                 </tr>
                 <tr>
                     <th scope="row">Last Name:</th>
                     <td id="lastName">{{ last }}</td>
                     <td id="lastNameButton">
-                        <button type="button" class="btn rounded btn-warning btn-block">Update Last Name</button>
+                        <button type="button" class="btn rounded btn-warning btn-block" onclick="displayLastNameForm();">Update Last Name</button>
                     </td>
                 </tr>
                 <tr>
                     <th scope="row">Email</th>
                     <td id="email">{{ email }}</td>
                     <td id="emailButton">
-                        <button type="button" class="btn rounded btn-warning btn-block">Update Email</button>
+                        <button type="button" class="btn rounded btn-warning btn-block" onclick="displayEmailForm();">Update Email</button>
                     </td>
                 </tr>
                 <tr>
                     <th scope="row">Phone Number</th>
                     <td id="phone">{{ phone }}</td>
                     <td id="phoneButton">
-                        <button type="button" class="btn rounded btn-warning btn-block">Update Phone Number</button>
+                        <button type="button" class="btn rounded btn-warning btn-block" onclick="displayPhoneForm();">Update Phone Number</button>
                     </td>
                 </tr>
             </tbody>
         </table>
 
-        <div class="card">
+        <div class="card my-3 mx-auto" style="max-width: 1000px;">
             <div class="card-body">
                 <h4 class="card-title">Biography</h4>
-                <p class="card-text" id="bio">I am a dickleberry! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque mauris mauris, viverra sed elementum quis, suscipit in dolor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam feugiat risus ut dui vestibulum, eu scelerisque metus euismod. Maecenas accumsan nisl non pellentesque lobortis. Aliquam quis mattis elit. Nunc semper lectus non ullamcorper pulvinar. Praesent suscipit quam at nulla cursus vulputate. Sed sodales vulputate viverra. Suspendisse auctor metus lectus. Etiam vehicula varius ante.</p>
+                <p class="card-text" id="bio"></p>
                 <div id="bioButton">
-                    <button type="button" class="rounded btn btn-warning">Update Biography</button>
+                    <button type="button" class="rounded btn btn-warning" onclick="displayBioForm();">Update Biography</button>
                 </div>
             </div>
         </div>

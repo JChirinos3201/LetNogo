@@ -5,7 +5,7 @@
 import os
 
 from flask import Flask, render_template, redirect, url_for, session, request, flash, get_flashed_messages
-import datetime, uuid, re
+import datetime, uuid, re, json
 
 from util import db, api
 
@@ -191,12 +191,12 @@ def get_avatar():
 
 @app.route('/get_info')
 def get_info():
-    req = request.args['val']
+    val = request.args['val']
     user = request.args['username']
 
     userInfo = db.get_info(user)
     pairs = ['first', 'last', 'email', 'phone', 'bio']
-    return userInfo[pairs.index(req)]
+    return userInfo[pairs.index(val)]
 
 @app.route('/get_username')
 def get_username():
@@ -204,6 +204,35 @@ def get_username():
         return session['username']
     else:
         return 'NOT LOGGED IN'
+
+@app.route('/get_profile_button')
+def get_profile_button():
+    user = request.args['username']
+    req = request.args['val']
+    input = ''
+    if req == 'Bio':
+        input = '<textarea class="form-control" rows="15" maxlength="1000" id="newBio">{}</textarea>'
+    else:
+        input = '<input type="text" class="form-control" value="{}" id="{}">'
+
+    buttons = '<div class="btn-group" style="display: flex"> <button type="button" class="btn btn-sm btn-danger" style="flex: 1;" onclick="display{}();">Cancel</button> <button type="button" class="btn btn-sm btn-success" style="flex: 1;" onclick="update{}();">Update</button> </div>'
+
+    userInfo = db.get_info(user)
+    pairs = ['FirstName', 'LastName', 'Email', 'Phone', 'Bio']
+
+    oldVal = userInfo[pairs.index(req)]
+
+    if req == 'Bio':
+        input = input.format(oldVal)
+    else:
+        input = input.format(oldVal, req)
+    buttons = buttons.format(req, req)
+
+    d = {'input': input, 'buttons': buttons}
+
+    return json.dumps(d)
+
+
 
 if __name__ == '__main__':
     app.debug = True
