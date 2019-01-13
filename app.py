@@ -131,11 +131,11 @@ def authenticate():
     #=====REGISTER=====
     else:
         firstname, lastname, email, phone = request.form['firstname'], request.form['lastname'], request.form['email'], request.form['phone']
-        if ' ' in username or len(username.strip() == 0):
+        if ' ' in username or len(username.strip()) == 0:
             flash('Invalid username!')
-        elif data.findUser(username):
+        elif db.findUser(username):
             flash('Username exists!')
-        elif ' ' in password or len(password.strip() == 0):
+        elif ' ' in password or len(password.strip()) == 0:
             flash('Invalid password!')
         elif ' ' in firstname or len(firstname.strip()) == 0:
             flash('Invalid first name!')
@@ -146,8 +146,8 @@ def authenticate():
         elif 0 < len(phone.strip()) < 10 or len(phone.strip()) > 10 or re.match('\(\d{3,3}\) \d{3,3}-\d{4,4}', phone) == None:
             flash('Invalid phone number!')
         else:
-            data.registerUser(username, password, firstname, lastname, email, phone)
-            data.save()
+            db.registerUser(username, password, firstname, lastname, email, phone)
+            #db.save()
             flash('Successfully registered account for user "{0}"'.format(username))
         return redirect(url_for('index'))
 
