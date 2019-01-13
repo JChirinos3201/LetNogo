@@ -113,7 +113,6 @@ def authenticate():
     '''
     data = database.DB_Manager(DB_FILE)
     username, password = request.form['username'], request.form['password']
-    firstname, lastname, email, phone = request.form['firstname'], request.form['lastname'], request.form['email'], request.form['phone']
     #=====LOG IN=====
     if 'submit' not in request.form:
         return redirect(url_for('index'))
@@ -134,13 +133,14 @@ def authenticate():
 
     #=====REGISTER=====
     else:
+        firstname, lastname, email, phone = request.form['firstname'], request.form['lastname'], request.form['email'], request.form['phone']
         if len(username.strip()) != 0 and not data.findUser(username):
             if len(password.strip()) != 0:
                 if len(firstname.strip()) and len(lastname.strip()) and len(email.strip()) != 0:
                     if '@' and '.' in email:
                         if (len(phone.strip()) == 0 or len(phone.strip())) == 10 and not phone.upper().isupper():
                             # add account to DB
-                            data.registerUser(username, password)
+                            data.registerUser(username, password, firstname, lastname, email, phone)
                             data.save()
                             flash('Successfully registered account for user "{0}"'.format(username))
                         else:
