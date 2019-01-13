@@ -132,6 +132,5 @@ def bodyParts():
     
 def customAvatarLink(eyes, nose, mouth, color): #written by thomas b/c idk if susan wrote
     url = "https://api.adorable.io/avatars/face/{}/{}/{}/{}.png".format(eyes, nose, mouth, color) #color is in hex
-    print(url)
     return url
     

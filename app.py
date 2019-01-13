@@ -61,7 +61,7 @@ def avatar():
     color_testing = ['color1', 'color2', 'color3', 'color4']
 
     url = api.getAvatarLink(str(285), username)
-    return render_template('avatar.html', username = username, url = url, eyes = eyes_testing, noses = noses_testing, mouths = mouths_testing, color = color_testing)
+    return render_template('avatar.html', username = username, url = url, eyes = eyes_testing, noses = noses_testing, mouths = mouths_testing, color = color)
 
 @app.route('/new_project', methods=["POST"])
 def new_project():
@@ -193,6 +193,7 @@ def get_avatar():
     
     url = api.customAvatarLink(eyes, nose, mouth, color)
     print('GETTING AVATAR\n\tUsername: {}\n\tURL: {}\n'.format(username, url))
+    print(url)
     return url
 
 @app.route('/get_info')

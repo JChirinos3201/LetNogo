@@ -531,7 +531,7 @@ def get_current(username, typee):
     '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    c.execute('SELECT current FROM avatars WHERE username = (?) and type = (?)', (username, typee))
+    c.execute('SELECT value FROM avatars WHERE username = (?) and type = (?) and current = (?)', (username, typee, 'yes'))
     
     current = c.fetchone()[0]
     
