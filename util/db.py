@@ -173,6 +173,29 @@ def get_project(id):
         
         return selectedVal[0]
 
+def get_projects(username, sort=False):
+        '''
+        RETURNS A DICTIONARY OF PROJECTS WITH PAIRS OF p_name: pid THAT CORRESPOND TO THE username
+        '''
+        db = sqlite3.connect(DB_FILE)
+        c = db.cursor()
+        
+        command = 'SELECT pid, p_name FROM projects WHERE username = "{0}"'.format(username)
+        c.execute(command)
+        
+        selectedVal = c.fetchall()
+        db.close()
+        
+        projects = {}
+        for i in selectedVal:
+            projects[i[1]] = i[0]
+        if sort:
+            sorted_projects = {}
+            for key in sorted(projects.keys()):
+                sorted_projects[key] = projects[key]
+            return sorted_projects
+        return projects
+    
 def remove_project(self, pid):
         '''
         REMOVE A PROJECT FROM THE PROJECT TABLE GIVEN pid
@@ -196,17 +219,326 @@ def get_info(username):
     '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
+    
     c.execute('SELECT first_name, last_name, email, phone_num, bio FROM profiles WHERE username = (?)', (username,))
     data = c.fetchone()
-    print(data)
+    
+    #print(data)
     db.close()
+    
     return data
 
+def get_profile(username):
+    '''
+    RETURNS A DICTIONARY OF user PROFILE
+    '''
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    
+    c.execute('SELECT first_name, last_name, email, phone_num, bio FROM profiles where username = (?)', (username))
 
+    selectedVal = c.fetchone()
+    profile = {}
+    
+    profile['first_name'] = selectedVal[0]
+    profile['last_name'] = selectedVal[1]
+    rofile['email'] = selectedVal[2]
+    profile['phone_num'] = selectedVal[3]
+    profile['bio'] = selectedVal[4]
 
+    db.close()
+    
+    return profile
 
+def set_first_name(username, first_name):
+    '''
+    SET THE first_name OF A ROW IN tasks GIVEN username
+    '''
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    c.execute('UPDATE profiles SET first_name = (?) WHERE username = (?)', (first_name, username))
 
+    db.commit()
+    db.close()
+    
+    return True
 
+def set_last_name(username, last_name):
+    '''
+    SET THE last_name OF A ROW IN tasks GIVEN username
+    '''
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    c.execute('UPDATE profiles SET last_name = (?) WHERE username = (?)', (last_name, username))
+
+    db.commit()
+    db.close()
+    
+    return True
+
+def set_email(username, email):
+    '''
+    SET THE email OF A ROW IN tasks GIVEN username
+    '''
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    c.execute('UPDATE profiles SET email = (?) WHERE username = (?)', (email, username))
+
+    db.commit()
+    db.close()
+    
+    return True
+
+def set_phone(username, phone_num):
+    '''
+    SET THE phone_num OF A ROW IN tasks GIVEN username
+    '''
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    c.execute('UPDATE profiles SET phone_num = (?) WHERE username = (?)', (phone_num, username))
+
+    db.commit()
+    db.close()
+    
+    return True
+
+def set_bio(username, bio):
+    '''
+    SET THE bio OF A ROW IN tasks GIVEN username
+    '''
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    c.execute('UPDATE profiles SET bio = (?) WHERE username = (?)', (bio, username))
+
+    db.commit()
+    db.close()
+    
+    return True
+#======TASKS FXNS========
+
+def add_task(pid, username, task, description, priority, due_date, status):
+    '''
+    ADDS A ROW TO tasks TABLE OF INPUT VALUES pid, username, task, description, priority, due_date, and status
+    @priority is the only int
+    other inputs are strings
+    '''
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    
+    data = (pid, username, task, description, priority, due_date, status)
+    
+    c.execute('INSERT INTO tasks VALUES(?, ?, ?, ?, ?, ?, ?)', data)
+
+    db.commit()
+    db.close()
+    
+    return True
+
+def remove_task(pid, username, task):
+    '''
+    REMOVES A ROW FROM tasks GIVEN pid, username, and task
+    '''
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    c.execute('DELETE FROM tasks WHERE pid = (?) AND username = (?) AND task = (?)', (pid, username, task))
+
+    db.commit()
+    db.close()
+    
+    return True
+
+def get_tasks(self, pid, username):
+    '''
+    RETURNS A DICTIONARY OF tasks FOR THE username IN THE FORMAT task: (description, priority, due_date, status)
+    '''
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    
+    c.execute('SELECT task, description, priority, due_date, status FROM tasks where pid = (?) AND username = (?)', (pid, username))
+    
+    selectedVal = c.fetchall()
+    task_dict = {}
+    for i in selectedVal:
+        task_dict[i[0]] = (i[1], i[2], i[3], i[4])
+
+    db.commit()
+    db.close()
+        
+    return task_dict
+
+def set_description(description, pid, username, task):
+    '''
+    SET THE description OF A ROW IN tasks GIVEN pid, username, AND task
+    '''
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    c.execute('UPDATE tasks SET description = (?) WHERE pid = (?) AND username = (?) AND task = (?)', (description, pid, username, task))
+
+    db.commit()
+    db.close()
+        
+    return True
+
+def set_priority(self, priority, pid, username, task):
+    '''
+    SET THE priority OF A ROW IN tasks GIVEN pid, username, AND task
+    '''
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    c.execute('UPDATE tasks SET priority = (?) WHERE pid = (?) AND username = (?) AND task = (?)', (priority, pid, username, task))
+
+    db.commit()
+    db.close()
+    
+    return True
+
+def set_due_date(self, due_date, pid, username, task):
+    '''
+    SET THE due_date OF A ROW IN tasks GIVEN pid, username, AND task
+    '''
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    c.execute('UPDATE tasks SET due_date = (?) WHERE pid = (?) AND username = (?) AND task = (?)', (due_date, pid, username, task))
+
+    db.commit()
+    db.close()
+    
+    return True
+
+def set_status(self, status, pid, username, task):
+    '''
+    SET THE status OF A ROW IN tasks GIVEN pid, username, AND task
+    '''
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    
+    c.execute('UPDATE tasks SET status = "{0}" WHERE pid = (?) AND username = (?) AND task = (?)', (status, pid, username, task))
+     
+    db.commit()
+    db.close()
+        
+    return True
+
+#=====MESSAGES FXNS=====
+def add_msg(pid, address, user, msg, msg_id, timestamp, private=0):
+    '''
+    ADDS A ROW TO msgs TABLE OF INPUT VALUES pid, address, user, msg, msg_id, and private
+    ALL INPUTS ARE STRINGS EXCEPT private
+    '''
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+
+    data = (pid, address, user, msg, msg_id, timestamp)
+    if private == 1:
+        c.execute('INSERT INTO p_msgs VALUES(?, ?, ?, ?, ?, ?)', data)
+        db.commit()
+        db.close()
+        return True
+    
+    c.execute('INSERT INTO t_msgs VALUES(?, ?, ?, ?, ?, ?)', data)
+    db.commit()
+    db.close()
+    return True
+
+def remove_msg(pid, msg_id, private=0):
+    '''
+    REMOVES A ROW FROM msgs GIVEN pid and msg_id
+    '''
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    
+    if private == 1:
+        c.execute('DELETE FROM p_msgs WHERE pid = (?) AND msg_id = (?)', (pid, msg_id))
+        db.commit()
+        db.close()
+        return True
+    c.execute('DELETE FROM t_msgs WHERE pid = (?) AND msg_id = (?)', (pid, msg_id))
+    db.commit()
+    db.close()
+    return True
+
+def get_msgs(pid, private=0):
+    '''
+    RETURNS A LIST OF MESSAGE TUPLES GIVEN pid
+    '''
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+
+    if private == 1:
+        c.execute('SELECT msg, user FROM p_msgs WHERE pid = (?)', (pid))
+        selectedVal = c.fetchall()
+        messages = []
+        for i in selectedVal:
+            messages.add(i)
+         db.commit()
+         db.close()
+        return messages
+    
+    c.execute('SELECT msg, user FROM t_msgs WHERE pid = (?)', (pid))
+    selectedVal = c.fetchall()
+    messages = []
+    for i in selectedVal:
+        messages.add(i)
+    db.commit()
+    db.close()
+    return messages
+
+#=====AVATARS FXNS=====
+
+def add_value(value, username, typee):
+    '''
+    UPDATES VALUES AVAILABLE IN TABLE OF AVATARS
+    '''
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    
+    c.execute('SELECT value FROM avatars WHERE username = (?) and type = (?)', (username, typee))
+    c.execute('UPDATE avatars SET value = ? WHERE username = (?) and type = (?)', username, typee))
+    
+    db.commit()
+    db.close()
+              
+    return True;
+
+def update_current(username, typee, num):
+    '''
+    UPDATES CURRENT IN TABLE OF AVATARS
+    '''
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    c.execute('UPDATE avatars SET current = (?) WHERE username = (?) and type = (?)', (num, username, typee))
+
+    db.commit()
+    db.close()
+    
+    return True;
+
+def get_value(username, typee):
+    '''
+    RETURNS DICTIONARY OF VALUES OF GIVEN TYPE
+    '''
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    c.execute('SELECT value FROM avatars WHERE username = (?) and type = (?)', (username, typee))
+    dict = {type: []}
+    dict[type] = c.fetchall()
+    
+    db.close()
+
+    return dict
+
+def get_current(self, username, typee):
+    '''
+    RETURNS CURRENT VALUE OF GIVEN TYPE
+    '''
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    command_tuple = (username, typee)
+    c.execute('SELECT current FROM avatars WHERE username = (?) and type = (?)', (username, typee))
+
+    db.close()
+    
+    return c.fetchone()[0]
 
 if __name__ == '__main__':
      create_db()
