@@ -46,7 +46,7 @@ def profile():
     nose = db.get_current(username, 'noses')
     mouth = db.get_current(username, 'mouths')
     color = db.get_current(username, 'color')
-    
+
     url = api.customAvatarLink(eyes, nose, mouth, color)
 
     bodyParts = api.bodyParts()
@@ -64,7 +64,7 @@ def avatar():
     eyes_testing = ['eyes1', 'eyes2', 'eyes3', 'eyes4']
     noses_testing = ['nose2', 'nose3', 'nose4', 'nose5']
     mouths_testing = ['mouth1', 'mouth3', 'mouth5', 'mouth6']
-    color_testing = ['color1', 'color2', 'color3', 'color4']
+    color_testing = ['FFFF33', 'C55EB1', '3CDC18', '5A6358']
 
     url = api.getAvatarLink(str(285), username)
     return render_template('avatar.html', username = username, url = url, eyes = eyes_testing, noses = noses_testing, mouths = mouths_testing, colors = color_testing)
@@ -103,11 +103,7 @@ def join_project():
 def project(title, id):
     if 'username' not in session:
         return redirect(url_for('index'))
-    '''
-    pull project info here???
-    <fill me XD>
-    '''
-    return render_template('project.html', username = session['username'], project_name = title)
+    return render_template('project.html', username = session['username'], project_name = title, p_id = id)
 
 @app.route('/authenticate', methods=['POST'])
 def authenticate():
@@ -186,6 +182,11 @@ def get_snippet():
         projectDict = db.get_projects(session['username'])
         print('Project dict: {}'.format(projectDict))
         return render_template('{}SNIPPET.html'.format(snippet), projectDict=projectDict)
+    if snippet == 'privateInbox' and 'username' in session:
+        pid = request.args['pid']
+        private_messages = db.get_msgs(pid, 1)
+        print(private_messages)
+        return render_template('{}SNIPPET.html'.format(snippet), private_messages = private_messages)
     return render_template('{}SNIPPET.html'.format(snippet))
 
 @app.route('/get_avatar')
@@ -196,11 +197,23 @@ def get_avatar():
     nose = db.get_current(username, 'noses')
     mouth = db.get_current(username, 'mouths')
     color = db.get_current(username, 'color')
-    
+
     url = api.customAvatarLink(eyes, nose, mouth, color)
     print('GETTING AVATAR\n\tUsername: {}\n\tURL: {}\n'.format(username, url))
     print(url)
     return url
+
+@app.route('/get_avatar_json')
+def get_avatar_json():
+    username = session['username']
+
+    d = {}
+    d['eyes'] = db.get_current(username, 'eyes')
+    d['nose'] = db.get_current(username, 'noses')
+    d['mouth'] = db.get_current(username, 'mouths')
+    d['color'] = db.get_current(username, 'color')
+
+    return json.dumps(d)
 
 @app.route('/get_info')
 def get_info():

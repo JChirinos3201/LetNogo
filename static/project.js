@@ -1,7 +1,11 @@
+var pid;
 window.onload = function () {
     displayAvatar();
     displayTasks();
+    pid = document.getElementById('project_id')
 };
+
+
 
 var displayAvatar = function () {
     var xhttp = new XMLHttpRequest();
@@ -25,7 +29,7 @@ var displayDash = function () {
 
         }
     }
-    xhttp.open("GET", "/get_snippet?snippet=dashboard", true);
+    xhttp.open("GET", `/get_snippet?snippet=dashboard&pid=${pid}`, true);
     xhttp.send();
 };
 
@@ -39,7 +43,7 @@ var displayTasks = function () {
 
         }
     }
-    xhttp.open("GET", "/get_snippet?snippet=tasks", true);
+    xhttp.open("GET", `/get_snippet?snippet=tasks&pid=${pid}"`, true);
     xhttp.send();
 };
 
@@ -53,7 +57,7 @@ var displayTeamInbox = function () {
 
         }
     }
-    xhttp.open("GET", "/get_snippet?snippet=teamInbox", true);
+    xhttp.open("GET", `/get_snippet?snippet=teamInbox&pid=${pid}`", true);
     xhttp.send();
 };
 
@@ -67,6 +71,6 @@ var displayPrivateInbox = function () {
 
         }
     }
-    xhttp.open("GET", "/get_snippet?snippet=privateInbox", true);
+    xhttp.open("GET", `/get_snippet?snippet=privateInbox&pid=${pid}`, true);
     xhttp.send();
 };

@@ -11,7 +11,7 @@
 
     <link rel="stylesheet" href="{{ url_for('static', filename='effects.css') }}">
 
-    <title>{{ projectName }} &bull; Tuesday</title>
+    <title>{{ project_name }} &bull; Tuesday</title>
 </head>
 
 <body>
@@ -25,14 +25,18 @@
             <a href="/profile"> <img src="" id="avatar" style="border-radius: 25%;" width = 55; height = 55;> </a>
             <a href="/logout">
                     <button type="button" class="btn btn-warning">Log out</button>
-                </a>
+            </a>
+
         </div>
     </nav>
 
     <div class="container-fluid border-bottom">
         <div class="row">
             <div class="col">
-                <h1 class="display-4">{{ projectName }}</h1>
+                <h1 class="display-4">{{ project_name }}</h1>
+            </div>
+            <div class="col text-right">
+                <i>ID:</i> <b id="project_id">{{p_id}}</b>
             </div>
         </div>
     </div>
