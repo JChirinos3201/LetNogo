@@ -54,7 +54,7 @@ If the limit is reached, we return our own motivational quote :smirk:
 We are using Python 3 as our primary language to facilitate scripting and to utilize the dependencies below.
 We use the following __modules__:
 1. __datetime__ (provides a timestamp for messaging)
-2. __json__ & ___request__ (to request information from our APIs)
+2. __json__ & __request__ (to request information from our APIs)
 3. __random__ (to select a random motivational quote)
 4. __sqlite3__ (to utilize our sqlite3 database `tuesday.db`)
 5. __uuid__ (to create unique identifiers for projects and messages)
