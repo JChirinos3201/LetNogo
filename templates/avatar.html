@@ -36,20 +36,36 @@
       </div>
     </nav>
 
-    <div class="container text-center">
+    <div class="container mt-5 ml-4">
+
       <div class="row">
-	<div class="col-md-4"></div>
-        <div class="col-md-4"><h1 class="display-4 text-center">{{ username }}</h1></div>
-	<div class="col-md-4"></div>
-      </div>
-    </div>
+	<div class="col-md-3">
+	  <img src={{ url }}>
+	  <h2> {{username }} </h2>
+	</div>
+	<div class="col-md-9 pl-5">
+	  <p> Eyes </p>
+	  {% for i in eyes %}
+	  <button type="button">{{ i }}</button>
+	  {% endfor %}
+	  
+	  
+	  <p> Noses </p>
+	  {% for i in eyes %}
+	  <button type="button">{{ i }}</button>
+	  {% endfor %}
+	  
+	  <p> Mouths </p>
+	  {% for i in eyes %}
+	  <button type="button">{{ i }}</button>
+	  {% endfor %}
 
-    <div class="row">
-      <div class="col-md-6">
-	<p>col1</p>
-      </div>
-      <div class="col-md-6">
-
+	  <p> Color </p>
+	  {% for i in eyes %}
+	  <button type="button">{{ i }}</button>
+	  {% endfor %}
+	  
+	</div>
       </div>
     </div>
 

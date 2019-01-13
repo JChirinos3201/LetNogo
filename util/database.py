@@ -520,7 +520,20 @@ class DB_Manager:
             messages.add(i)
         return messages
 
-
+    #=====AVATARS FXNS=====
+def creates_avatars(self):
+    '''
+    CREATES TABLE FOR AVATARS
+    '''
+    def gen_table(tableName, col0, col1, col2, col3,):
+        '''
+        CREATES A 6 COLUMN TABLE IF tableName NOT TAKEN
+        ALL PARAMS ARE STRINGS
+        '''
+        if not self.isInDB(tableName):
+            command = 'CREATE TABLE "{0}"({1}, {2}, {3}, {4}, {5}, {6})'.format(tableName, col0, col1, col2, col3)
+            c.execute(command)
+        gen_table('avatars', 'username TEXT', 'type TEXT', 'value TEXT', 'current TEXT')
     #====================== END OF TUESDAY FXNS ======================
 
 
@@ -528,10 +541,12 @@ class DB_Manager:
 #======================== END OF CLASS DB_Manager =========================
 
 # initiation process and TESTING
-'''
+
 DB_FILE = '../data/tuesday.db'
 initiate = DB_Manager(DB_FILE)
 
+initiate.creates_avatars()
+'''
 # TEST QUOTES
 #initiate.creates_quotes()
 #initiate.update_quote("happy is me", "happy is you", datetime.date(datetime.today()))
