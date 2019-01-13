@@ -2,7 +2,7 @@
 # SoftDev1 pd8
 # P02: The End
 
-import sqlite3, uuid   # enable control of an sqlite database
+import sqlite3   # enable control of an sqlite database
 import uuid
 from datetime import datetime
 
@@ -470,8 +470,8 @@ def get_msgs(pid, private=0):
         messages = []
         for i in selectedVal:
             messages.add(i)
-         db.commit()
-         db.close()
+        db.commit()
+        db.close()
         return messages
     
     c.execute('SELECT msg, user FROM t_msgs WHERE pid = (?)', (pid))
@@ -493,7 +493,7 @@ def add_value(value, username, typee):
     c = db.cursor()
     
     c.execute('SELECT value FROM avatars WHERE username = (?) and type = (?)', (username, typee))
-    c.execute('UPDATE avatars SET value = ? WHERE username = (?) and type = (?)', username, typee))
+    c.execute('UPDATE avatars SET value = ? WHERE username = (?) and type = (?)', (username, typee))
     
     db.commit()
     db.close()
