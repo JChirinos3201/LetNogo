@@ -158,7 +158,7 @@ def authenticate():
             db.registerUser(username, password, firstname, lastname, email, phone)
             #db.save()
             flash('Successfully registered account for user "{0}"'.format(username))
-        return redirect(url_for('index'))
+    return redirect(url_for('index'))
 
 @app.route('/logout')
 def logout():
@@ -194,7 +194,7 @@ def get_info():
     req = request.args['val']
     user = request.args['username']
 
-    userInfo = get_info(username)
+    userInfo = get_info(user)
     pairs = ['first', 'last', 'email', 'phone', 'bio']
     return userInfo[pairs.index(req)]
 
