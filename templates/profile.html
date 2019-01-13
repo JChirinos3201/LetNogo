@@ -18,17 +18,19 @@
 
 
     <nav class="navbar navbar-light bg-success">
-        <a class="navbar-brand mb-0 h1" href="/home">
-        Tuesday
-      </a>
+        <a class="navbar-brand mb-0" href="/home">
+            <h1><em>Tuesday</em></h1>
+        </a>
         <div>
-            <img src="" id="avatar" style="border-radius: 25%;">
+            <a href="/profile"> <img src="" id="avatar" style="border-radius: 25%;" width = 55; height = 55;> </a>
             <a href="/logout">
-                <button type="button" class="btn btn-warning">Log out</button>
+                    <button type="button" class="btn btn-warning">Log out</button>
             </a>
+
         </div>
     </nav>
 
+    <a href="/home" style="z-index: 10000;" class="mx-2 my-2 sticky-top btn btn-warning">Back Home</a>
     <div class="container text-center">
         <h1 class="display-4 text-center">{{ username }}</h1>
 

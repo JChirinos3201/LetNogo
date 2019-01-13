@@ -1,64 +1,111 @@
-// avatar
+var username;
 
-var originalAvatar = document.getElementById("avatar").src;
+var currentEyes;
+var currentNose;
+var currentMouth;
+var currentColor;
 
 window.onload = function () {
-    var originalAvatar = document.getElementById("avatar").src;
-    console.log(originalAvatar);
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+            username = this.responseText;
+            updateCurrentValues();
+        }
+    };
+    xhttp.open("GET", "/get_username", true);
+    xhttp.send();
 };
 
-// eye fxns
+var updateCurrentValues = function () {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+            var response = this.responseText;
+            console.log(response);
+            var obj = JSON.parse(response);
+            currentEyes = obj.eyes;
+            currentNose = obj.nose;
+            currentMouth = obj.mouth;
+            currentColor = obj.color;
+            console.log('got current values');
+            displayCurrentAvatar();
+        }
+    };
+    xhttp.open("GET", "/get_avatar_json", true);
+    xhttp.send();
+};
 
-var changeEye = function(e) {
-  var eye = this.innerHTML
-  var originalEye = originalAvatar.indexOf('eye');
-  var newEye = originalAvatar.replace(originalAvatar.slice(originalEye, originalEye + 5), eye);
-  document.getElementById("avatar").src = newEye;
-}
+var displayCustomAvatar = function (eyes, nose, mouth, color) {
+    url = "https://api.adorable.io/avatars/face/" + eyes + "/" + nose + "/" + mouth + "/" + color;
+    document.getElementById('avatar').src = url;
+    console.log(url);
+};
 
+var displayCurrentAvatar = function () {
+    displayCustomAvatar(currentEyes, currentNose, currentMouth, currentColor);
+};
 
-var eyeList = document.getElementById("eye_list").getElementsByTagName('li')
+var updateEyes = function (newVal) {
+    displayCustomAvatar(newVal, currentNose, currentMouth, currentColor);
+};
 
-for (var i = 0; i < eyeList.length; i++) {
-  eyeList[i].addEventListener('mouseover', changeEye);
-  eyeList[i].addEventListener('mouseout', function(e){
-      document.getElementById("avatar").src = originalAvatar;
-  });
-}
+var updateNose = function (newVal) {
+    displayCustomAvatar(currentEyes, newVal, currentMouth, currentColor);
+};
 
-// nose fxns
-var changeNose = function(e) {
-  var nose = this.innerHTML
-  var originalNose = originalAvatar.indexOf('nose');
-  var newNose = originalAvatar.replace(originalAvatar.slice(originalNose, originalNose + 5), nose);
-  document.getElementById("avatar").src = newNose;
-}
+var updateMouth = function (newVal) {
+    displayCustomAvatar(currentEyes, currentNose, newVal, currentColor);
+};
 
-var noseList = document.getElementById("nose_list").getElementsByTagName('li')
+var updateColor = function (newVal) {
+    displayCustomAvatar(currentEyes, currentNose, currentMouth, newVal);
+};
 
-for (var i = 0; i < noseList.length; i++) {
-  noseList[i].addEventListener('mouseover', changeNose);
-  noseList[i].addEventListener('mouseout', function(e){
-      document.getElementById("avatar").src = originalAvatar;
-  });
-}
+var changeEyes = function (newVal) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+            displayCurrentAvatar();
+            updateCurrentValues();
+        }
+    };
+    xhttp.open("GET", "/update_avatar?what=eyes&newVal=" + newVal, true);
+    xhttp.send();
+};
 
+var changeNose = function (newVal) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+            displayCurrentAvatar();
+            updateCurrentValues();
+        }
+    };
+    xhttp.open("GET", "/update_avatar?what=noses&newVal=" + newVal, true);
+    xhttp.send();
+};
 
-// mouth fxns
-var changeMouth = function(e) {
-  var mouth = this.innerHTML
-  var originalMouth = originalAvatar.indexOf('mouth');
-  var newMouth = originalAvatar.replace(originalAvatar.slice(originalMouth, originalMouth + 6), mouth);
-  console.log(newMouth)
-  document.getElementById("avatar").src = newMouth;
-}
+var changeMouth = function (newVal) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+            displayCurrentAvatar();
+            updateCurrentValues();
+        }
+    };
+    xhttp.open("GET", "/update_avatar?what=mouths&newVal=" + newVal, true);
+    xhttp.send();
+};
 
-var mouthList = document.getElementById("mouth_list").getElementsByTagName('li')
-
-for (var i = 0; i < mouthList.length; i++) {
-  mouthList[i].addEventListener('mouseover', changeMouth);
-  mouthList[i].addEventListener('mouseout', function(e){
-      document.getElementById("avatar").src = originalAvatar;
-  });
-}
-// color fxns?
+var changeColor = function (newVal) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+            displayCurrentAvatar();
+            updateCurrentValues();
+        }
+    };
+    xhttp.open("GET", "/update_avatar?what=color&newVal=" + newVal, true);
+    xhttp.send();
+};

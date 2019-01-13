@@ -64,7 +64,7 @@ def avatar():
     eyes_testing = ['eyes1', 'eyes2', 'eyes3', 'eyes4']
     noses_testing = ['nose2', 'nose3', 'nose4', 'nose5']
     mouths_testing = ['mouth1', 'mouth3', 'mouth5', 'mouth6']
-    color_testing = ['FFFF33', 'C55EB1', '3CDC18', '5A6358']
+    color_testing = ['FFFF33', 'C55EB1', '5A6358', '000000']
 
     url = api.getAvatarLink(str(285), username)
     return render_template('avatar.html', username = username, url = url, eyes = eyes_testing, noses = noses_testing, mouths = mouths_testing, colors = color_testing)
@@ -276,6 +276,19 @@ def update_info():
         db.set_bio(username, newVal)
 
     return "K we good"
+
+@app.route('/update_avatar')
+def update_avatar():
+    what = request.args['what']
+    newVal = request.args['newVal']
+    username = session['username']
+
+    vals = db.get_value(username, what)
+    if newVal not in vals:
+        db.add_value(newVal, username, what)
+    db.update_current(username, what, newVal)
+
+    return "all good, buddy!"
 
 
 

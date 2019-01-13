@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 
-  <head>
+<head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -25,47 +25,53 @@
 
 
     <nav class="navbar navbar-light bg-success">
-        <a class="navbar-brand mb-0 h1" href="/home">
-        Tuesday
-      </a>
-        <div>
-            <img src="" id="avatar_nav" style="border-radius: 25%;">
-            <a href="/logout">
-          <button type="button" class="btn btn-warning">Log out</button>
+        <a class="navbar-brand mb-0" href="/home">
+            <h1><em>Tuesday</em></h1>
         </a>
+        <div>
+            <a href="/profile"> <img src="" id="avatar" style="border-radius: 25%;" width = 55; height = 55;> </a>
+            <a href="/logout">
+                    <button type="button" class="btn btn-warning">Log out</button>
+            </a>
+
         </div>
     </nav>
-
-    <div class="container mt-5 ml-4">
+    <a href="/profile" style="z-index: 10000;" class="mx-2 my-2 sticky-top btn btn-warning">Back to Profile</a>
+    <div class="container mt-3">
 
         <div class="row">
-            <div class="col-md-3">
-                <img id='avatar' src="https://api.adorable.io/avatars/face/eyes1/nose1/mouth1/color1">
-                <h2> {{username }} </h2>
+            <div class="col-md text-center sticky-top bg-white">
+                <img id='avatar' src="https://api.adorable.io/avatars/face/eyes1/nose1/mouth1/color1" class="img-fluid img-thumbnail">
+                <h2 class="h2 my-2">{{username }}</h2>
             </div>
-            <div class="col-md-3"></div>
-            <div class="col-md-6 pl-5">
-                <ul id="eye_list" style="list-style: none;"> Eyes
-                {% for i in eyes %}
-                <li type="button">{{ i }}</li> {% endfor %}
-                </ul>
 
-
-                <ul id="nose_list" style="list-style: none;"> Noses
-                {% for i in noses %}
-                <li type="button">{{ i }}</li> {% endfor %}
-                </ul>
-
-                <ul id="mouth_list" style="list-style: none;"> Mouths
-                {% for i in mouths %}
-                <li type="button">{{ i }}</li> {% endfor %}
-                </ul>
-
-                <ul id="color_list" style="list-style: none;"> Colors
-                {% for i in color %}
-                <li type="button">{{ i }}</li> {% endfor %}
-                </ul>
-
+            <div class="col-md">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md my-3 my-md-0">
+                            <h3 class="h3">Eyes</h3>
+                            {% for i in eyes %}
+                            <button onmouseenter="updateEyes('{{i}}');" onmouseout="displayCurrentAvatar();" onclick="changeEyes('{{i}}')" type="button" class="btn btn-block btn-light border my-0">{{ i }}</button> {% endfor %}
+                        </div>
+                        <div class="col-md my-3 my-md-0">
+                            <h3 class="h3">Noses</h3>
+                            {% for i in noses %}
+                            <button onmouseenter="updateNose('{{i}}');" onmouseout="displayCurrentAvatar();" onclick="changeNose('{{i}}')" type="button" class="btn btn-block btn-light border my-0">{{ i }}</button> {% endfor %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md my-3 my-md-0">
+                            <h3 class="h3">Mouths</h3>
+                            {% for i in mouths %}
+                            <button onmouseenter="updateMouth('{{i}}');" onmouseout="displayCurrentAvatar();" onclick="changeMouth('{{i}}')" type="button" class="btn btn-block btn-light border my-0">{{ i }}</button> {% endfor %}
+                        </div>
+                        <div class="col-md my-3 my-md-0">
+                            <h3 class="h3">Colors</h3>
+                            {% for i in colors %}
+                            <button onmouseenter="updateColor('{{i}}');" onmouseout="displayCurrentAvatar();" onclick="changeColor('{{i}}')" type="button" class="btn btn-block btn-light border my-0" style="background-color: #{{i}};">&nbsp;</button> {% endfor %}
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
