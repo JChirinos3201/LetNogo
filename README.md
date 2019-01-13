@@ -37,6 +37,7 @@ We are utilizing __3__ APIs in this project. See below for more information.
 * __NO KEYS__ :heart_eyes: required for this API
 * Used to return motivational quotes at our login/register page! 
 * Limited to 10 requests/hr 
+
 If the limit is reached, we return our own motivational quote :smirk:
 
 ### [Dino Ipsum API](http://dinoipsum.herokuapp.com/)
