@@ -43,13 +43,13 @@ def home():
 def profile():
     if 'username' not in session:
         return redirect(url_for('index'))
-    
+
     username = session['username']
-    
+
     url = api.getAvatarLink(str(250), username)
     bodyParts = api.bodyParts()
     link = api.customAvatarLink('eyes1', 'nose1', 'mouth1', 'DD00DD')
-    
+
     return render_template('profile.html', username = username, url = url, link = link)
 
 @app.route('/avatar')
@@ -154,16 +154,13 @@ def logout():
 @app.route('/get_snippet')
 def get_snippet():
     snippet = request.args['snippet']
-    if snippet in ['login', 'register', 'projectList', 'newProject', 'joinProject']:
-        print('Getting snippet: {}'.format(snippet))
-        if snippet == 'projectList' and 'username' in session:
-            data = database.DB_Manager(DB_FILE)
-            projectDict = data.get_projects(session['username'])
-            print('Project dict: {}'.format(projectDict))
-            return render_template('{}SNIPPET.html'.format(snippet), projectDict=projectDict)
-        return render_template('{}SNIPPET.html'.format(snippet))
-    else:
-        return 'Invalid Snippet!'
+    print('Getting snippet: {}'.format(snippet))
+    if snippet == 'projectList' and 'username' in session:
+        data = database.DB_Manager(DB_FILE)
+        projectDict = data.get_projects(session['username'])
+        print('Project dict: {}'.format(projectDict))
+        return render_template('{}SNIPPET.html'.format(snippet), projectDict=projectDict)
+    return render_template('{}SNIPPET.html'.format(snippet))
 
 @app.route('/get_avatar')
 def get_avatar():
