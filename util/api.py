@@ -1,7 +1,7 @@
-import datetime, json, random
+import datetime, json, random, sqlite3
 import urllib
 from urllib import request
-from util import database
+from util import db
 
 DB_FILE = "data/tuesday.db"
 
@@ -10,34 +10,19 @@ DB_FILE = "data/tuesday.db"
 #CAUTION: DUE TO QUOTE API LIMIT, THIS FUNC HAS NOT BEEN TESTED
 def checkQuote():
     today = datetime.datetime.today().strftime('%Y-%m-%d')
-
-    data = database.DB_Manager(DB_FILE)
-
-    data.creates_quotes()
-    print(today)
-    if data.get_quote()['date'] != today:
-
+    
+    #print(today)
+    if db.get_quote()['date'] != today:
         try:
             info = updateQuote()
         except:
             info = ["LetNogo is the best language!", 'Joan "HoneyNut" Cheerios', "2019-01-10"]
 
-        data.update_quote(info[0], info[1], info[2])
-        data.save()
+        db.update_quote(info[0], info[1], info[2])
+        
         return False
 
-    data.save()
     return True
-
-    #-------- IGNORE -------
-    #with open('./data/quote.txt') as textfile:
-    #    quote = textfile.read()
-
-    #if quote == "":
-    #    print("Empty text file!")
-    #    updateQuote()
-    #-----------------------
-
 
 def getQuoteCategories():
     category_url = "https://quotes.rest/qod/categories"

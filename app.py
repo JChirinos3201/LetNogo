@@ -8,7 +8,7 @@ from flask import Flask, render_template, redirect, url_for, session, request, f
 import datetime
 import uuid # tentative
 
-from util import database, api
+from util import db, api
 
 #============instantiate Flask object================
 app = Flask(__name__)
@@ -17,18 +17,16 @@ app.secret_key = os.urandom(32)
 #===========manage user data here====================
 
 DB_FILE = 'data/tuesday.db'
+db.create_db()
 
 @app.route('/')
 def index():
-    data = database.DB_Manager(DB_FILE)
-
+    
     today = datetime.datetime.today().strftime('%Y-%m-%d')
 
     api.checkQuote()
 
-    data = database.DB_Manager(DB_FILE)
-    quote = data.get_quote()
-    data.save()
+    quote = db.get_quote()
 
     return render_template('index.html', quote = quote)
 
@@ -111,7 +109,7 @@ def authenticate():
     '''
     References DB_FILE and handles authentication and registration
     '''
-    data = database.DB_Manager(DB_FILE)
+    #data = database.DB_Manager(DB_FILE)
     username, password = request.form['username'], request.form['password']
     #=====LOG IN=====
     if 'submit' not in request.form:
@@ -119,17 +117,17 @@ def authenticate():
     print(request.form['submit'])
     if request.form['submit'] == 'Login':
         # username and password are valid
-        if len(username.strip()) != 0 and len(password.strip()) != 0 and data.verifyUser(username, password):
+        if len(username.strip()) != 0 and len(password.strip()) != 0 and db.verifyUser(username, password):
             session['username'] = username
-            data.save()
+            #data.save()
             return redirect(url_for('home'))
         # user was found but password is incorrect
-        elif data.findUser(username):
+        elif db.findUser(username):
             flash('Incorrect credentials!')
         # user not found in DB at all
         else:
             flash('Incorrect credentials!')
-        data.save()
+        #data.save()
 
     #=====REGISTER=====
     else:
