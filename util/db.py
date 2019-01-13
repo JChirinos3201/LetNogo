@@ -513,17 +513,17 @@ def update_current(username, typee, num):
 
 def get_value(username, typee):
     '''
-    RETURNS DICTIONARY OF VALUES OF GIVEN TYPE
+    RETURNS TUPLE OF VALUES OF GIVEN TYPE
     '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     c.execute('SELECT value FROM avatars WHERE username = (?) and type = (?)', (username, typee))
-    dict = {type: []}
-    dict[type] = c.fetchall()
+
+    value = c.fetchall()
     
     db.close()
 
-    return dict
+    return value
 
 def get_current(username, typee):
     '''
