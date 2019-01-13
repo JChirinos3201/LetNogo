@@ -2,7 +2,7 @@
 # SoftDev1 pd8
 # P02: The End
 
-import sqlite3   # enable control of an sqlite database
+import sqlite3, uuid   # enable control of an sqlite database
 import random
 from datetime import datetime
 
@@ -54,8 +54,8 @@ def registerUser(userName, password, frist, lsat, email, phone):
     
     selectedVal = c.fetchone()
     max_id = 0
-    if selectedValue != None:
-        max_id = selectedValue[0]
+    if selectedVal != None:
+        max_id = selectedVal[0]
     else:
         max_id = 0
         # userName is already in database -- do not continue to add
@@ -64,12 +64,8 @@ def registerUser(userName, password, frist, lsat, email, phone):
         return False
     # userName not in database -- continue to add
     else:
-        cmd = ('INSERT INTO users VALUES (?,?,?);', (userName, password, max_id + 1))
-        c.execute(cmd)
-
-        cmd = ('INSERT INTO profiles VALUES (?,?,?,?);', (frist, lsat, email, phone))
-        c.execute(cmd)
-
+        c.execute('INSERT INTO users VALUES (?,?,?);', (userName, password, max_id + 1))
+        c.execute('INSERT INTO profiles VALUES (?,?,?,?);', (frist, lsat, email, phone))
         #row = (userName, "eyes", "", "")
         #self.insertRow('avatars', row)
         #row = (userName, "nose", "", "")
