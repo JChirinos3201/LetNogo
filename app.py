@@ -331,6 +331,41 @@ def delete_private_message():
     db.remove_msg(msgID, private=1)
     return "All done here, folks!"
 
+@app.route('/get_dashboard')
+def get_dashboard():
+    username = session['username']
+    pid = request.args['pid']
+    print("\n\n\nPID: {}\n\n\n".format(pid))
+
+    messages = db.get_msgs(pid)
+    print("\n\n\nPRIVATE MESSAGES:\n{}\n\n".format(messages))
+
+    tasks = db.get_tasks_pid(pid)
+
+    print('\n\n\nTASKS\n')
+    for i in tasks:
+        print('\t{}\n'.format(i))
+    print('\n\n')
+
+    if len(tasks) > 0:
+        # for status bar
+        # [notstarted, working, done]
+        statusList = [0, 0, 0]
+        for task in tasks:
+            statusList[task[4]] += 1
+        notstarted = (statusList[0] * 100) // len(tasks)
+        working = (statusList[1] * 100) // len(tasks)
+        done = 100 - (notstarted + working)
+
+        # for team members tab thing
+
+    else:
+        done = notstarted = working = 'no tasks'
+
+    return render_template('dashboardSNIPPET.html', messages=messages[:5], done=str(done), working=str(working), notstarted=str(notstarted), tasks=[])
+
+
+
 
 
 

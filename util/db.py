@@ -370,7 +370,7 @@ def remove_task(taskID):
 
     return True
 
-def get_tasks(pid):
+def get_tasks_pid(pid):
     '''
     RETURNS A LIST OF TUPLES FOR THE pid IN THE FORMAT [(task, description, priority, due_date, status, taskID)...]
     '''
@@ -386,7 +386,7 @@ def get_tasks(pid):
     return tasks
 
 
-def get_tasks(pid, username):
+def get_tasks_username(pid, username):
     '''
     RETURNS A DICTIONARY OF tasks FOR THE username IN THE FORMAT {task: (description, priority, due_date, status, taskID)}
     '''

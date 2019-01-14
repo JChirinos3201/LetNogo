@@ -1,13 +1,15 @@
 var sidebarOut = true;
 var pid;
 
-window.onload = function () {
+var setup = function () {
     displayAvatar();
-    displayDash();
     pid = document.getElementById('toClipboard').value;
+    displayDash();
 };
 
-
+var setPID = function () {
+    pid = document.getElementById('toClipboard').value;
+};
 
 var displayAvatar = function () {
     var xhttp = new XMLHttpRequest();
@@ -37,7 +39,7 @@ var displayDash = function () {
             setMinDate();
         }
     };
-    xhttp.open("GET", `/get_snippet?snippet=dashboard&pid=${pid}`, true);
+    xhttp.open("GET", `/get_dashboard?pid=${pid}`, true);
     xhttp.send();
 };
 
@@ -136,7 +138,6 @@ var submitNewTask = function () {
     xhttp.open("GET", "/new_task?task=" + task + "&description=" + desc + "&priority=" + prio + "&due_date=" + date + "&status=" + "0&pid=" + pid, true);
     xhttp.send();
 };
-
 // update char counts
 
 var updateNewTaskCharCount = function () {
