@@ -1,1 +1,52 @@
-hi XD
+<div class="container">
+    <div class="row">
+        <div class="col-md">
+
+            <h2 class="text-center">Team Progress</h2>
+            {% if done != 'no tasks' %}
+            <div class="progress">
+                <div class="progress-bar bg-success" role="progressbar" style="width: {{done}}%"></div>
+                <div class="progress-bar bg-warning" role="progressbar" style="width: {{working}}%"></div>
+                <div class="progress-bar bg-danger" role="progressbar" style="width: {{notstarted}}%"></div>
+            </div>
+            {% else %}
+            <div class="alert alert-warning">Your team doesn't have any tasks yet!</div>
+            {% endif %}
+            <hr>
+            <h2 class="text-center">Recent Team Messages</h2>
+            <div id="messages">
+                <div class="container-fluid">
+                    {% if messages|length > 0 %} {% for message in messages[:5] %}
+                    <div class="row my-2">
+                        <div class="bg-info w-100 rounded-pill py-2 px-3">
+                            <img class="mr-2 rounded-circle" src="" height="30" width="30" onload="getUserImage('{{message[3]}}', '{{message[1]}}')" id="{{message[3]}}"><span class="font-weight-bold">{{message[1]}}</span> said <span class="font-italic">"{{message[2]}}"</span> at <u>{{message[4]}}</u>
+                        </div>
+                    </div>
+                    {% endfor %} {% else %}
+                    <div class="alert alert-warning">Your team doesn't have any messages!</div>
+                    {% endif %}
+                </div>
+            </div>
+            <hr>
+            <h2 class="text-center">What You're Working On</h2>
+            <div id="workingOn">
+
+                <div class="container-fluid">
+                    {% if tasks|length > 0 %} {% for task in tasks %}
+                    <div class="row">
+                        &nbsp;{{ task }}
+                    </div>
+                    {% endfor %} {% else %}
+                    <div class="alert alert-warning">You aren't currently working on anything!</div>
+                    {% endif %}
+                </div>
+
+            </div>
+            <hr class="d-md-none">
+        </div>
+        <div class="col-md">
+            <h2 class="text-center">Team Members</h2>
+
+        </div>
+    </div>
+</div>

@@ -23,7 +23,7 @@
     <title>{{ project_name }} &bull; Tuesday</title>
 </head>
 
-<body>
+<body onload="setup();">
 
 
     <nav class="navbar navbar-light bg-success">
@@ -69,13 +69,45 @@
                     <button class="btn btn-block btn-warning" type="button" data-toggle="collapse" data-target="#joinID" aria-expanded="false" aria-controls="joinID">Invite Members</button>
                     <div class="collapse" id="joinID">
                         <div class="card card-body">
-                            Other team members can join using this ID: <strong><textarea class="form-control" style="resize: none;" rows="5" id="toClipboard" oninput="resetTextarea('{{p_id}}')">{{p_id}}</textarea></strong>
+                            Other team members can join using this ID: <strong><textarea class="form-control" style="resize: none;" rows="5" id="toClipboard" oninput="resetTextarea('{{p_id}}')" onload="setPID();" spellcheck="false" autocapitalize="off" autocorrect="off">{{p_id}}</textarea></strong>
                             <button class="btn btn-sm btn-success btn-block" onclick="copyToClipboard();">Copy to clipboard</button>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="mt-3 mt-sm-0 col-md-9 col-lg-10" id="contentColumn">
+            <div class="my-3 col-md-9 col-lg-10" id="contentColumn">
+
+
+                <div class="container">
+                    <h1 class="display-4">To-do</h1>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md mx-2 my-3 my-md-0 p-0">
+                                <h2 class="bg-warning rounded px-2 py-1 w-100 text-center h-100"> Working On</h2>
+                                <div class="container-fluid" id="workingTasks">
+
+                                </div>
+                            </div>
+                            <div class="col-md mx-2 my-3 py-auto my-md-0 p-0">
+                                <h2 class="bg-danger px-2 py-1 rounded w-100 text-center h-100">Haven't Started</h2>
+                                <div class="container-fluid" id="notStartedTasks">
+
+                                </div>
+                            </div>
+                            <div class="col-md mx-2 my-3 my-md-0 p-0">
+                                <h2 class="bg-success px-2 py-1 rounded w-100 text-center h-100">Done</h2>
+                                <div class="container-fluid" id="doneTasks">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col my-3" id="form_content">
+                                <button type="button" class="btn btn-warning" onclick="displayAddTask();">Add Task</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 
 
