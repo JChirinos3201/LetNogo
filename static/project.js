@@ -131,7 +131,7 @@ var submitNewTask = function () {
     console.log(prio);
     console.log(date);
 
-    xhttp.open("GET", "/task=" + task + "&description=" + desc + "&priority=" + prio + "&due_date=" + date + "&status=" + "Haven't started", true);
+    xhttp.open("GET", "/new_task?task=" + task + "&description=" + desc + "&priority=" + prio + "&due_date=" + date + "&status=" + "Haven't started&pid=" + pid, true);
     xhttp.send();
 };
 

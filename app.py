@@ -89,15 +89,15 @@ def new_project():
 def new_task():
     if 'username' not in session:
         return redirect(url_for('index'))
-    print(request.form)
+    print(request.args)
     # pid TEXT, username TEXT, task TEXT, description TEXT, priority INT, due_date TEXT, status TEXT)
 
-    task = request.form['task']
-    description = request.form['description']
-    priority = request.form['priority']
-    due_date = request.form['due_date']
-    status = request.form['status']
-    pid = request.form['pid']
+    task = request.args['task']
+    description = request.args['description']
+    priority = request.args['priority']
+    due_date = request.args['due_date']
+    status = request.args['status']
+    pid = request.args['pid']
     db.add_task(pid, session['username'], task, description, priority, due_date, status)
 
     return 'added {}'.format(task)
