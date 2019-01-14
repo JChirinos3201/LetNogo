@@ -7,35 +7,6 @@ window.onload = function () {
     pid = document.getElementById('project_id');
 };
 
-var toggleSidebar = function () {
-    var sb = document.getElementById('buttons');
-    if (sidebarOut) {
-        var op = 1;
-        var timer = setInterval(function () {
-            if (op <= 0.1) {
-                clearInterval(timer);
-                sb.style.display = "none";
-            }
-            sb.style.opacity = op;
-            sb.style.filter = 'alpha)opacity=' + op * 100 + ")";
-            op -= op * 0.1;
-        }, 10);
-        sidebarOut = false;
-    } else {
-        var op = 0.1;
-        sb.style.display = "block";
-        var timer = setInterval(function () {
-            if (op >= 0.9) {
-                clearInterval(timer);
-            }
-            sb.style.opacity = op;
-            sb.style.filter = 'alpha)opacity=' + op * 100 + ")";
-            op += op * 0.1;
-        }, 10);
-        sidebarOut = true;
-    }
-};
-
 var displayAvatar = function () {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
@@ -60,8 +31,8 @@ var displayDash = function () {
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById('contentColumn').innerHTML = this.responseText;
-            // console.log(this.responseText);
-
+            // console.log(this.responseText); 
+            setMinDate();
         }
     }
     xhttp.open("GET", `/get_snippet?snippet=dashboard&pid=${pid}`, true);
@@ -88,6 +59,7 @@ var displayAddTask = function () {
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById('form_content').innerHTML = this.responseText;
+            setMinDate();
         }
     }
     xhttp.open("GET", "/get_snippet?snippet=newTask", true);
@@ -143,6 +115,17 @@ var deleteMessage = function (msgID) {
     xhttp.send();
 };
 
+var submitNewTask = function () {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            displayTasks();
+        }
+    }
+    xhttp.open("GET", `/delete_private_msg?msgID=` + msgID, true);
+    xhttp.send();
+}
+
 // update char counts
 
 var updateNewTaskCharCount = function () {
@@ -156,17 +139,17 @@ var updateNewDescriptionCharCount = function () {
     document.getElementById('newTaskDescriptionCount').innerHTML = length + "/150";
 };
 
-var setMinDate = function() {
+var setMinDate = function () {
     n = new Date();
     y = n.getFullYear();
     m = n.getMonth() + 1;
     d = n.getDate();
-    date =  y + "/" + m + "/" + d;
+    date = y + "/" + m + "/" + d;
     document.getElementById('date').min = date;
     console.log(date);
 };
 
-var setID = function() {
+var setID = function () {
     id = document.getElementById('toClipboard').innerHTML
     document.getElementById('task_form').action = "/new_task/" + id
 };

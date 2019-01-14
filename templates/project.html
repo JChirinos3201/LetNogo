@@ -55,16 +55,16 @@
                 <button class="btn btn-block btn-success" type="button" data-toggle="collapse" data-target="#buttons" aria-expanded="false" aria-controls="buttons">Toggle Buttons</button>
                 <div class="btn-group-toggle my-2 collapse show" id="buttons" visible data-toggle="buttons">
 
-                    <label class="btn btn-warning btn-block active">
+                    <label class="btn btn-warning btn-block active" onclick="displayDash();">
                         <input type="radio" name="options" id="option1" autocomplete="off" checked>Dashboard
                     </label>
-                    <label class="btn btn-warning btn-block ">
+                    <label class="btn btn-warning btn-block" onclick="displayTasks();">
                         <input type="radio" name="options" id="option2" autocomplete="off">To-do
                     </label>
-                    <label class="btn btn-warning btn-block ">
+                    <label class="btn btn-warning btn-block" onclick="displayTeamInbox();">
                         <input type="radio" name="options" id="option3" autocomplete="off">Team Inbox
                     </label>
-                    <label class="btn btn-warning btn-block ">
+                    <label class="btn btn-warning btn-block" onclick="displayPrivateInbox();">
                         <input type="radio" name="options" id="option4" autocomplete="off">Private  Inbox
                     </label>
                     <button class="btn btn-block btn-warning" type="button" data-toggle="collapse" data-target="#joinID" aria-expanded="false" aria-controls="joinID">Invite Members</button>
