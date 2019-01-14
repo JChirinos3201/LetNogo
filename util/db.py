@@ -6,7 +6,7 @@ import sqlite3   # enable control of an sqlite database
 import uuid
 from datetime import datetime
 
-DB_FILE = "data/tuesday.db"
+DB_FILE = "../data/tuesday.db"
 
 def create_db():
     '''
@@ -83,7 +83,7 @@ def verifyUser(username, password):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
 
-    c.execute('SELECT user_name, passwords FROM users WHERE user_name = (?)', (username,))
+    c.execute('SELECT user_name, passwords FROM users WHERE user_name=?', (username,))
 
     selectedVal = c.fetchone()
 
@@ -200,7 +200,7 @@ def remove_project(self, pid):
         db = sqlite3.connect(DB_FILE)
         c = db.cursor()
 
-        cmd = 'DELETE FROM projects WHERE pid = {0}'.format(pid)
+        cmd = 'DELETE FROM projects WHERE pid = "{0}"'.format(pid)
         c.execute(cmd)
 
         db.commit()
@@ -217,7 +217,7 @@ def get_info(username):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
 
-    c.execute('SELECT first_name, last_name, email, phone_num, bio FROM profiles WHERE username = (?)', (username,))
+    c.execute('SELECT first_name, last_name, email, phone_num, bio FROM profiles WHERE username=?', (username,))
     data = c.fetchone()
 
     #print(data)
@@ -232,7 +232,7 @@ def get_profile(username):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
 
-    c.execute('SELECT first_name, last_name, email, phone_num, bio FROM profiles where username = (?)', (username))
+    c.execute('SELECT first_name, last_name, email, phone_num, bio FROM profiles where username=?', (username))
 
     selectedVal = c.fetchone()
     profile = {}
@@ -253,7 +253,7 @@ def set_first_name(username, first_name):
     '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    c.execute('UPDATE profiles SET first_name = (?) WHERE username = (?)', (first_name, username))
+    c.execute('UPDATE profiles SET first_name = ? WHERE username =?', (first_name, username))
 
     db.commit()
     db.close()
@@ -266,7 +266,7 @@ def set_last_name(username, last_name):
     '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    c.execute('UPDATE profiles SET last_name = (?) WHERE username = (?)', (last_name, username))
+    c.execute('UPDATE profiles SET last_name = ? WHERE username =?', (last_name, username))
 
     db.commit()
     db.close()
@@ -279,7 +279,7 @@ def set_email(username, email):
     '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    c.execute('UPDATE profiles SET email = (?) WHERE username = (?)', (email, username))
+    c.execute('UPDATE profiles SET email = ? WHERE username=?', (email, username))
 
     db.commit()
     db.close()
@@ -292,7 +292,7 @@ def set_phone(username, phone_num):
     '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    c.execute('UPDATE profiles SET phone_num = (?) WHERE username = (?)', (phone_num, username))
+    c.execute('UPDATE profiles SET phone_num=? WHERE username=?', (phone_num, username))
 
     db.commit()
     db.close()
@@ -305,7 +305,7 @@ def set_bio(username, bio):
     '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    c.execute('UPDATE profiles SET bio = (?) WHERE username = (?)', (bio, username))
+    c.execute('UPDATE profiles SET bio = ? WHERE username=?', (bio, username))
 
     db.commit()
     db.close()
@@ -337,7 +337,7 @@ def remove_task(pid, username, task):
     '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    c.execute('DELETE FROM tasks WHERE pid = (?) AND username = (?) AND task = (?)', (pid, username, task))
+    c.execute('DELETE FROM tasks WHERE pid=? AND username=? AND task=?', (pid, username, task))
 
     db.commit()
     db.close()
@@ -351,7 +351,7 @@ def get_tasks(self, pid, username):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
 
-    c.execute('SELECT task, description, priority, due_date, status FROM tasks where pid = (?) AND username = (?)', (pid, username))
+    c.execute('SELECT task, description, priority, due_date, status FROM tasks where pid=? AND username=?', (pid, username))
 
     selectedVal = c.fetchall()
     task_dict = {}
@@ -369,7 +369,7 @@ def set_description(description, pid, username, task):
     '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    c.execute('UPDATE tasks SET description = (?) WHERE pid = (?) AND username = (?) AND task = (?)', (description, pid, username, task))
+    c.execute('UPDATE tasks SET description = ? WHERE pid=? AND username=? AND task=?', (description, pid, username, task))
 
     db.commit()
     db.close()
@@ -382,7 +382,7 @@ def set_priority(self, priority, pid, username, task):
     '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    c.execute('UPDATE tasks SET priority = (?) WHERE pid = (?) AND username = (?) AND task = (?)', (priority, pid, username, task))
+    c.execute('UPDATE tasks SET priority = ? WHERE pid=? AND username=? AND task=?', (priority, pid, username, task))
 
     db.commit()
     db.close()
@@ -395,7 +395,7 @@ def set_due_date(self, due_date, pid, username, task):
     '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    c.execute('UPDATE tasks SET due_date = (?) WHERE pid = (?) AND username = (?) AND task = (?)', (due_date, pid, username, task))
+    c.execute('UPDATE tasks SET due_date = ? WHERE pid=? AND username=? AND task=?', (due_date, pid, username, task))
 
     db.commit()
     db.close()
@@ -409,7 +409,7 @@ def set_status(self, status, pid, username, task):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
 
-    c.execute('UPDATE tasks SET status = "{0}" WHERE pid = (?) AND username = (?) AND task = (?)', (status, pid, username, task))
+    c.execute('UPDATE tasks SET status = ? WHERE pid=? AND username=? AND task=?', (status, pid, username, task))
 
     db.commit()
     db.close()
@@ -445,11 +445,11 @@ def remove_msg(msg_id, private=0):
     c = db.cursor()
 
     if private == 1:
-        c.execute('DELETE FROM p_msgs WHERE  msg_id = (?)', (msg_id))
+        c.execute('DELETE FROM p_msgs WHERE  msg_id=?', (msg_id))
         db.commit()
         db.close()
         return True
-    c.execute('DELETE FROM t_msgs WHERE msg_id = (?)', (msg_id))
+    c.execute('DELETE FROM t_msgs WHERE msg_id=?', (msg_id))
     db.commit()
     db.close()
     return True
@@ -462,7 +462,7 @@ def get_msgs(pid, private = 0):
     c = db.cursor()
 
     if private == 1:
-        c.execute('SELECT address, user, msg, msg_id, timestamp FROM p_msgs WHERE pid = (?)', (pid,))
+        c.execute('SELECT address, user, msg, msg_id, timestamp FROM p_msgs WHERE pid=?', (pid,))
         selectedVal = c.fetchall()
         messages = []
         for i in selectedVal:
@@ -472,7 +472,7 @@ def get_msgs(pid, private = 0):
         print(messages)
         return messages
 
-    c.execute('SELECT address, user, msg, msg_id, timestamp FROM t_msgs WHERE pid = (?)', (pid,))
+    c.execute('SELECT address, user, msg, msg_id, timestamp FROM t_msgs WHERE pid=?', (pid,))
     selectedVal = c.fetchall()
     messages = []
     for i in selectedVal:
@@ -491,7 +491,7 @@ def add_value(value, username, typee):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
 
-    c.execute('SELECT value FROM avatars WHERE username = (?) AND type = (?)', (username, typee))
+    c.execute('SELECT value FROM avatars WHERE username=? AND type=?', (username, typee))
     #print('\n\n')
     tuple = c.fetchone()[0].split(',')
     list = []
@@ -509,8 +509,8 @@ def add_value(value, username, typee):
         #print(word[0:len(word) - 1])
         word = word[0:len(word) - 1]
         #print(word)
-        
-    c.execute('UPDATE avatars SET value = (?) WHERE username = (?) AND type = (?)', (word, username, typee))
+
+    c.execute('UPDATE avatars SET value = ? WHERE username=? AND type=?', (word, username, typee))
 
     db.commit()
     db.close()
@@ -524,47 +524,43 @@ def update_current(username, typee, num):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
 
-    c.execute('UPDATE avatars SET current = (?) WHERE username = (?) AND type = (?)', (num, username, typee))
+    c.execute('UPDATE avatars SET current = ? WHERE username=? AND type=?', (num, username, typee))
 
     db.commit() #the num is the index of the current
     db.close()
 
     return True;
 
-def get_value(username, typee):
+def get_value(username, type):
     '''
     RETURNS TUPLE OF VALUES OF GIVEN TYPE
     '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
 
-    c.execute('SELECT value FROM avatars WHERE username = (?) and type = (?)', (username, typee))
+    c.execute('SELECT value FROM avatars WHERE username=? and type=?', (username, type))
     value = c.fetchall()
 
     db.close()
 
     return value
 
-def get_current(username, typee):
+def get_current(username, type):
     '''
     RETURNS CURRENT VALUE OF GIVEN TYPE
     '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    c.execute('SELECT value, current FROM avatars WHERE username = (?) AND type = (?)', (username, typee))
 
-    results = c.fetchall()[0]
-    values = results[0]
-    currentIndex = results[1]
+    c.execute('SELECT current FROM avatars WHERE username=? AND type=?', (username, type))
 
-    current = values.split(',')[int(currentIndex)]
-    
-    print(current)
+    values = get_value(username, type)[0]
+    index = c.fetchone()[0]
+
+    current = values[int(index)]
 
     db.close()
-
     return current
 
 if __name__ == '__main__':
      create_db()
-
