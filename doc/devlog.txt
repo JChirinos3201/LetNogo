@@ -16,28 +16,38 @@ Tuesday -- a web application for collaborators to track projects together and se
     \____/_/ \_____\/ \___/_(   \_____\/ \_____\/ \_____\/
 ==============================================================
 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-joanC -- 2019-01-13 11:56
+thomasZ -- 2019-01-13 19:32
 --------------------------------------------------------------
-- Finished v1 of avatar page
-- Finished v1.1 of profile page
+(This is a summary of what happened from the afternoon)
+- Completed the database overhaul
+- Fixed numerous typos that have occurred
+- Linked avatar and the frontend -- meaning that the frontend
+now reads the avatar from the database
+- Created the default avatar
+- Touched up multiple functions for frontend workers
+- Fixed DB issues after Susan implemented new storage methodology
+- AFTER ALL THIS TIME, I FINALLY GIT.CONFIG MY USERNAME AND EMAIL --
+in the past, my edits were not as a contributor but as "th0mazzz authored
+and th0mazzz committed"
 ==============================================================
-
-joanC -- 2019-01-13 11:56
---------------------------------------------------------------
-- Finished v1 of profile page
-==============================================================
-
 thomasZ -- 2019-01-13 13:56
 --------------------------------------------------------------
 - Overhauled the structure of the database methods, new
 file is now called db.py
 ==============================================================
-
+joanC -- 2019-01-13 11:56
+--------------------------------------------------------------
+- Finished v1 of avatar page
+- Finished v1.1 of profile page
+==============================================================
+joanC -- 2019-01-13 11:56
+--------------------------------------------------------------
+- Finished v1 of profile page
+==============================================================
 joanC -- 2019-01-13 11:56
 --------------------------------------------------------------
 - Fixed some database issues
 ==============================================================
-
 joanC -- 2019-01-13 11:29
 --------------------------------------------------------------
 - Fixed phone number regex in app.py
