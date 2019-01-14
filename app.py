@@ -186,6 +186,8 @@ def get_snippet():
         pid = request.args['pid']
         private_messages = db.get_msgs(pid, 1)
         print(private_messages)
+        if (private_messages == []):
+            return """<div class="alert alert-warning">You don't have any private messages ;&#40;</div>"""
         return render_template('{}SNIPPET.html'.format(snippet), private_messages = private_messages)
     return render_template('{}SNIPPET.html'.format(snippet))
 
@@ -290,9 +292,25 @@ def update_avatar():
 
     return "all good, buddy!"
 
-# @app.route('/get_private_messages')
-# def get_pms():
-#
+@app.route('/get_avatar_form_get_edition')
+def get_avatar_from_get():
+    username = request.args['username']
+
+    eyes = db.get_current(username, 'eyes')
+    nose = db.get_current(username, 'noses')
+    mouth = db.get_current(username, 'mouths')
+    color = db.get_current(username, 'color')
+
+    url = api.customAvatarLink(eyes, nose, mouth, color)
+    print('GETTING AVATAR\n\tUsername: {}\n\tURL: {}\n'.format(username, url))
+    print(url)
+    return url
+
+@app.route('/delete_private_message')
+def delete_private_message():
+    msgID = request.args['msgID']
+    db.remove_msg(msgID, private=1)
+    return "All done here, folks!"
 
 
 

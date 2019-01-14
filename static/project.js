@@ -1,11 +1,40 @@
+var sidebarOut = true;
 var pid;
+
 window.onload = function () {
     displayAvatar();
-    displayTasks();
-    pid = document.getElementById('project_id')
+    displayDash();
+    pid = document.getElementById('project_id');
 };
 
-
+var toggleSidebar = function () {
+    var sb = document.getElementById('buttons');
+    if (sidebarOut) {
+        var op = 1;
+        var timer = setInterval(function () {
+            if (op <= 0.1) {
+                clearInterval(timer);
+                sb.style.display = "none";
+            }
+            sb.style.opacity = op;
+            sb.style.filter = 'alpha)opacity=' + op * 100 + ")";
+            op -= op * 0.1;
+        }, 10);
+        sidebarOut = false;
+    } else {
+        var op = 0.1;
+        sb.style.display = "block";
+        var timer = setInterval(function () {
+            if (op >= 0.9) {
+                clearInterval(timer);
+            }
+            sb.style.opacity = op;
+            sb.style.filter = 'alpha)opacity=' + op * 100 + ")";
+            op += op * 0.1;
+        }, 10);
+        sidebarOut = true;
+    }
+};
 
 var displayAvatar = function () {
     var xhttp = new XMLHttpRequest();
@@ -16,6 +45,12 @@ var displayAvatar = function () {
     }
     xhttp.open("GET", "/get_avatar", true);
     xhttp.send();
+};
+
+var copyToClipboard = function () {
+    var copyText = document.getElementById('toClipboard');
+    copyText.select();
+    document.execCommand('copy');
 };
 
 
@@ -43,7 +78,7 @@ var displayTasks = function () {
 
         }
     }
-    xhttp.open("GET", `/get_snippet?snippet=tasks&pid=${pid}"`, true);
+    xhttp.open("GET", `/get_snippet?snippet=tasks&pid=${pid}`, true);
     xhttp.send();
 };
 
@@ -57,7 +92,7 @@ var displayTeamInbox = function () {
 
         }
     }
-    xhttp.open("GET", `/get_snippet?snippet=teamInbox&pid=${pid}`", true);
+    xhttp.open("GET", `/get_snippet?snippet=teamInbox&pid=${pid}`, true);
     xhttp.send();
 };
 
@@ -67,10 +102,33 @@ var displayPrivateInbox = function () {
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById('contentColumn').innerHTML = this.responseText;
-            // console.log(this.responseText);
 
         }
     }
     xhttp.open("GET", `/get_snippet?snippet=privateInbox&pid=${pid}`, true);
     xhttp.send();
 };
+
+var getUserImage = function (msgID, user) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById(msgID).src = this.responseText;
+        }
+    }
+    xhttp.open("GET", `/get_avatar_from_get?username=` + user, true);
+    xhttp.send();
+};
+
+var deleteMessage = function (msgID) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            displayPrivateInbox();
+        }
+    }
+    xhttp.open("GET", `/delete_private_msg?msgID=` + msgID, true);
+    xhttp.send();
+};
+
+//document.getElementById('sidebar').addEventListener('animationend', toggleDisplay());
