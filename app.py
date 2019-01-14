@@ -210,7 +210,7 @@ def get_snippet():
         return render_template('{}SNIPPET.html'.format(snippet), private_messages = private_messages)
     if snippet == 'tasks' and 'username' in session:
         pid = request.args['pid']
-        tasks = db.get_tasks(pid, session['username'])
+        tasks = db.get_tasks_username(pid, session['username'])
         unstarted = {}
         workingon = {}
         done = {}

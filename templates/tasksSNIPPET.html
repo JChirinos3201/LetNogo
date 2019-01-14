@@ -1,51 +1,32 @@
 <div class="container">
   <h1 class="display-4">To-do</h1>
-  <div class="container">
+  
+  <div class="container-fluid">
     <div class="row">
-      <div class="col bg-warning rounded mx-2">
-        <h2> Working On</h2>
+      <div class="col-md-4">
+	<h2 class="bg-warning rounded p-2 w-100 text-center"> Working On</h2> <!--  mx-2 my-3 my-md-0 p-0 "this is some code that Joan left" -->
+	{% for i in task_dict["workingon"] %}
+	<p> {{ i }} </p>
+	{% endfor %}
       </div>
-      <div class="col bg-danger rounded mx-2">
-        <h2>Haven't Started</h2>
+      <div class="col-md-4">
+	<h2 class="bg-danger p-2 rounded w-100 text-center">Haven't Started</h2>
+	{% for i in task_dict["unstarted"] %}
+	<p> {{ i }} </p>
+	{% endfor %}
       </div>
-      <div class="col bg-success rounded mx-2">
-        <h2>Done</h2>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-	
-      </div>
-      <div class="col">
-	
-      </div>
-      <div class="col">
-	
-        <div class="container-fluid">
-          <h2 class="bg-warning rounded p-2 w-100 text-center"> Working On</h2>
-          <div class="col-md mx-2 my-3 my-md-0 p-0">
-	    {% for i in task_dict["workingon"] %}
-	    <p> {{ i }} </p>
-	    {% endfor %}
-          </div>
-        </div>
-        <div class="col-md mx-2 my-3 my-md-0 p-0">
-          <h2 class="bg-danger p-2 rounded w-100 text-center">Haven't Started</h2>
-	  {% for i in task_dict["unstarted"] %}
-	  <p> {{ i }} </p>
-	  {% endfor %}
-        </div>
-        <div class="col-md mx-2 my-3 my-md-0 p-0">
-          <h2 class="bg-success p-2 rounded w-100 text-center">Done</h2>
-	  {% for i in task_dict["done"] %}
-	  <p> {{ i }} </p>
-	  {% endfor %}
-        </div>
-      </div>
-      <div class="row pt-3">
-        <div class="col mx-2" id="form_content">
-          <button type="button" class="btn btn-warning float-left" onclick="displayAddTask();">Add Task</button>
-        </div>
+      <div class="col-md-4">
+	<h2 class="bg-success p-2 rounded w-100 text-center">Done</h2>
+	{% for i in task_dict["done"] %}
+	<p> {{ i }} </p>
+	{% endfor %}
       </div>
     </div>
   </div>
+  
+</div>
+<div class="row pt-3">
+  <div class="col mx-2" id="form_content">
+    <button type="button" class="btn btn-warning float-left" onclick="displayAddTask();">Add Task</button>
+  </div>
+</div>
