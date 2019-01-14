@@ -208,6 +208,25 @@ def get_snippet():
         if (private_messages == []):
             return """<div class="alert alert-warning">You don't have any private messages ;&#40;</div>"""
         return render_template('{}SNIPPET.html'.format(snippet), private_messages = private_messages)
+    if snippet == 'tasks' and 'username' in session:
+        pid = request.args['pid']
+        tasks = db.get_tasks(pid, session['username'])
+        unstarted = {}
+        workingon = {}
+        done = {}
+        for key in tasks:
+            if tasks[key][3] == 0:
+                unstarted[key] = tasks[key]
+            elif tasks[key][3] == 1:
+                workingon[key] = tasks[key]
+            else:
+                done[key] = tasks[key]
+        print('UNSTARTED:\n',unstarted)
+        print('WORKINGON:\n',workingon)
+        print('DONE:\n',done)
+        task_dict = {'unstarted': unstarted, 'workingon': workingon, 'done': done}
+        print('TASK_DICT', task_dict)
+        return render_template('{}SNIPPET.html'.format(snippet), task_dict = task_dict)
     return render_template('{}SNIPPET.html'.format(snippet))
 
 @app.route('/get_avatar')

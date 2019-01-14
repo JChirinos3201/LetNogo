@@ -14,13 +14,19 @@
         </div>
         <div class="row">
             <div class="col">
-
+	      {% for i in task_dict["workingon"] %}
+	      <p> {{ i }} </p>
+	      {% endfor %}
             </div>
             <div class="col">
-
+	      {% for i in task_dict["unstarted"] %}
+	      <p> {{ i }} </p>
+	      {% endfor %}
             </div>
             <div class="col">
-
+	      {% for i in task_dict["done"] %}
+	      <p> {{ i }} </p>
+	      {% endfor %}
             </div>
         </div>
         <div class="row pt-3">
