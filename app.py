@@ -290,6 +290,19 @@ def update_avatar():
 
     return "all good, buddy!"
 
+# @app.route('/get_private_messages')
+# def get_pms():
+#
+
+
+
+
+
+
+
+
+
+
 
 
 if __name__ == '__main__':
