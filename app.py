@@ -77,6 +77,9 @@ def new_project():
     #data = database.DB_Manager(DB_FILE)
     print(request.form)
     projectName = request.form['newProjectName']
+    if ' ' in projectName or projectName.strip() == '' or '?' in projectName:
+        flash('Invalid project name!')
+        return redirect(url_for('home'))
     pid = str(uuid.uuid1())
 
     print('CREATING NEW PROJECT\n\tProject Name: {}\n\tProject ID: {}\n\tUsername: {}\n'.format(projectName, pid, session['username']))

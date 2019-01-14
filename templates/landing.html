@@ -37,6 +37,13 @@
 
     <div class="container-fluid mt-2">
         <div class="row">
+            {% set msgs = get_flashed_messages() %} {% for msg in msgs %}
+            <div class="col">
+                <div class="alert alert-warning">{{msg}}</div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="row">
             <div class="col-sm-4 col-md-3 col-lg-2 flex-column" bg-success id="buttonColumn">
                 <button class="btn btn-lg btn-block btn-warning" onclick="displayExistingProjects();">Your Projects</button>
                 <button class="btn btn-lg btn-block btn-warning" onclick="displayNewProject();">New Project</button>
