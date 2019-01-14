@@ -16,6 +16,13 @@ Tuesday -- a web application for collaborators to track projects together and se
     \____/_/ \_____\/ \___/_(   \_____\/ \_____\/ \_____\/
 ==============================================================
 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+johnnyW -- 2019-01-14 02:29
+--------------------------------------------------------------
+- Wrote a basic message card model
+- Added task card and associated JS into project.js and
+  newTaskSNIPPET.html
+- Wrote coin table and assosiated methods in db.py
+==============================================================
 joanC -- 2019-01-14 00:07
 --------------------------------------------------------------
 - Made project page a little prettier
