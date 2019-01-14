@@ -40,6 +40,11 @@
 
     <a href="/home" style="z-index: 10000;" class="mx-2 my-2 sticky-top btn btn-warning">Back Home</a>
     <div class="container text-center">
+      <div class="callout">
+	{% set msgs = get_flashed_messages() %}
+	{{ msgs }}
+      </div>
+      
         <h1 class="display-4 text-center">{{ username }}</h1>
 
         <div class="my-3">

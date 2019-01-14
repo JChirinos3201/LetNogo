@@ -16,6 +16,12 @@ Tuesday -- a web application for collaborators to track projects together and se
     \____/_/ \_____\/ \___/_(   \_____\/ \_____\/ \_____\/
 ==============================================================
 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+thomasZ -- 2019-01-14 15:33
+--------------------------------------------------------------
+- Attempted to flash messages when users entered what should be
+invalid email addresses; was unable to do so
+- The check was implemented though, just not the flashing... (look in app.py)
+==============================================================
 thomasZ and johnnyW -- 2019-01-14 14:03
 --------------------------------------------------------------
 - Experimented with the tasks cards
