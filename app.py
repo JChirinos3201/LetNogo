@@ -85,6 +85,23 @@ def new_project():
 
     return redirect(url_for('home'))
 
+@app.route('/new_task/<id>', methods=['POST'])
+def new_task(id):
+    if 'username' not in session:
+        return redirect(url_for('index'))
+    print(request.form)
+    # pid TEXT, username TEXT, task TEXT, description TEXT, priority INT, due_date TEXT, status TEXT)
+
+    task = request.form['task']
+    description = request.form['description']
+    priority = request.form['priority']
+    due_date = request.form['due_date']
+    status = request.form['status']
+    db.add_task(id, session['username'], task, description, priority, due_date, status)
+
+    return 'added {}'.format(task)
+
+
 @app.route('/join_project', methods=["POST"])
 def join_project():
     '''
@@ -92,11 +109,9 @@ def join_project():
     '''
     if 'username' not in session:
         return redirect(url_for('index'))
-    data = database.DB_Manager(DB_FILE)
     id = str(request.form['id'])
-    title = data.get_project(id)
-    data.add_project(id, session['username'], title)
-    data.save()
+    title = db.get_project(id)
+    db.add_project(id, session['username'], title)
     return redirect(url_for('home'))
 
 @app.route('/project/<title>/<id>')
@@ -311,7 +326,6 @@ def delete_private_message():
     msgID = request.args['msgID']
     db.remove_msg(msgID, private=1)
     return "All done here, folks!"
-
 
 
 

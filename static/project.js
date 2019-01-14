@@ -82,6 +82,18 @@ var displayTasks = function () {
     xhttp.send();
 };
 
+
+var displayAddTask = function () {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            document.getElementById('form_content').innerHTML = this.responseText;
+        }
+    }
+    xhttp.open("GET", "/get_snippet?snippet=newTask", true);
+    xhttp.send();
+};
+
 // team inbox
 var displayTeamInbox = function () {
     var xhttp = new XMLHttpRequest();
@@ -131,4 +143,30 @@ var deleteMessage = function (msgID) {
     xhttp.send();
 };
 
-//document.getElementById('sidebar').addEventListener('animationend', toggleDisplay());
+// update char counts
+
+var updateNewTaskCharCount = function () {
+    var name = document.getElementById('newTaskName').value;
+    var length = name.length;
+    document.getElementById('newTaskCharCount').innerHTML = length + "/100";
+};
+var updateNewDescriptionCharCount = function () {
+    var name = document.getElementById('newTaskDescription').value;
+    var length = name.length;
+    document.getElementById('newTaskDescriptionCount').innerHTML = length + "/150";
+};
+
+var setMinDate = function() {
+    n = new Date();
+    y = n.getFullYear();
+    m = n.getMonth() + 1;
+    d = n.getDate();
+    date =  y + "/" + m + "/" + d;
+    document.getElementById('date').min = date;
+    console.log(date);
+};
+
+var setID = function() {
+    id = document.getElementById('toClipboard').innerHTML
+    document.getElementById('task_form').action = "/new_task/" + id
+};
