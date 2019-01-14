@@ -107,6 +107,7 @@ def getUserBitcoin(username):
     selectedVal = c.fetchone()
     db.commit()
     db.close()
+    return selectedVal[0]
 
 def setUserBitcoin(username, bitcoin):
     '''
@@ -117,6 +118,7 @@ def setUserBitcoin(username, bitcoin):
     c.execute('UPDATE coin SET bitcoin = ? WHERE user_name = ?', (bitcoin, username, ))
     db.commit()
     db.close()
+    return True
 
 #======QUOTE FXNS========
 
