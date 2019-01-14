@@ -4,8 +4,10 @@ var pid;
 window.onload = function () {
     displayAvatar();
     displayDash();
-    pid = document.getElementById('project_id');
+    pid = document.getElementById('toClipboard').value;
 };
+
+
 
 var displayAvatar = function () {
     var xhttp = new XMLHttpRequest();
@@ -131,7 +133,7 @@ var submitNewTask = function () {
     console.log(prio);
     console.log(date);
 
-    xhttp.open("GET", "/new_task?task=" + task + "&description=" + desc + "&priority=" + prio + "&due_date=" + date + "&status=" + "Haven't started&pid=" + pid, true);
+    xhttp.open("GET", "/new_task?task=" + task + "&description=" + desc + "&priority=" + prio + "&due_date=" + date + "&status=" + "0&pid=" + pid, true);
     xhttp.send();
 };
 
