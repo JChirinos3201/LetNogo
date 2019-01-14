@@ -24,7 +24,7 @@ def create_db():
     c.execute("CREATE TABLE IF NOT EXISTS notes(username TEXT, note TEXT)")
     c.execute("CREATE TABLE IF NOT EXISTS quotes (quote TEXT, author TEXT, date TEXT)")
     c.execute("CREATE TABLE IF NOT EXISTS users (user_name TEXT PRIMARY KEY, passwords TEXT)")
-    c.execute("CREATE TABLE IF NOT EXISTS coin (user_name TEXT PRIMARY KEY, bitcoin INT)")
+    c.execute("CREATE TABLE IF NOT EXISTS coin (user_name TEXT PRIMARY KEY, bitcoin INTEGER)")
 
     return True;
 
@@ -105,6 +105,7 @@ def getUserBitcoin(username):
     c = db.cursor()
     c.execute('SELECT bitcoin FROM coin WHERE user_name=?', (username,))
     selectedVal = c.fetchone()
+    db.commit()
     db.close()
 
 def setUserBitcoin(username, bitcoin):
@@ -114,6 +115,7 @@ def setUserBitcoin(username, bitcoin):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     c.execute('UPDATE coin SET bitcoin = ? WHERE user_name = ?', (bitcoin, username, ))
+    db.commit()
     db.close()
 
 #======QUOTE FXNS========
@@ -365,6 +367,22 @@ def remove_task(taskID):
     db.close()
 
     return True
+
+def get_tasks(pid):
+    '''
+    RETURNS A LIST OF TUPLES FOR THE pid IN THE FORMAT [(task, description, priority, due_date, status, taskID)...]
+    '''
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    c.execute('SELECT task, description, priority, due_date, status, taskID FROM tasks WHERE pid=?', (pid,))
+    selectedVals = c.fetchall()
+    tasks = []
+    for i in selectedVals:
+        tasks.append(i)
+    db.commit()
+    db.close()
+    return tasks
+
 
 def get_tasks(pid, username):
     '''
