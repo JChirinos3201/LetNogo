@@ -85,8 +85,8 @@ def new_project():
 
     return redirect(url_for('home'))
 
-@app.route('/new_task/<id>', methods=['POST'])
-def new_task(id):
+@app.route('/new_task', methods=['GET'])
+def new_task():
     if 'username' not in session:
         return redirect(url_for('index'))
     print(request.form)
@@ -97,7 +97,8 @@ def new_task(id):
     priority = request.form['priority']
     due_date = request.form['due_date']
     status = request.form['status']
-    db.add_task(id, session['username'], task, description, priority, due_date, status)
+    pid = request.form['pid']
+    db.add_task(pid, session['username'], task, description, priority, due_date, status)
 
     return 'added {}'.format(task)
 

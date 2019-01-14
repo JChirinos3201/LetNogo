@@ -20,7 +20,7 @@ def create_db():
     c.execute("CREATE TABLE IF NOT EXISTS t_msgs(pid TEXT, address TEXT, user TEXT, msg TEXT, msg_id TEXT, timestamp TEXT)")
     c.execute("CREATE TABLE IF NOT EXISTS profiles (username TEXT, first_name TEXT, last_name TEXT, email TEXT, phone_num TEXT, bio TEXT)")
     c.execute("CREATE TABLE IF NOT EXISTS projects (pid TEXT, username TEXT, p_name TEXT)")
-    c.execute("CREATE TABLE IF NOT EXISTS tasks (pid TEXT, username TEXT, task TEXT, description TEXT, priority INT, due_date TEXT, status TEXT)")
+    c.execute("CREATE TABLE IF NOT EXISTS tasks (pid TEXT, username TEXT, task TEXT, description TEXT, priority INT, due_date TEXT, status TEXT, taskID TEXT)")
     c.execute("CREATE TABLE IF NOT EXISTS notes(username TEXT, note TEXT)")
     c.execute("CREATE TABLE IF NOT EXISTS quotes (quote TEXT, author TEXT, date TEXT)")
     c.execute("CREATE TABLE IF NOT EXISTS users (user_name TEXT PRIMARY KEY, passwords TEXT)")
@@ -315,101 +315,102 @@ def set_bio(username, bio):
 
 def add_task(pid, username, task, description, priority, due_date, status):
     '''
-    ADDS A ROW TO tasks TABLE OF INPUT VALUES pid, username, task, description, priority, due_date, and status
+    ADDS A ROW TO tasks TABLE OF INPUT VALUES pid, username, task, description, priority, due_date, status, and taskID
     @priority is the only int
     other inputs are strings
     '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
 
-    data = (pid, username, task, description, priority, due_date, status)
+    taskID = str(uuid.uuid1())
+    data = (pid, username, task, description, priority, due_date, status, taskID)
 
-    c.execute('INSERT INTO tasks VALUES(?, ?, ?, ?, ?, ?, ?)', data)
+    c.execute('INSERT INTO tasks VALUES(?, ?, ?, ?, ?, ?, ?, ?)', data)
 
     db.commit()
     db.close()
 
     return True
 
-def remove_task(pid, username, task):
+def remove_task(taskID):
     '''
     REMOVES A ROW FROM tasks GIVEN pid, username, and task
     '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    c.execute('DELETE FROM tasks WHERE pid=? AND username=? AND task=?', (pid, username, task))
+    c.execute('DELETE FROM tasks WHERE taskID=?', (taskID))
 
     db.commit()
     db.close()
 
     return True
 
-def get_tasks(self, pid, username):
+def get_tasks(pid, username):
     '''
-    RETURNS A DICTIONARY OF tasks FOR THE username IN THE FORMAT task: (description, priority, due_date, status)
+    RETURNS A DICTIONARY OF tasks FOR THE username IN THE FORMAT {task: (description, priority, due_date, status, taskID)}
     '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
 
-    c.execute('SELECT task, description, priority, due_date, status FROM tasks where pid=? AND username=?', (pid, username))
+    c.execute('SELECT task, description, priority, due_date, status, taskID FROM tasks where pid=? AND username=?', (pid, username))
 
     selectedVal = c.fetchall()
     task_dict = {}
     for i in selectedVal:
-        task_dict[i[0]] = (i[1], i[2], i[3], i[4])
+        task_dict[i[0]] = (i[1], i[2], i[3], i[4], i[5])
 
     db.commit()
     db.close()
 
     return task_dict
 
-def set_description(description, pid, username, task):
+def set_description(description, taskID):
     '''
-    SET THE description OF A ROW IN tasks GIVEN pid, username, AND task
+    SET THE description OF A ROW IN tasks GIVEN taskID
     '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    c.execute('UPDATE tasks SET description = ? WHERE pid=? AND username=? AND task=?', (description, pid, username, task))
+    c.execute('UPDATE tasks SET description = ? WHERE taskID=?', (taskID))
 
     db.commit()
     db.close()
 
     return True
 
-def set_priority(self, priority, pid, username, task):
+def set_priority(priority, taskID):
     '''
     SET THE priority OF A ROW IN tasks GIVEN pid, username, AND task
     '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    c.execute('UPDATE tasks SET priority = ? WHERE pid=? AND username=? AND task=?', (priority, pid, username, task))
+    c.execute('UPDATE tasks SET priority = ? WHERE taskID=?', (priority, taskID))
 
     db.commit()
     db.close()
 
     return True
 
-def set_due_date(self, due_date, pid, username, task):
+def set_due_date(due_date, taskID):
     '''
     SET THE due_date OF A ROW IN tasks GIVEN pid, username, AND task
     '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    c.execute('UPDATE tasks SET due_date = ? WHERE pid=? AND username=? AND task=?', (due_date, pid, username, task))
+    c.execute('UPDATE tasks SET due_date = ? WHERE taskID=?', (due_date, taskID))
 
     db.commit()
     db.close()
 
     return True
 
-def set_status(self, status, pid, username, task):
+def set_status(status, taskID):
     '''
     SET THE status OF A ROW IN tasks GIVEN pid, username, AND task
     '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
 
-    c.execute('UPDATE tasks SET status = ? WHERE pid=? AND username=? AND task=?', (status, pid, username, task))
+    c.execute('UPDATE tasks SET status = ? WHERE taskID=?', (status, taskID))
 
     db.commit()
     db.close()

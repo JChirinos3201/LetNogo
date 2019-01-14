@@ -19,6 +19,7 @@
         .hidebar {
             display: none;
         }
+
     </style>
 
     <title>{{ project_name }} &bull; Tuesday</title>
@@ -70,7 +71,7 @@
                     <button class="btn btn-block btn-warning" type="button" data-toggle="collapse" data-target="#joinID" aria-expanded="false" aria-controls="joinID">Invite Members</button>
                     <div class="collapse" id="joinID">
                         <div class="card card-body">
-                            Other team members can join using this ID: <strong><textarea class="form-control" style="resize: none;" rows="5" id="toClipboard" disabled>{{p_id}}</textarea></strong>
+                            Other team members can join using this ID: <strong><textarea class="form-control" style="resize: none;" rows="5" id="toClipboard" oninput="resetTextarea('{{p_id}}')">{{p_id}}</textarea></strong>
                             <button class="btn btn-sm btn-success btn-block" onclick="copyToClipboard();">Copy to clipboard</button>
                         </div>
                     </div>
