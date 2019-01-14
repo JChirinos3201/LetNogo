@@ -15,7 +15,7 @@ def create_db():
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
 
-    c.execute("CREATE TABLE IF NOT EXISTS avatars(username TEXT, type TEXT, value TEXT, current TEXT)")
+    c.execute("CREATE TABLE IF NOT EXISTS avatars(username TEXT, type TEXT, value TEXT, current INTEGER)")
     c.execute("CREATE TABLE IF NOT EXISTS p_msgs(pid TEXT, address TEXT, user TEXT, msg TEXT, msg_id TEXT, timestamp TEXT)")
     c.execute("CREATE TABLE IF NOT EXISTS t_msgs(pid TEXT, address TEXT, user TEXT, msg TEXT, msg_id TEXT, timestamp TEXT)")
     c.execute("CREATE TABLE IF NOT EXISTS profiles (username TEXT, first_name TEXT, last_name TEXT, email TEXT, phone_num TEXT, bio TEXT)")
@@ -493,22 +493,16 @@ def add_value(value, username, typee):
 
     c.execute('SELECT value FROM avatars WHERE username=? AND type=?', (username, typee))
     #print('\n\n')
-    tuple = c.fetchone()[0].split(',')
+    t = c.fetchall()
+    t = t[0][0]
+    t = t.split(',')
     list = []
-    for i in tuple:
+    for i in t:
         if len(i) > 1 and i != None:
             list.append(i)
     if value not in list:
         list.append(value)
-    word = ""
-    for i in list:
-        word += i + ","
-    if len(list) > 1:
-        #print('length is greater than 1')
-        #print(word)
-        #print(word[0:len(word) - 1])
-        word = word[0:len(word) - 1]
-        #print(word)
+    word = ','.join(list)
 
     c.execute('UPDATE avatars SET value = ? WHERE username=? AND type=?', (word, username, typee))
 
@@ -517,29 +511,37 @@ def add_value(value, username, typee):
 
     return True;
 
-def update_current(username, typee, num):
+def update_current(username, typee, new):
     '''
     UPDATES CURRENT IN TABLE OF AVATARS
     '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
 
-    c.execute('UPDATE avatars SET current = ? WHERE username=? AND type=?', (num, username, typee))
+    vals = get_value(username, typee).split(',')
+    if new in vals:
 
-    db.commit() #the num is the index of the current
+        index = vals.index(new)
+
+        c.execute('UPDATE avatars SET current = ? WHERE username=? AND type=?', (index, username, typee))
+
+        db.commit()
+        db.close()
+
+        return True
     db.close()
-
-    return True;
+    return False
 
 def get_value(username, type):
     '''
-    RETURNS TUPLE OF VALUES OF GIVEN TYPE
+    RETURNS VALUES OF GIVEN TYPE AS A STRING
+    EX. "eyes1,eyes4"
     '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
 
     c.execute('SELECT value FROM avatars WHERE username=? and type=?', (username, type))
-    value = c.fetchall()
+    value = c.fetchall()[0][0]
 
     db.close()
 
@@ -552,12 +554,14 @@ def get_current(username, type):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
 
-    c.execute('SELECT current FROM avatars WHERE username=? AND type=?', (username, type))
+    c.execute('SELECT value, current FROM avatars WHERE username=? AND type=?', (username, type))
 
-    values = get_value(username, type)[0]
-    index = c.fetchone()[0]
+    tuple = c.fetchall()[0]
 
-    current = values[int(index)]
+    val = tuple[0]
+    index = tuple[1]
+
+    current = val.split(',')[index]
 
     db.close()
     return current
