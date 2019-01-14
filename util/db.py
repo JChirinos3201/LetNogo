@@ -454,7 +454,7 @@ def remove_msg(msg_id, private=0):
     db.close()
     return True
 
-def get_msgs(pid, private=0):
+def get_msgs(pid, private = 0):
     '''
     RETURNS A LIST OF MESSAGE TUPLES GIVEN pid
     '''
@@ -462,22 +462,24 @@ def get_msgs(pid, private=0):
     c = db.cursor()
 
     if private == 1:
-        c.execute('SELECT msg, user FROM p_msgs WHERE pid = (?)', (pid))
+        c.execute('SELECT address, user, msg, msg_id, timestamp FROM p_msgs WHERE pid = (?)', (pid,))
         selectedVal = c.fetchall()
         messages = []
         for i in selectedVal:
-            messages.add(i)
+            messages.append(i)
         db.commit()
         db.close()
+        print(messages)
         return messages
 
-    c.execute('SELECT msg, user FROM t_msgs WHERE pid = (?)', (pid))
+    c.execute('SELECT address, user, msg, msg_id, timestamp FROM t_msgs WHERE pid = (?)', (pid,))
     selectedVal = c.fetchall()
     messages = []
     for i in selectedVal:
-        messages.add(i)
+        messages.append(i)
     db.commit()
     db.close()
+    print(messages)
     return messages
 
 #=====AVATARS FXNS=====

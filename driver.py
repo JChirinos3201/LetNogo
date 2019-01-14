@@ -14,9 +14,9 @@ DB_FILE = 'data/tuesday.db'
 db.create_db()
 
 #db.add_value('eyes', 'u', 'eyes')
-db.get_current('u', 'eyes')
+#db.get_current('u', 'eyes')
 
-
+db.get_msgs("cc66a806-178f-11e9-b685-00bb60088044")
 
 
 
