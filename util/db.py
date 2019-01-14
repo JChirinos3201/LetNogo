@@ -6,7 +6,7 @@ import sqlite3   # enable control of an sqlite database
 import uuid
 from datetime import datetime
 
-DB_FILE = "../data/tuesday.db"
+DB_FILE = "data/tuesday.db"
 
 def create_db():
     '''

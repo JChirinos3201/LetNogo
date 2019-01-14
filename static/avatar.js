@@ -39,6 +39,7 @@ var updateCurrentValues = function () {
 var displayCustomAvatar = function (eyes, nose, mouth, color) {
     url = "https://api.adorable.io/avatars/face/" + eyes + "/" + nose + "/" + mouth + "/" + color;
     document.getElementById('avatarBoi').src = url;
+    document.getElementById('avatar').src = url;
     console.log(url);
 };
 
