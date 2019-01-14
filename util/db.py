@@ -437,7 +437,7 @@ def add_msg(pid, address, user, msg, msg_id, timestamp, private=0):
     db.close()
     return True
 
-def remove_msg(pid, msg_id, private=0):
+def remove_msg(msg_id, private=0):
     '''
     REMOVES A ROW FROM msgs GIVEN pid and msg_id
     '''
@@ -445,11 +445,11 @@ def remove_msg(pid, msg_id, private=0):
     c = db.cursor()
 
     if private == 1:
-        c.execute('DELETE FROM p_msgs WHERE pid = (?) AND msg_id = (?)', (pid, msg_id))
+        c.execute('DELETE FROM p_msgs WHERE  msg_id = (?)', (msg_id))
         db.commit()
         db.close()
         return True
-    c.execute('DELETE FROM t_msgs WHERE pid = (?) AND msg_id = (?)', (pid, msg_id))
+    c.execute('DELETE FROM t_msgs WHERE msg_id = (?)', (msg_id))
     db.commit()
     db.close()
     return True
