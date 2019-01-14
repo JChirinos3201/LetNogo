@@ -52,8 +52,8 @@
     <div class="container-fluid mt-2">
         <div class="row">
             <div class="col-md-3 col-lg-2" bg-success id="buttonColumn">
-                <button class="btn btn-lg btn-block btn-success" onclick="toggleSidebar();">Toggle Buttons</button>
-                <div class="my-2" id="buttons">
+                <button class="btn btn-lg btn-block btn-success" type="button" data-toggle="collapse" data-target="#buttons" aria-expanded="false" aria-controls="buttons">Toggle Buttons</button>
+                <div class="my-2 collapse" id="buttons">
                     <button class="btn btn-lg btn-block btn-warning" onclick="displayDash()">Dashboard</button>
                     <button class="btn btn-lg btn-block btn-warning" onclick="displayTasks()">To-do</button>
                     <button class="btn btn-lg btn-block btn-warning" onclick="displayTeamInbox()">Team Inbox</button>
@@ -61,7 +61,7 @@
                     <button class="btn btn-lg btn-block btn-warning" type="button" data-toggle="collapse" data-target="#joinID" aria-expanded="false" aria-controls="joinID">Invite Members</button>
                     <div class="collapse" id="joinID">
                         <div class="card card-body">
-                            Other team members can join using this ID: <strong><textarea class="form-control" style="resize: none;" rows="5" id="toClipboard">{{p_id}}</textarea></strong>
+                            Other team members can join using this ID: <strong><textarea class="form-control" style="resize: none;" rows="5" id="toClipboard" disabled>{{p_id}}</textarea></strong>
                             <button class="btn btn-sm btn-success btn-block" onclick="copyToClipboard();">Copy to clipboard</button>
                         </div>
                     </div>
