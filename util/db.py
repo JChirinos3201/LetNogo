@@ -24,6 +24,7 @@ def create_db():
     c.execute("CREATE TABLE IF NOT EXISTS notes(username TEXT, note TEXT)")
     c.execute("CREATE TABLE IF NOT EXISTS quotes (quote TEXT, author TEXT, date TEXT)")
     c.execute("CREATE TABLE IF NOT EXISTS users (user_name TEXT PRIMARY KEY, passwords TEXT)")
+    c.execute("CREATE TABLE IF NOT EXISTS coin (user_name TEXT PRIMARY KEY, bitcoin INT)")
 
     return True;
 
@@ -57,6 +58,7 @@ def registerUser(username, password, firstname, lastname, email, phone):
         print('\n\nREGISTERING USER\n\n')
         print('\n\tusername: {}\n\tPassword: {}\n\tFirst: {}\n\tLast: {}\n\tEmail: {}\n\tPhone: {}\n\n\n'.format(username, password, firstname, lastname, email, phone))
         c.execute('INSERT INTO users VALUES (?,?)', (username, password))
+        c.execute('INSERT INTO coin VALUES (?, ?)', (username, 0))
         c.execute('INSERT INTO profiles VALUES (?,?,?,?,?,?);', (username, firstname, lastname, email, phone, ""))
 
         c.execute('INSERT INTO avatars VALUES (?,?,?,?)', (username, 'eyes', 'eyes1', '0'))
@@ -94,6 +96,25 @@ def verifyUser(username, password):
     if username == selectedVal[0] and password == selectedVal[1]:
         return True
     return False
+
+def getUserBitcoin(username):
+    '''
+    RETURNS AMOUNT OF bitcoin username HAS
+    '''
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    c.execute('SELECT bitcoin FROM coin WHERE user_name=?', (username,))
+    selectedVal = c.fetchone()
+    db.close()
+
+def setUserBitcoin(username, bitcoin):
+    '''
+    UPDATES AMOUNT OF bitcoin username HAS
+    '''
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    c.execute('UPDATE coin SET bitcoin = ? WHERE user_name = ?', (bitcoin, username, ))
+    db.close()
 
 #======QUOTE FXNS========
 
