@@ -52,13 +52,22 @@
     <div class="container-fluid mt-2">
         <div class="row">
             <div class="col-md-3 col-lg-2" bg-success id="buttonColumn">
-                <button class="btn btn-lg btn-block btn-success" type="button" data-toggle="collapse" data-target="#buttons" aria-expanded="false" aria-controls="buttons">Toggle Buttons</button>
-                <div class="my-2 collapse show" id="buttons" visible>
-                    <button class="btn btn-lg btn-block btn-warning" onclick="displayDash()">Dashboard</button>
-                    <button class="btn btn-lg btn-block btn-warning" onclick="displayTasks()">To-do</button>
-                    <button class="btn btn-lg btn-block btn-warning" onclick="displayTeamInbox()">Team Inbox</button>
-                    <button class="btn btn-lg btn-block btn-warning" onclick="displayPrivateInbox()">Private Inbox</button>
-                    <button class="btn btn-lg btn-block btn-warning" type="button" data-toggle="collapse" data-target="#joinID" aria-expanded="false" aria-controls="joinID">Invite Members</button>
+                <button class="btn btn-block btn-success" type="button" data-toggle="collapse" data-target="#buttons" aria-expanded="false" aria-controls="buttons">Toggle Buttons</button>
+                <div class="btn-group-toggle my-2 collapse show" id="buttons" visible data-toggle="buttons">
+
+                    <label class="btn btn-warning btn-block active">
+                        <input type="radio" name="options" id="option1" autocomplete="off" checked>Dashboard
+                    </label>
+                    <label class="btn btn-warning btn-block ">
+                        <input type="radio" name="options" id="option2" autocomplete="off">To-do
+                    </label>
+                    <label class="btn btn-warning btn-block ">
+                        <input type="radio" name="options" id="option3" autocomplete="off">Team Inbox
+                    </label>
+                    <label class="btn btn-warning btn-block ">
+                        <input type="radio" name="options" id="option4" autocomplete="off">Private  Inbox
+                    </label>
+                    <button class="btn btn-block btn-warning" type="button" data-toggle="collapse" data-target="#joinID" aria-expanded="false" aria-controls="joinID">Invite Members</button>
                     <div class="collapse" id="joinID">
                         <div class="card card-body">
                             Other team members can join using this ID: <strong><textarea class="form-control" style="resize: none;" rows="5" id="toClipboard" disabled>{{p_id}}</textarea></strong>
