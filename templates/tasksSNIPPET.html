@@ -6,10 +6,15 @@
       <div class="col-md-4">
 	<h2 class="bg-warning rounded p-2 w-100 text-center"> Working On</h2> <!--  mx-2 my-3 my-md-0 p-0 "this is some code that Joan left" -->
 	{% for i in task_dict["workingon"] %}
-	
-	<div class="card text-center" style="width: 18rem;">
+	<div class="card text-center" align="center" style="width: 18rem;">
 	  <div class="card-body">
 	    <h5 class="card-title">{{ i }}</h5>
+	    <button data-toggle="collapse" data-target="#demo">Collapsible</button>
+
+	    <div id="demo" class="collapse">
+	      Lorem ipsum dolor text....
+	    </div>
+
 	    <p class="card-text">{{ task_dict["workingon"][i][0] }}</p>
 	    <p class="card-text">Priority: {{ task_dict["workingon"][i][1] }}</p>
 	    <p class="card-text">Due: {{ task_dict["workingon"][i][2] }}</p>
@@ -21,13 +26,29 @@
       <div class="col-md-4">
 	<h2 class="bg-danger p-2 rounded w-100 text-center">Haven't Started</h2>
 	{% for i in task_dict["unstarted"] %}
-	<p> {{ i }} </p>
+	<div class="card text-center" style="width: 18rem;">
+	  <div class="card-body">
+	    <h5 class="card-title">{{ i }}</h5>
+	    <p class="card-text">{{ task_dict["unstarted"][i][0] }}</p>
+	    <p class="card-text">Priority: {{ task_dict["unstarted"][i][1] }}</p>
+	    <p class="card-text">Due: {{ task_dict["unstarted"][i][2] }}</p>
+	    <a href="#" class="btn btn-primary">Go somewhere</a>
+	  </div>
+	</div>
 	{% endfor %}
       </div>
       <div class="col-md-4">
 	<h2 class="bg-success p-2 rounded w-100 text-center">Done</h2>
 	{% for i in task_dict["done"] %}
-	<p> {{ i }} </p>
+	<div class="card text-center" style="width: 18rem;">
+	  <div class="card-body">
+	    <h5 class="card-title">{{ i }}</h5>
+	    <p class="card-text">{{ task_dict["done"][i][0] }}</p>
+	    <p class="card-text">Priority: {{ task_dict["done"][i][1] }}</p>
+	    <p class="card-text">Due: {{ task_dict["done"][i][2] }}</p>
+	    <a href="#" class="btn btn-primary">Go somewhere</a>
+	  </div>
+	</div>
 	{% endfor %}
       </div>
     </div>
