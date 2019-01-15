@@ -388,7 +388,14 @@ def get_dashboard():
     return render_template('dashboardSNIPPET.html', messages=messages[:5], done=str(done), working=str(working), notstarted=str(notstarted), tasks=[])
 
 
+@app.route('/move_task')
+def move_task():
+    id = request.args['what']
+    moveTo = request.args['where']
 
+    db.set_status(int(moveTo), id)
+
+    return "alrighty!"
 
 
 

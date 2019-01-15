@@ -20,7 +20,7 @@ def create_db():
     c.execute("CREATE TABLE IF NOT EXISTS t_msgs(pid TEXT, address TEXT, user TEXT, msg TEXT, msg_id TEXT, timestamp TEXT)")
     c.execute("CREATE TABLE IF NOT EXISTS profiles (username TEXT, first_name TEXT, last_name TEXT, email TEXT, phone_num TEXT, bio TEXT)")
     c.execute("CREATE TABLE IF NOT EXISTS projects (pid TEXT, username TEXT, p_name TEXT)")
-    c.execute("CREATE TABLE IF NOT EXISTS tasks (pid TEXT, username TEXT, task TEXT, description TEXT, priority INT, due_date TEXT, status INTEGER, taskID TEXT)")
+    c.execute("CREATE TABLE IF NOT EXISTS tasks (pid TEXT, username TEXT, task TEXT, description TEXT, priority INTEGER, due_date TEXT, status INTEGER, taskID TEXT, beenCompleted INTEGER)")
     c.execute("CREATE TABLE IF NOT EXISTS notes(username TEXT, note TEXT)")
     c.execute("CREATE TABLE IF NOT EXISTS quotes (quote TEXT, author TEXT, date TEXT)")
     c.execute("CREATE TABLE IF NOT EXISTS users (user_name TEXT PRIMARY KEY, passwords TEXT)")
@@ -348,9 +348,9 @@ def add_task(pid, username, task, description, priority, due_date, status):
     c = db.cursor()
 
     taskID = str(uuid.uuid1())
-    data = (pid, username, task, description, priority, due_date, status, taskID)
+    data = (pid, username, task, description, priority, due_date, status, taskID, 0)
 
-    c.execute('INSERT INTO tasks VALUES(?, ?, ?, ?, ?, ?, ?, ?)', data)
+    c.execute('INSERT INTO tasks VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)', data)
 
     db.commit()
     db.close()

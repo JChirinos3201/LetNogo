@@ -169,3 +169,24 @@ var setID = function () {
 var resetTextarea = function (v) {
     document.getElementById('toClipboard').value = v;
 };
+
+var moveTo = function (what, where) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            displayTasks();
+        }
+    };
+    xhttp.open("GET", "/move_task?what=" + what + "&where=" + where, true);
+    xhttp.send();
+};
+
+
+
+
+
+
+
+
+
+// lmao

@@ -1,62 +1,81 @@
 <div class="container">
-  <h1 class="display-4">To-do</h1>
-  
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-4">
-	<h2 class="bg-warning rounded p-2 w-100 text-center"> Working On</h2> <!--  mx-2 my-3 my-md-0 p-0 "this is some code that Joan left" -->
-	{% for i in task_dict["workingon"] %}
-	<div class="card text-center" align="center" style="width: 18rem;">
-	  <div class="card-body">
-	    <h5 class="card-title">{{ i }}</h5>
-	    <button data-toggle="collapse" data-target="#demo">Collapsible</button>
+    <h1 class="display-4">To-do</h1>
 
-	    <div id="demo" class="collapse">
-	      Lorem ipsum dolor text....
-	    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4">
+                <h2 class="bg-danger p-2 rounded w-100 text-center" id="title2">Haven't Started</h2>
+                {% for i in task_dict["unstarted"] %}
+                <div class="card text-center w-100" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ i }}</h5>
+                        <p class="card-text">{{ task_dict["unstarted"][i][0] }}</p>
+                        <p class="card-text">Priority: {{ task_dict["unstarted"][i][1] }}</p>
+                        <p class="card-text">Due: {{ task_dict["unstarted"][i][2] }}</p>
+                        <h5>Move to...</h5>
+                        <div class="btn-group w-100 d-none d-md-flex">
+                            <button class="btn btn-sm btn-warning h-100 text-body" onclick="moveTo('{{task_dict['unstarted'][i][4]}}', 1);">&#9654;</button>
+                            <button class="btn btn-sm btn-success h-100 text-body" onclick="moveTo('{{task_dict['unstarted'][i][4]}}', 2);">&#9654;&#9654;</button>
+                        </div>
+                        <div class="btn-group w-100 d-flex d-md-none">
+                            <button class="btn btn-sm btn-warning h-100 text-body" onclick="moveTo('{{task_dict['unstarted'][i][4]}}', 1);">&#9660;</button>
+                            <button class="btn btn-sm btn-success h-100 text-body" onclick="moveTo('{{task_dict['unstarted'][i][4]}}', 2);">&#9660;&#9660;</button>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="col-md-4">
+                <h2 class="bg-warning rounded p-2 w-100 text-center" id="title1"> Working On</h2>
+                {% for i in task_dict["workingon"] %}
+                <div class="card text-center w-100" align="center" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ i }}</h5>
+                        <p class="card-text">{{ task_dict["workingon"][i][0] }}</p>
+                        <p class="card-text">Priority: {{ task_dict["workingon"][i][1] }}</p>
+                        <p class="card-text">Due: {{ task_dict["workingon"][i][2] }}</p>
+                        <h5>Move to...</h5>
+                        <div class="btn-group w-100 d-none d-md-flex">
+                            <button class="btn btn-sm btn-danger h-100 text-body" onclick="moveTo('{{task_dict['workingon'][i][4]}}', 0);">&#9664;</button>
+                            <button class="btn btn-sm btn-success h-100 text-body" onclick="moveTo('{{task_dict['workingon'][i][4]}}', 2);">&#9654;</button>
+                        </div>
+                        <div class="btn-group w-100 d-flex d-md-none">
+                            <button class="btn btn-sm btn-danger h-100 text-body" onclick="moveTo('{{task_dict['workingon'][i][4]}}', 0);">&#9650;</button>
+                            <button class="btn btn-sm btn-success h-100 text-body" onclick="moveTo('{{task_dict['workingon'][i][4]}}', 2);">&#9660;</button>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="col-md-4">
+                <h2 class="bg-success p-2 rounded w-100 text-center" id="title3">Done</h2>
+                {% for i in task_dict["done"] %}
+                <div class="card text-center w-100" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ i }}</h5>
+                        <p class="card-text">{{ task_dict["done"][i][0] }}</p>
+                        <p class="card-text">Priority: {{ task_dict["done"][i][1] }}</p>
+                        <p class="card-text">Due: {{ task_dict["done"][i][2] }}</p>
+                        <h5>Move to...</h5>
+                        <div class="btn-group w-100 d-none d-md-flex">
+                            <button class="btn btn-sm btn-danger h-100 text-body" onclick="moveTo('{{task_dict['done'][i][4]}}', 0);">&#9664;&#9664;</button>
+                            <button class="btn btn-sm btn-warning h-100 text-body" onclick="moveTo('{{task_dict['done'][i][4]}}', 1);">&#9664;</button>
+                        </div>
+                        <div class="btn-group w-100 d-flex d-md-none">
+                            <button class="btn btn-sm btn-danger h-100 text-body" onclick="moveTo('{{task_dict['done'][i][4]}}', 0);">&#9650;&#9650;</button>
+                            <button class="btn btn-sm btn-warning h-100 text-body" onclick="moveTo('{{task_dict['done'][i][4]}}', 1);">&#9650;</button>
+                        </div>
+                    </div>
+                </div>
 
-	    <p class="card-text">{{ task_dict["workingon"][i][0] }}</p>
-	    <p class="card-text">Priority: {{ task_dict["workingon"][i][1] }}</p>
-	    <p class="card-text">Due: {{ task_dict["workingon"][i][2] }}</p>
-	    <a href="#" class="btn btn-primary">Go somewhere</a>
-	  </div>
-	</div>
-	{% endfor %}
-      </div>
-      <div class="col-md-4">
-	<h2 class="bg-danger p-2 rounded w-100 text-center">Haven't Started</h2>
-	{% for i in task_dict["unstarted"] %}
-	<div class="card text-center" style="width: 18rem;">
-	  <div class="card-body">
-	    <h5 class="card-title">{{ i }}</h5>
-	    <p class="card-text">{{ task_dict["unstarted"][i][0] }}</p>
-	    <p class="card-text">Priority: {{ task_dict["unstarted"][i][1] }}</p>
-	    <p class="card-text">Due: {{ task_dict["unstarted"][i][2] }}</p>
-	    <a href="#" class="btn btn-primary">Go somewhere</a>
-	  </div>
-	</div>
-	{% endfor %}
-      </div>
-      <div class="col-md-4">
-	<h2 class="bg-success p-2 rounded w-100 text-center">Done</h2>
-	{% for i in task_dict["done"] %}
-	<div class="card text-center" style="width: 18rem;">
-	  <div class="card-body">
-	    <h5 class="card-title">{{ i }}</h5>
-	    <p class="card-text">{{ task_dict["done"][i][0] }}</p>
-	    <p class="card-text">Priority: {{ task_dict["done"][i][1] }}</p>
-	    <p class="card-text">Due: {{ task_dict["done"][i][2] }}</p>
-	    <a href="#" class="btn btn-primary">Go somewhere</a>
-	  </div>
-	</div>
-	{% endfor %}
-      </div>
+                {% endfor %}
+            </div>
+        </div>
     </div>
-  </div>
-  
+
 </div>
-<div class="row pt-3">
-  <div class="col mx-2" id="form_content">
-    <button type="button" class="btn btn-warning float-left" onclick="displayAddTask();">Add Task</button>
-  </div>
+<div class="footer row pt-3">
+    <div class="col mx-2" id="form_content">
+        <button type="button" class="btn btn-warning float-left" onclick="displayAddTask();">Add Task</button>
+    </div>
 </div>
