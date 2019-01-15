@@ -240,7 +240,7 @@ def get_snippet():
 
     if snippet == 'privateInbox' and 'username' in session:
         pid = request.args['pid']
-        private_messages = db.get_msgs(pid, 1)
+        private_messages = db.get_p_msgs(pid)
         print(private_messages)
         if (private_messages == []):
             return """<div class="alert alert-warning">You don't have any private messages ;&#40;</div>"""
@@ -268,7 +268,7 @@ def get_snippet():
 
     if snippet == 'teamInbox' and 'username' in session:
         pid = request.args['pid']
-        team_messages = db.get_msgs(pid)
+        team_messages = db.get_t_msgs(pid)
         print(team_messages)
         return render_template('{}SNIPPET.html'.format(snippet), team_messages = team_messages)
     return render_template('{}SNIPPET.html'.format(snippet))
@@ -405,7 +405,7 @@ def get_dashboard():
     project_name = db.get_project(pid)
     print("\n\n\nPID: {}\n\n\n".format(pid))
 
-    messages = db.get_msgs(pid)
+    messages = db.get_t_msgs(pid)
     print("\n\n\nPRIVATE MESSAGES:\n{}\n\n".format(messages))
 
     tasks = db.get_tasks_pid(pid)

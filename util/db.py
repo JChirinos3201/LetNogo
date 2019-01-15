@@ -17,7 +17,7 @@ def create_db():
 
     c.execute("CREATE TABLE IF NOT EXISTS avatars(username TEXT, type TEXT, value TEXT, current INTEGER)")
     c.execute("CREATE TABLE IF NOT EXISTS p_msgs(pid TEXT, address TEXT, user TEXT, msg TEXT, msg_id TEXT, timestamp TEXT)")
-    c.execute("CREATE TABLE IF NOT EXISTS t_msgs(pid TEXT, address TEXT, user TEXT, msg TEXT, msg_id TEXT, timestamp TEXT)")
+    c.execute("CREATE TABLE IF NOT EXISTS t_msgs(pid TEXT, user TEXT, msg TEXT, msg_id TEXT, timestamp TEXT)")
     c.execute("CREATE TABLE IF NOT EXISTS profiles (username TEXT, first_name TEXT, last_name TEXT, email TEXT, phone_num TEXT, bio TEXT)")
     c.execute("CREATE TABLE IF NOT EXISTS projects (pid TEXT, username TEXT, p_name TEXT)")
     c.execute("CREATE TABLE IF NOT EXISTS tasks (pid TEXT, username TEXT, task TEXT, description TEXT, priority INTEGER, due_date TEXT, status INTEGER, taskID TEXT, beenCompleted INTEGER)")
@@ -474,62 +474,69 @@ def set_status(status, taskID):
     return True
 
 #=====MESSAGES FXNS=====
-def add_msg(pid, address, user, msg, msg_id, timestamp, private=0):
+def add_t_msg(pid, user, msg, msg_id, timestamp):
+    '''
+    ADDS A ROW TO msgs TABLE OF INPUT VALUES pid, user, msg, msg_id, and private
+    ALL INPUTS ARE STRINGS
+    '''
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+
+    data = (pid, user, msg, msg_id, timestamp)
+
+    c.execute('INSERT INTO t_msgs VALUES(?, ?, ?, ?, ?)', data)
+    db.commit()
+    db.close()
+    return True
+
+def add_p_msg(pid, address, user, msg, msg_id, timestamp):
     '''
     ADDS A ROW TO msgs TABLE OF INPUT VALUES pid, address, user, msg, msg_id, and private
-    ALL INPUTS ARE STRINGS EXCEPT private
+    ALL INPUTS ARE STRINGS
     '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
 
     data = (pid, address, user, msg, msg_id, timestamp)
-    if private == 1:
-        c.execute('INSERT INTO p_msgs VALUES(?, ?, ?, ?, ?, ?)', data)
-        db.commit()
-        db.close()
-        return True
-
-    c.execute('INSERT INTO t_msgs VALUES(?, ?, ?, ?, ?, ?)', data)
+ 
+    c.execute('INSERT INTO p_msgs VALUES(?, ?, ?, ?, ?, ?)', data)
+    
     db.commit()
     db.close()
     return True
 
-def remove_msg(msg_id, private=0):
+def remove_t_msg(msg_id):
     '''
     REMOVES A ROW FROM msgs GIVEN pid and msg_id
     '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
 
-    if private == 1:
-        c.execute('DELETE FROM p_msgs WHERE  msg_id=?', (msg_id))
-        db.commit()
-        db.close()
-        return True
     c.execute('DELETE FROM t_msgs WHERE msg_id=?', (msg_id))
     db.commit()
     db.close()
     return True
 
-def get_msgs(pid, private = 0):
+def remove_p_msg(msg_id):
+    '''
+    REMOVES A ROW FROM msgs GIVEN pid and msg_id
+    '''
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+
+    c.execute('DELETE FROM p_msgs WHERE  msg_id=?', (msg_id))
+    db.commit()
+    db.close()
+    return True
+
+def get_t_msgs(pid):
     '''
     RETURNS A LIST OF MESSAGE TUPLES GIVEN pid
     '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
 
-    if private == 1:
-        c.execute('SELECT address, user, msg, msg_id, timestamp FROM p_msgs WHERE pid=?', (pid,))
-        selectedVal = c.fetchall()
-        messages = []
-        for i in selectedVal:
-            messages.append(i)
-        db.commit()
-        db.close()
-        print(messages)
-        return messages
-
-    c.execute('SELECT address, user, msg, msg_id, timestamp FROM t_msgs WHERE pid=?', (pid,))
+    c.execute('SELECT user, msg, msg_id, timestamp FROM t_msgs WHERE pid=?', (pid,))
     selectedVal = c.fetchall()
     messages = []
     for i in selectedVal:
@@ -538,6 +545,24 @@ def get_msgs(pid, private = 0):
     db.close()
     print(messages)
     return messages
+
+def get_p_msgs(pid):
+    '''
+    RETURNS A LIST OF MESSAGE TUPLES GIVEN pid
+    '''
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+
+    c.execute('SELECT address, user, msg, msg_id, timestamp FROM p_msgs WHERE pid=?', (pid,))
+    selectedVal = c.fetchall()
+    messages = []
+    for i in selectedVal:
+        messages.append(i)
+    db.commit()
+    db.close()
+    print(messages)
+    return messages
+
 
 #=====AVATARS FXNS=====
 
