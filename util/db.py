@@ -181,58 +181,72 @@ def add_project(pid, username, p_name):
 
 
 def get_project(id):
-        '''
-        RETURNS p_name GIVEN id
-        '''
-        db = sqlite3.connect(DB_FILE)
-        c = db.cursor()
+    '''
+    RETURNS p_name GIVEN id
+    '''
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    
+    cmd = 'SELECT p_name FROM projects WHERE pid = "{0}"'.format(id)
+    c.execute(cmd)
+    selectedVal = c.fetchone()
 
-        cmd = 'SELECT p_name FROM projects WHERE pid = "{0}"'.format(id)
-        c.execute(cmd)
-        selectedVal = c.fetchone()
-
-        db.close()
-
-        return selectedVal[0]
+    db.close()
+    
+    return selectedVal[0]
 
 def get_projects(username, sort=False):
-        '''
-        RETURNS A DICTIONARY OF PROJECTS WITH PAIRS OF p_name: pid THAT CORRESPOND TO THE username
-        '''
-        db = sqlite3.connect(DB_FILE)
-        c = db.cursor()
+    '''
+    RETURNS A DICTIONARY OF PROJECTS WITH PAIRS OF p_name: pid THAT CORRESPOND TO THE username
+    '''
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
 
-        command = 'SELECT pid, p_name FROM projects WHERE username = "{0}"'.format(username)
-        c.execute(command)
+    command = 'SELECT pid, p_name FROM projects WHERE username = "{0}"'.format(username)
+    c.execute(command)
 
-        selectedVal = c.fetchall()
-        db.close()
+    selectedVal = c.fetchall()
+    db.close()
 
-        projects = {}
-        for i in selectedVal:
-            projects[i[1]] = i[0]
-        if sort:
-            sorted_projects = {}
-            for key in sorted(projects.keys()):
-                sorted_projects[key] = projects[key]
-            return sorted_projects
-        return projects
+    projects = {}
+    for i in selectedVal:
+        projects[i[1]] = i[0]
+    if sort:
+        sorted_projects = {}
+        for key in sorted(projects.keys()):
+            sorted_projects[key] = projects[key]
+        return sorted_projects
+    return projects
 
-def remove_project(self, pid):
-        '''
-        REMOVE A PROJECT FROM THE PROJECT TABLE GIVEN pid
-        '''
-        db = sqlite3.connect(DB_FILE)
-        c = db.cursor()
+def remove_project(pid):
+    '''
+    REMOVE A PROJECT FROM THE PROJECT TABLE GIVEN pid
+    '''
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
 
-        cmd = 'DELETE FROM projects WHERE pid = "{0}"'.format(pid)
-        c.execute(cmd)
+    cmd = 'DELETE FROM projects WHERE pid = "{0}"'.format(pid)
+    c.execute(cmd)
 
-        db.commit()
-        db.close()
+    db.commit()
+    db.close()
 
-        return True
+    return True
 
+def get_teammates(pid):
+    '''
+    RETURNS TUPLE OF TEAMMATES
+    '''
+    db.sqlite3.connect(DB_FILE)
+    c = db.cursor()
+
+    c.execute('SELECT username FROM projects WHERE pid=?', (pid,))
+    data = c.fetchall()
+
+    db.commit()
+    db.close()
+
+    return True
 
 #======PROFILE FXNS========
 def get_info(username):
@@ -336,6 +350,7 @@ def set_bio(username, bio):
     db.close()
 
     return True
+
 #======TASKS FXNS========
 
 def add_task(pid, username, task, description, priority, due_date, status):
