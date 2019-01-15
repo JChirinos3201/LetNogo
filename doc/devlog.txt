@@ -16,6 +16,15 @@ Tuesday -- a web application for collaborators to track projects together and se
     \____/_/ \_____\/ \___/_(   \_____\/ \_____\/ \_____\/
 ==============================================================
 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+thomasZ -- 2019-01-15 13:15
+--------------------------------------------------------------
+- The teammates' profile avatars now appear besides their names
+in the dashboard
+- Changed app.route('/view_profile') to app.route('/view_profile/<project_name>/<pid>')
+and wrote accompanying code for this adjustment
+- The reason for above was to implement a "Back to <project_name> button
+after viewing another teammate's profile page; successfully implemented
+==============================================================
 thomasZ -- 2019-01-15 02:29
 --------------------------------------------------------------
 - The teammates's usernames now show up on the dashboard LINKED to
