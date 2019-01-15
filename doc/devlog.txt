@@ -16,6 +16,11 @@ Tuesday -- a web application for collaborators to track projects together and se
     \____/_/ \_____\/ \___/_(   \_____\/ \_____\/ \_____\/
 ==============================================================
 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+thomasZ -- 2019-01-15 02:00
+--------------------------------------------------------------
+- Wrote the function "get_teammates"
+- Implemented feature where teammates show up on the dashboard
+- Planning to have names clickable and link to their profiles
 ==============================================================
 johnnyW -- 2019-01-15 01:55
 --------------------------------------------------------------
