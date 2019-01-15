@@ -317,8 +317,8 @@ def update_info():
         db.set_last_name(username, newVal)
     elif what == 'email':
         if '@' not in newVal or '.' not in newVal:
-            flash('Please enter a valid email address!') # please help with flashing
-            return redirect(url_for('profile'))
+            # do something here helppppppppppppppppppppppppppppppppppppp
+            return 'nou'
         else:
             db.set_email(username, newVal)
     elif what == 'phone':
