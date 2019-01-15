@@ -407,12 +407,14 @@ def get_dashboard():
         working = (statusList[1] * 100) // len(tasks)
         done = 100 - (notstarted + working)
 
-        # for team members tab thing
-
     else:
         done = notstarted = working = 'no tasks'
 
-    return render_template('dashboardSNIPPET.html', messages=messages[:5], done=str(done), working=str(working), notstarted=str(notstarted), tasks=[])
+    # for team members tab thing
+    teammates = db.get_teammates(pid)
+    print('teammates', teammates)
+    
+    return render_template('dashboardSNIPPET.html', messages=messages[:5], done=str(done), working=str(working), notstarted=str(notstarted), tasks=[], teammates = teammates)
 
 
 @app.route('/move_task')

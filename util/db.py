@@ -237,7 +237,7 @@ def get_teammates(pid):
     '''
     RETURNS TUPLE OF TEAMMATES
     '''
-    db.sqlite3.connect(DB_FILE)
+    db = sqlite3.connect(DB_FILE)
     c = db.cursor()
 
     c.execute('SELECT username FROM projects WHERE pid=?', (pid,))
@@ -246,7 +246,7 @@ def get_teammates(pid):
     db.commit()
     db.close()
 
-    return True
+    return data
 
 #======PROFILE FXNS========
 def get_info(username):

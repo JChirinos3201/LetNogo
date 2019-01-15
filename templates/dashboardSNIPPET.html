@@ -46,7 +46,9 @@
         </div>
         <div class="col-md">
             <h2 class="text-center">Team Members</h2>
-
+	    {% for mate in teammates %}
+	    <h4 class="text-center"><i>{{ mate[0] }}</i></h4>
+	    {% endfor %}
         </div>
     </div>
 </div>
