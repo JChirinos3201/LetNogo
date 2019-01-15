@@ -29,6 +29,13 @@ def index():
 
     return render_template('index.html', quote = quote)
 
+@app.route('/check_user')
+def check_user():
+    user = request.args['user']
+    if db.findUser(user):
+        return 'taken'
+    return 'good'
+
 @app.route('/home')
 def home():
     if 'username' not in session:

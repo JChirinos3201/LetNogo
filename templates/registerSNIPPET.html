@@ -8,31 +8,32 @@
                 </button>
     </div>
     <br>
-    <form action="/authenticate" method="post">
+    <form method="post" action="/authenticate">
         <div class="form-group mx-5 mx-5">
-            <input type="text" class="form-control" name="firstname" placeholder="First Name" required>
+            <input type="text" class="form-control" name="firstname" placeholder="First Name" required id="first" oninput="checkFirst();">
         </div>
         <div class="form-group mx-5">
-            <input type="text" class="form-control" name="lastname" placeholder="Last Name" required>
+            <input type="text" class="form-control" name="lastname" placeholder="Last Name" required id="last" oninput="checkLast();">
         </div>
         <div class="form-group mx-5">
-            <input type="text" class="form-control" name="email" placeholder="Email Address" required>
+            <input type="text" class="form-control" name="email" placeholder="Email Address" required id="email" oninput="checkEmail();">
         </div>
         <div class="form-group mx-5">
-            <input type="text" class="form-control" name="phone" placeholder="Phone Number: (XXX) XXX-XXXX (Optional)">
+            <input type="text" class="form-control" name="phone" placeholder="Phone Number: (XXX) XXX-XXXX (Optional)" id="phone" oninput="checkPhone();">
         </div>
         <hr>
         <div class="form-group mx-5">
-            <input type="text" class="form-control" name="username" placeholder="Username" required>
+            <input type="text" class="form-control" name="username" placeholder="Username" required oninput="checkUser();" id="username">
         </div>
         <div class="form-group mx-5">
-            <input type="password" class="form-control" name="password" placeholder="Password" required>
+            <input type="password" class="form-control" name="password" placeholder="Password" required oninput="checkPass();" id="password">
         </div>
         <div class="form-group mx-5">
-            <input type="password" class="form-control" name="passwordConfirmation" placeholder="Confirm Password" required>
+            <input type="password" class="form-control" name="passwordConfirmation" placeholder="Confirm Password" required oninput="checkEquality();" id="passwordVerify">
         </div>
         <div class="form-group text-center">
-            <button type="submit" name="submit" value="Register" class="btn btn-success">Register</button>
+            <button type="submit" name="submit" value="Register" class="btn btn-success" disabled id="register">Register</button>
         </div>
+        <div class="alert alert-danger w-100" style="display: none;" id="err"></div>
     </form>
 </div>
