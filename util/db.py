@@ -17,14 +17,14 @@ def create_db():
 
     c.execute("CREATE TABLE IF NOT EXISTS avatars(username TEXT, type TEXT, value TEXT, current INTEGER)")
     c.execute("CREATE TABLE IF NOT EXISTS p_msgs(pid TEXT, address TEXT, user TEXT, msg TEXT, msg_id TEXT, timestamp TEXT)")
-    c.execute("CREATE TABLE IF NOT EXISTS t_msgs(pid TEXT, address TEXT, user TEXT, msg TEXT, msg_id TEXT, timestamp TEXT)")
+    c.execute("CREATE TABLE IF NOT EXISTS t_msgs(pid TEXT, user TEXT, msg TEXT, msg_id TEXT, timestamp TEXT)")
     c.execute("CREATE TABLE IF NOT EXISTS profiles (username TEXT, first_name TEXT, last_name TEXT, email TEXT, phone_num TEXT, bio TEXT)")
     c.execute("CREATE TABLE IF NOT EXISTS projects (pid TEXT, username TEXT, p_name TEXT)")
-    c.execute("CREATE TABLE IF NOT EXISTS tasks (pid TEXT, username TEXT, task TEXT, description TEXT, priority INTEGER, due_date TEXT, status INTEGER, taskID TEXT, beenCompleted INTEGER)")
+    c.execute("CREATE TABLE IF NOT EXISTS tasks (pid TEXT, username TEXT, task TEXT, description TEXT, priority INT, due_date TEXT, status INTEGER, taskID TEXT)")
     c.execute("CREATE TABLE IF NOT EXISTS notes(username TEXT, note TEXT)")
     c.execute("CREATE TABLE IF NOT EXISTS quotes (quote TEXT, author TEXT, date TEXT)")
     c.execute("CREATE TABLE IF NOT EXISTS users (user_name TEXT PRIMARY KEY, passwords TEXT)")
-    c.execute("CREATE TABLE IF NOT EXISTS coin (user_name TEXT PRIMARY KEY, bitcoin INTEGER)")
+    c.execute("CREATE TABLE IF NOT EXISTS coin (user_name TEXT PRIMARY KEY, bigcoin INTEGER)")
 
     return True;
 
@@ -97,25 +97,25 @@ def verifyUser(username, password):
         return True
     return False
 
-def getUserBitcoin(username):
+def getUserBigcoin(username):
     '''
-    RETURNS AMOUNT OF bitcoin username HAS
+    RETURNS AMOUNT OF bigcoin username HAS
     '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    c.execute('SELECT bitcoin FROM coin WHERE user_name=?', (username,))
+    c.execute('SELECT bigcoin FROM coin WHERE user_name=?', (username,))
     selectedVal = c.fetchone()
     db.commit()
     db.close()
     return selectedVal[0]
 
-def setUserBitcoin(username, bitcoin):
+def setUserBigcoin(username, bigcoin):
     '''
-    UPDATES AMOUNT OF bitcoin username HAS
+    UPDATES AMOUNT OF bigcoin username HAS
     '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    c.execute('UPDATE coin SET bitcoin = ? WHERE user_name = ?', (bitcoin, username, ))
+    c.execute('UPDATE coin SET bigcoin = ? WHERE user_name = ?', (bigcoin, username, ))
     db.commit()
     db.close()
     return True
@@ -181,72 +181,58 @@ def add_project(pid, username, p_name):
 
 
 def get_project(id):
-    '''
-    RETURNS p_name GIVEN id
-    '''
-    db = sqlite3.connect(DB_FILE)
-    c = db.cursor()
-    
-    cmd = 'SELECT p_name FROM projects WHERE pid = "{0}"'.format(id)
-    c.execute(cmd)
-    selectedVal = c.fetchone()
+        '''
+        RETURNS p_name GIVEN id
+        '''
+        db = sqlite3.connect(DB_FILE)
+        c = db.cursor()
 
-    db.close()
-    
-    return selectedVal[0]
+        cmd = 'SELECT p_name FROM projects WHERE pid = "{0}"'.format(id)
+        c.execute(cmd)
+        selectedVal = c.fetchone()
+
+        db.close()
+
+        return selectedVal[0]
 
 def get_projects(username, sort=False):
-    '''
-    RETURNS A DICTIONARY OF PROJECTS WITH PAIRS OF p_name: pid THAT CORRESPOND TO THE username
-    '''
-    db = sqlite3.connect(DB_FILE)
-    c = db.cursor()
+        '''
+        RETURNS A DICTIONARY OF PROJECTS WITH PAIRS OF p_name: pid THAT CORRESPOND TO THE username
+        '''
+        db = sqlite3.connect(DB_FILE)
+        c = db.cursor()
 
-    command = 'SELECT pid, p_name FROM projects WHERE username = "{0}"'.format(username)
-    c.execute(command)
+        command = 'SELECT pid, p_name FROM projects WHERE username = "{0}"'.format(username)
+        c.execute(command)
 
-    selectedVal = c.fetchall()
-    db.close()
+        selectedVal = c.fetchall()
+        db.close()
 
-    projects = {}
-    for i in selectedVal:
-        projects[i[1]] = i[0]
-    if sort:
-        sorted_projects = {}
-        for key in sorted(projects.keys()):
-            sorted_projects[key] = projects[key]
-        return sorted_projects
-    return projects
+        projects = {}
+        for i in selectedVal:
+            projects[i[1]] = i[0]
+        if sort:
+            sorted_projects = {}
+            for key in sorted(projects.keys()):
+                sorted_projects[key] = projects[key]
+            return sorted_projects
+        return projects
 
-def remove_project(pid):
-    '''
-    REMOVE A PROJECT FROM THE PROJECT TABLE GIVEN pid
-    '''
-    db = sqlite3.connect(DB_FILE)
-    c = db.cursor()
+def remove_project(self, pid):
+        '''
+        REMOVE A PROJECT FROM THE PROJECT TABLE GIVEN pid
+        '''
+        db = sqlite3.connect(DB_FILE)
+        c = db.cursor()
 
-    cmd = 'DELETE FROM projects WHERE pid = "{0}"'.format(pid)
-    c.execute(cmd)
+        cmd = 'DELETE FROM projects WHERE pid = "{0}"'.format(pid)
+        c.execute(cmd)
 
-    db.commit()
-    db.close()
+        db.commit()
+        db.close()
 
-    return True
+        return True
 
-def get_teammates(pid):
-    '''
-    RETURNS TUPLE OF TEAMMATES
-    '''
-    db = sqlite3.connect(DB_FILE)
-    c = db.cursor()
-
-    c.execute('SELECT username FROM projects WHERE pid=?', (pid,))
-    data = c.fetchall()
-
-    db.commit()
-    db.close()
-
-    return data
 
 #======PROFILE FXNS========
 def get_info(username):
@@ -350,7 +336,6 @@ def set_bio(username, bio):
     db.close()
 
     return True
-
 #======TASKS FXNS========
 
 def add_task(pid, username, task, description, priority, due_date, status):
@@ -363,9 +348,9 @@ def add_task(pid, username, task, description, priority, due_date, status):
     c = db.cursor()
 
     taskID = str(uuid.uuid1())
-    data = (pid, username, task, description, priority, due_date, status, taskID, 0)
+    data = (pid, username, task, description, priority, due_date, status, taskID)
 
-    c.execute('INSERT INTO tasks VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)', data)
+    c.execute('INSERT INTO tasks VALUES(?, ?, ?, ?, ?, ?, ?, ?)', data)
 
     db.commit()
     db.close()
@@ -488,8 +473,8 @@ def add_msg(pid, address, user, msg, msg_id, timestamp, private=0):
         db.commit()
         db.close()
         return True
-
-    c.execute('INSERT INTO t_msgs VALUES(?, ?, ?, ?, ?, ?)', data)
+    data = (pid, user, msg, msg_id, timestamp)
+    c.execute('INSERT INTO t_msgs VALUES(?, ?, ?, ?, ?)', data)
     db.commit()
     db.close()
     return True
@@ -529,7 +514,7 @@ def get_msgs(pid, private = 0):
         print(messages)
         return messages
 
-    c.execute('SELECT address, user, msg, msg_id, timestamp FROM t_msgs WHERE pid=?', (pid,))
+    c.execute('SELECT user, msg, msg_id, timestamp FROM t_msgs WHERE pid=?', (pid,))
     selectedVal = c.fetchall()
     messages = []
     for i in selectedVal:
