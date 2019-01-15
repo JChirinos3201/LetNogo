@@ -47,7 +47,11 @@
         <div class="col-md">
             <h2 class="text-center">Team Members</h2>
 	    {% for mate in teammates %}
-	    <h4 class="text-center"><i>{{ mate[0] }}</i></h4>
+	    {% if mate[0] != username %}
+	    <h4 class="text-center"><i><a href="/view_profile?username={{ mate[0] }}">{{ mate[0] }}</a></i></h4>
+	    {% else %}
+	    <h4 class="text-center"><i>{{ mate[0] }} (you)</i></h4>
+	    {% endif %}
 	    {% endfor %}
         </div>
     </div>

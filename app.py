@@ -56,10 +56,25 @@ def profile():
 
     url = api.customAvatarLink(eyes, nose, mouth, color)
 
-    bodyParts = api.bodyParts()
-    link = api.customAvatarLink(eyes, nose, mouth, color)
+    return render_template('profile.html', username = username, url = url)
 
-    return render_template('profile.html', username = username, url = url, link = link)
+@app.route('/view_profile')
+def view_profile():
+    if 'username' not in session:
+        return redirect(url_for('index'))
+    username = request.args['username']
+
+    user_info = db.get_info(username)
+    print(user_info)
+
+    eyes = db.get_current(username, 'eyes')
+    nose = db.get_current(username, 'noses')
+    mouth = db.get_current(username, 'mouths')
+    color = db.get_current(username, 'color')
+
+    url = api.customAvatarLink(eyes, nose, mouth, color)
+
+    return render_template('view_profile.html', username = username, url = url, user_info = user_info)
 
 @app.route('/avatar')
 def avatar():
@@ -416,7 +431,7 @@ def get_dashboard():
     teammates = db.get_teammates(pid)
     print('teammates', teammates)
     
-    return render_template('dashboardSNIPPET.html', messages=messages[:5], done=str(done), working=str(working), notstarted=str(notstarted), tasks=[], teammates = teammates)
+    return render_template('dashboardSNIPPET.html', messages=messages[:5], done=str(done), working=str(working), notstarted=str(notstarted), tasks=[], teammates = teammates, username = username)
 
 
 @app.route('/move_task')

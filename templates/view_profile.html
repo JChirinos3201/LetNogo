@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='effects.css') }}">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{url_for('static', filename='favicon-16x16.png')}}">
+    <link rel="manifest" href="{{url_for('static', filename='site.webmanifest')}}">
+    <link rel="mask-icon" href="{{url_for('static', filename='safari-pinned-tab.svg')}}" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#00aba9">
+    <meta name="theme-color" content="#51ff5d">
+
+    <title>{{ username }}'s Profile &bull; Tuesday</title>
+</head>
+
+<body>
+
+
+    <nav class="navbar navbar-light bg-success">
+        <a class="navbar-brand mb-0" href="/home">
+            <h1><em>Tuesday</em></h1>
+        </a>
+        <div>
+            <a href="/profile"> <img src={{ url }} id="avatar" style="border-radius: 25%;" width = 55; height = 55;> </a>
+            <a href="/logout">
+                    <button type="button" class="btn btn-warning">Log out</button>
+            </a>
+
+        </div>
+    </nav>
+
+    <a href="/home" style="z-index: 10000;" class="mx-2 my-2 sticky-top btn btn-warning">Back Home</a>
+    <div class="container text-center">
+      <div class="callout">
+      </div>
+      
+        <h1 class="display-4 text-center">{{ username }}</h1>
+
+        <div class="my-3">
+            <img src="{{ url }}" class="img-fluid img-thumbnail">
+        </div>
+
+        <table class="table border mx-auto" style="max-width: 1000px;">
+            <tbody>
+                <tr>
+                    <th scope="row" style="width: 20%;">First Name:</th>
+                    <td id="firstName" style="width: 40%;">{{ user_info[0] }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Last Name:</th>
+                    <td id="lastName">{{ user_info[1] }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Email</th>
+                    <td id="email">{{ user_info[2] }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Phone Number</th>
+                    <td id="phone">{{ user_info[3] }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="card my-3 mx-auto" style="max-width: 1000px;">
+            <div class="card-body">
+                <h4 class="card-title">Biography</h4>
+                <p class="card-text" id="bio">{{ user_info[4] }}</p>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <!-- <script src="{{ url_for('static', filename='profile.js') }}"></script> -->
+</body>
+
+</html>

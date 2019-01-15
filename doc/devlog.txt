@@ -16,6 +16,17 @@ Tuesday -- a web application for collaborators to track projects together and se
     \____/_/ \_____\/ \___/_(   \_____\/ \_____\/ \_____\/
 ==============================================================
 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+thomasZ -- 2019-01-15 02:29
+--------------------------------------------------------------
+- The teammates's usernames now show up on the dashboard LINKED to
+their profiles
+- I created view_profile.html, which is basically profile.html without
+the fancy JS because there are no editing permissions (duh!)
+- Your own name is not linked and is indicated with a "(you)" next
+to your username
+- An improvement can be redefining the "Back Home" button to
+link back to the project
+==============================================================
 thomasZ -- 2019-01-15 02:00
 --------------------------------------------------------------
 - Wrote the function "get_teammates"
