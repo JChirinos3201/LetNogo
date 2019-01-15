@@ -16,6 +16,14 @@ Tuesday -- a web application for collaborators to track projects together and se
     \____/_/ \_____\/ \___/_(   \_____\/ \_____\/ \_____\/
 ==============================================================
 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+joanC -- 2019-01-14 20:51
+--------------------------------------------------------------
+- Throughout the day, I
+  - Worked on the project page
+  - Worked on the task snipper
+  - Added intense input error checking on the register snippet
+==============================================================
+
 thomasZ -- 2019-01-14 15:33
 --------------------------------------------------------------
 - Attempted to flash messages when users entered what should be
