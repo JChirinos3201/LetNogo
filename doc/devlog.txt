@@ -16,6 +16,15 @@ Tuesday -- a web application for collaborators to track projects together and se
     \____/_/ \_____\/ \___/_(   \_____\/ \_____\/ \_____\/
 ==============================================================
 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+==============================================================
+johnnyW -- 2019-01-15 01:55
+--------------------------------------------------------------
+- Added send message fxns to project.js
+- Configured message div in teamInboxSNIPPET.html
+- Had talk with team about ADDING data/tuesday.db when they
+- use the command `$ git commit -am '' ` or `$ git add -A` which
+- is causing several MERGE CONFLICTS
+==============================================================
 joanC -- 2019-01-14 20:51
 --------------------------------------------------------------
 - Throughout the day, I
@@ -23,7 +32,6 @@ joanC -- 2019-01-14 20:51
   - Worked on the task snipper
   - Added intense input error checking on the register snippet
 ==============================================================
-
 thomasZ -- 2019-01-14 15:33
 --------------------------------------------------------------
 - Attempted to flash messages when users entered what should be
@@ -35,7 +43,7 @@ thomasZ and johnnyW -- 2019-01-14 14:03
 - Experimented with the tasks cards
 - What we have to work on:
 To-Do
-Make each task title a card header; when you click on the title, the description collapses out; 
+Make each task title a card header; when you click on the title, the description collapses out;
 Update tasks inside the card; similar to profile update
 Clean up where to put 'add task' button and form
 
@@ -50,7 +58,7 @@ Remove Project JS and button
 
 makes room for all of the tasks
 
-CURRENCY BOYS 
+CURRENCY BOYS
 Per task completed = 50 * Priority of task + 50
 Price tiers
 2500
