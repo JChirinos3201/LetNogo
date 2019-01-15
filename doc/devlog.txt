@@ -16,6 +16,11 @@ Tuesday -- a web application for collaborators to track projects together and se
     \____/_/ \_____\/ \___/_(   \_____\/ \_____\/ \_____\/
 ==============================================================
 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+thomasZ -- 2019-01-15 16:26
+--------------------------------------------------------------
+- Fixed db.py destruction
+- Confirmed db methods worked for msgs
+==============================================================
 thomasZ -- 2019-01-15 13:15
 --------------------------------------------------------------
 - The teammates' profile avatars now appear besides their names
