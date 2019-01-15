@@ -110,7 +110,18 @@ def new_task():
     pid = request.args['pid']
     db.add_task(pid, session['username'], task, description, priority, due_date, status)
 
-    return 'added {}'.format(task)
+@app.route('/new_tmsg', methods=['GET'])
+def new_team_msg():
+    if 'username' not in session:
+        return redirect(url_for('index'))
+    print(request.args)
+    pid = request.args['pid']
+    address = request.args['address']
+    user = session['username']
+    msg = request.args['msg']
+    msg_id = str(uuid.uuid1())
+    timestamp = request.args['time']
+    db.add_msg(pid, address, user, msg, msg_id, timestamp)
 
 
 @app.route('/join_project', methods=["POST"])
@@ -204,10 +215,12 @@ def logout():
 def get_snippet():
     snippet = request.args['snippet']
     print('Getting snippet: {}'.format(snippet))
+
     if snippet == 'projectList' and 'username' in session:
         projectDict = db.get_projects(session['username'])
         print('Project dict: {}'.format(projectDict))
         return render_template('{}SNIPPET.html'.format(snippet), projectDict=projectDict)
+
     if snippet == 'privateInbox' and 'username' in session:
         pid = request.args['pid']
         private_messages = db.get_msgs(pid, 1)
@@ -215,6 +228,7 @@ def get_snippet():
         if (private_messages == []):
             return """<div class="alert alert-warning">You don't have any private messages ;&#40;</div>"""
         return render_template('{}SNIPPET.html'.format(snippet), private_messages = private_messages)
+
     if snippet == 'tasks' and 'username' in session:
         pid = request.args['pid']
         tasks = db.get_tasks_username(pid, session['username'])
@@ -234,6 +248,12 @@ def get_snippet():
         task_dict = {'unstarted': unstarted, 'workingon': workingon, 'done': done}
         print('TASK_DICT', task_dict)
         return render_template('{}SNIPPET.html'.format(snippet), task_dict = task_dict)
+
+    if snippet == 'teamInbox' and 'username' in session:
+        pid = request.args['pid']
+        team_messages = db.get_msgs(pid)
+        print(team_messages)
+        return render_template('{}SNIPPET.html'.format(snippet), team_messages = team_messages)
     return render_template('{}SNIPPET.html'.format(snippet))
 
 @app.route('/get_avatar')

@@ -1,8 +1,30 @@
 <div class="container">
     <h1 class="display-4">Team Inbox</h1>
-    <div class="container">
-        <div class="alert alert-secondary">
-          peej
+
+
+</div>
+<div class="container">
+
+    {% for msg in team_messages %}
+    <div class="alert alert-secondary">
+          {{msg}}
+    </div>
+    {% endfor %}
+    <div class="collapse mt-1" id="message">
+      <div class="card" style="width: 27rem;">
+          <div class="card-body">
+            <form method="get">
+                <input id="address" class="form-control" name="address" placeholder="To:" required><br>
+                <textarea id="msg" class="form-control" maxlength="140" name="message" placeholder="Message" rows="4" cols="60" oninput="updateMsgCharCount();" style="resize:none;" required></textarea>
+                <small class="my-0 py-0" id="msgCharCount">0/140</small>
+                <button class="btn btn-success float-right mt-2 mx-2" onclick="submitTeamMsg();">Send</button>
+            </form>
+          </div>
+      </div>
+    </div>
+    <div class="footer row pt-3 float-left">
+        <div class="col mx-2" id="form_content">
+            <a class="btn btn-success" data-toggle="collapse" href="#message" role="button">New Message</a>
         </div>
     </div>
 </div>
