@@ -6,7 +6,7 @@ import sqlite3   # enable control of an sqlite database
 import uuid
 from datetime import datetime
 
-DB_FILE = "data/tuesday.db"
+DB_FILE = "../data/tuesday.db"
 
 def create_db():
     '''
@@ -459,7 +459,7 @@ def set_status(status, taskID):
     return True
 
 #=====MESSAGES FXNS=====
-def add_msg(pid, address, user, msg, msg_id, timestamp, private=0):
+def add_msg(pid, user, msg, msg_id, timestamp, address=0, private=0):
     '''
     ADDS A ROW TO msgs TABLE OF INPUT VALUES pid, address, user, msg, msg_id, and private
     ALL INPUTS ARE STRINGS EXCEPT private
@@ -473,6 +473,7 @@ def add_msg(pid, address, user, msg, msg_id, timestamp, private=0):
         db.commit()
         db.close()
         return True
+
     data = (pid, user, msg, msg_id, timestamp)
     c.execute('INSERT INTO t_msgs VALUES(?, ?, ?, ?, ?)', data)
     db.commit()
@@ -607,6 +608,9 @@ def get_current(username, type):
 
     db.close()
     return current
+
+add_msg("196a02e8-18fc-11e9-b4fe-acbc32796c21", "a", "hi", "1", "12")
+print(get_msgs("196a02e8-18fc-11e9-b4fe-acbc32796c21"))
 
 if __name__ == '__main__':
      create_db()
