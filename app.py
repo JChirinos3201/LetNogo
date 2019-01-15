@@ -58,8 +58,8 @@ def profile():
 
     return render_template('profile.html', username = username, url = url)
 
-@app.route('/view_profile')
-def view_profile():
+@app.route('/view_profile/<project_name>/<p_id>')
+def view_profile(project_name, p_id):
     if 'username' not in session:
         return redirect(url_for('index'))
     username = request.args['username']
@@ -74,7 +74,7 @@ def view_profile():
 
     url = api.customAvatarLink(eyes, nose, mouth, color)
 
-    return render_template('view_profile.html', username = username, url = url, user_info = user_info)
+    return render_template('view_profile.html', username = username, url = url, user_info = user_info, project_name = project_name, p_id = p_id)
 
 @app.route('/avatar')
 def avatar():
@@ -402,6 +402,7 @@ def delete_private_message():
 def get_dashboard():
     username = session['username']
     pid = request.args['pid']
+    project_name = db.get_project(pid)
     print("\n\n\nPID: {}\n\n\n".format(pid))
 
     messages = db.get_msgs(pid)
@@ -430,8 +431,19 @@ def get_dashboard():
     # for team members tab thing
     teammates = db.get_teammates(pid)
     print('teammates', teammates)
-    
-    return render_template('dashboardSNIPPET.html', messages=messages[:5], done=str(done), working=str(working), notstarted=str(notstarted), tasks=[], teammates = teammates, username = username)
+
+    teammate_pfp_urls = {}
+    for mate in teammates:
+        name = mate[0]
+        eyes = db.get_current(name, 'eyes')
+        nose = db.get_current(name, 'noses')
+        mouth = db.get_current(name, 'mouths')
+        color = db.get_current(name, 'color')
+        teammate_pfp_urls[name] = api.customAvatarLink(eyes, nose, mouth, color)
+
+    print('teammate_pfp_urls', teammate_pfp_urls)
+         
+    return render_template('dashboardSNIPPET.html', messages=messages[:5], done=str(done), working=str(working), notstarted=str(notstarted), tasks=[], teammates = teammates, username = username, teammate_pfp_urls = teammate_pfp_urls, p_id = pid, project_name = project_name)
 
 
 @app.route('/move_task')
