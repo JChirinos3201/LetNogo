@@ -109,6 +109,7 @@ def new_task():
     status = request.args['status']
     pid = request.args['pid']
     db.add_task(pid, session['username'], task, description, priority, due_date, status)
+    return 'sad'
 
 @app.route('/new_tmsg', methods=['GET'])
 def new_team_msg():
@@ -122,6 +123,7 @@ def new_team_msg():
     msg_id = str(uuid.uuid1())
     timestamp = request.args['time']
     db.add_msg(pid, address, user, msg, msg_id, timestamp)
+    return 'sad'
 
 
 @app.route('/join_project', methods=["POST"])
