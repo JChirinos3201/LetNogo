@@ -35,7 +35,7 @@ var displayDash = function () {
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             document.getElementById('contentColumn').innerHTML = this.responseText;
-            // console.log(this.responseText); 
+            // console.log(this.responseText);
             setMinDate();
         }
     };
@@ -138,6 +138,36 @@ var submitNewTask = function () {
     xhttp.open("GET", "/new_task?task=" + task + "&description=" + desc + "&priority=" + prio + "&due_date=" + date + "&status=" + "0&pid=" + pid, true);
     xhttp.send();
 };
+
+// msg fxns
+
+var submitTeamMsg = function () {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            displayTeamInbox();
+        }
+    };
+    var msg_to = document.getElementById('address').value;
+    var msg = document.getElementById('msg').value;
+    currentDate = new Date();
+    year = currentDate.getFullYear();
+    month = currentDate.getMonth() + 1;
+    day = currentDate.getDate();
+    hour = currentDate.getHours();
+    minute = currentDate.getMinutes();
+    var time = `${year}/${month}/${day} - ${hour}:${minute}`;
+    console.log(msg_to);
+    console.log(msg);
+    console.log(time);
+    xhttp.open("GET", `/new_tmsg?address=${msg_to}&msg=${msg}&pid=${pid}&timestamp=${time}`, true);
+    xhttp.send();
+};
+
+var updateMsgs = function () {
+
+};
+
 // update char counts
 
 var updateNewTaskCharCount = function () {
@@ -149,6 +179,11 @@ var updateNewDescriptionCharCount = function () {
     var name = document.getElementById('newTaskDescription').value;
     var length = name.length;
     document.getElementById('newTaskDescriptionCount').innerHTML = length + "/150";
+};
+var updateMsgCharCount = function () {
+    var name = document.getElementById('msg').value;
+    var length = name.length;
+    document.getElementById('msgCharCount').innerHTML = length + "/140";
 };
 
 var setMinDate = function () {
