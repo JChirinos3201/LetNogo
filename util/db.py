@@ -502,13 +502,24 @@ def set_status(status, taskID):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
 
+    print('damn son')
+    
     if status == 2:
+        print('status is 2')
         c.execute('UPDATE tasks SET beenCompleted = 1 WHERE taskID=?', (taskID,)) #setUserBigcoin getUserBigcoin changeUserBigcoin
         c.execute('SELECT priority, username FROM tasks WHERE taskID=?', (taskID,))
-        data = c.fetchall[0]
+        data = c.fetchall()[0]
         p = data[0]
         username = data[1]
+
+        db.commit()
+        db.close()
+        
         changeUserBigcoin(username, 50 + 50 * p)
+
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    
     c.execute('UPDATE tasks SET status = ? WHERE taskID=?', (status, taskID))
 
     db.commit()
