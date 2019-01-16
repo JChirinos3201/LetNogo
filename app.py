@@ -82,19 +82,76 @@ def avatar():
         return redirect(url_for('index'))
     username = session['username']
 
+    eyes_price = {'eyes1':0, 'eyes10':1250, 'eyes2':1250, 'eyes3':1250, 'eyes4':1250, 'eyes6':2500, 'eyes9':2500, 'eyes5':5000, 'eyes7':5000}
+    noses_price = {'nose2':0, 'nose3':1250, 'nose4':1250, 'nose5':1250, 'nose6':2500, 'nose7':2500, 'nose8':5000, 'nose9':5000}
+    mouths_price = {'mouth1':0, 'mouth3':1250, 'mouth5':1250, 'mouth6':1250, 'mouth7':2500, 'mouth9':2500, 'mouth10':5000, 'mouth11':5000}
+    colors_price = {'yellow':('FF3333' 0), 'red':('FF3333', 1250), 'blue': ('4DA6FF', 1250), 'green':('66FF99', 1250),\
+                    'orange':('FFA366', 1250), 'purple':('BF80FF', 2500), 'pink':('C55EB1', 2500),\
+                    'white':('FFFFFF', 5000), 'grey':('5A6358', 5000), 'black':('000000', 5000)}
     # this will be replaced with data from the db
     eyes_testing = ['eyes1', 'eyes2', 'eyes3', 'eyes4']
     noses_testing = ['nose2', 'nose3', 'nose4', 'nose5']
     mouths_testing = ['mouth1', 'mouth3', 'mouth5', 'mouth6']
     colors = {'red': 'FF3333', 'blue': '4DA6FF', 'green': '66FF99',\
-              'yellow': 'FFFF33', 'orange': 'FFA366', 'purple': 'BF80FF', 'pink': 'C55EB1',\
-              'white': 'FFFFFF', 'grey': '5A6358', 'black': '000000'}
+                  'yellow': 'FFFF33', 'orange': 'FFA366', 'purple': 'BF80FF', 'pink': 'C55EB1',\
+                  'white': 'FFFFFF', 'grey': '5A6358', 'black': '000000'}
     color_testing = [colors['red'], colors['blue'], colors['green'], colors['yellow'], colors['orange'],\
-                    colors['purple'], colors['pink'], colors['white'], colors['grey'], colors['black']
-                    ]
+                        colors['purple'], colors['pink'], colors['white'], colors['grey'], colors['black']
+                        ]
 
     url = api.getAvatarLink(str(285), username)
     return render_template('avatar.html', username = username, url = url, eyes = eyes_testing, noses = noses_testing, mouths = mouths_testing, colors = color_testing)
+
+@app.route('/purchase')
+def purchase_feature():
+    '''
+    USER HAS TO BE LOGGED IN TO PURCHASE FEATURE
+    JS SENDS INFO TO '/purchase?feature=${feature}&value=${value}'
+    NEED TO IMPLEMENT FLASK ALERT FOR SUCCESSFUL PURCHASE
+    '''
+    if 'username' not in session:
+        return redirect(url_for('index'))
+    username = session['username']
+    bigcoin = db.getUserBigcoin(username)
+    feature = request.args['feature']
+    value = request.args['value']
+    if feature == 'eyes':
+        eyes_price = {'eyes1':0, 'eyes10':1250, 'eyes2':1250, 'eyes3':1250, 'eyes4':1250, 'eyes6':2500, 'eyes9':2500, 'eyes5':5000, 'eyes7':5000}
+        if bigcoin >= eyes_price[value]:
+            price_after_purchase = bigcoin - eyes_price[value]
+            db.setUserBigcoin(username, price_after_purchase)
+            return 'dang susan got the bread'
+        else:
+            return 'shucks susan lost the yeast'
+    if feature = 'nose':
+        noses_price = {'nose2':0, 'nose3':1250, 'nose4':1250, 'nose5':1250, 'nose6':2500, 'nose7':2500, 'nose8':5000, 'nose9':5000}
+        if bigcoin >= noses_price[value]:
+            price_after_purchase = bigcoin - noses_price[value]
+            db.setUserBigcoin(username, price_after_purchase)
+            return 'dang susan got the bread'
+        else:
+            return 'shucks susan broke'
+    if feature = 'mouth':
+        mouths_price = {'mouth1':0, 'mouth3':1250, 'mouth5':1250, 'mouth6':1250, 'mouth7':2500, 'mouth9':2500, 'mouth10':5000, 'mouth11':5000}
+        if bigcoin >= mouths_price[value]:
+            price_after_purchase = bigcoin - mouths_price[value]
+            db.setUserBigcoin(username, price_after_purchase)
+            return 'dang susan got the bread'
+        else:
+            return 'shucks susan broke'
+    if feature = 'color':
+        colors_price = {'yellow':('FF3333' 0), 'red':('FF3333', 1250), 'blue': ('4DA6FF', 1250), 'green':('66FF99', 1250),\
+                        'orange':('FFA366', 1250), 'purple':('BF80FF', 2500), 'pink':('C55EB1', 2500),\
+                        'white':('FFFFFF', 5000), 'grey':('5A6358', 5000), 'black':('000000', 5000)}
+        if bigcoin >= colors_price[value][1]:
+            price_after_purchase = bigcoin - colors_price[value][1]
+            db.setUserBigcoin(username, price_after_purchase)
+            return 'dang susan got the bread'
+        else:
+            return 'shucks susan broke'
+
+
+
 
 @app.route('/new_project', methods=["POST"])
 def new_project():
