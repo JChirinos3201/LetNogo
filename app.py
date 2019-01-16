@@ -270,7 +270,18 @@ def get_snippet():
         pid = request.args['pid']
         team_messages = db.get_t_msgs(pid)
         print(team_messages)
-        return render_template('{}SNIPPET.html'.format(snippet), team_messages = team_messages)
+        teammates = db.get_teammates(pid)
+        teammate_pfp_urls = {}
+        for mate in teammates:
+            name = mate[0]
+            eyes = db.get_current(name, 'eyes')
+            nose = db.get_current(name, 'noses')
+            mouth = db.get_current(name, 'mouths')
+            color = db.get_current(name, 'color')
+            teammate_pfp_urls[name] = api.customAvatarLink(eyes, nose, mouth, color)
+
+        print('teammate_pfp_urls', teammate_pfp_urls)
+        return render_template('{}SNIPPET.html'.format(snippet), team_messages = team_messages, teammate_pfp_urls = teammate_pfp_urls)
     return render_template('{}SNIPPET.html'.format(snippet))
 
 @app.route('/get_avatar')

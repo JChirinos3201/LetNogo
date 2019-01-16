@@ -16,6 +16,11 @@ Tuesday -- a web application for collaborators to track projects together and se
     \____/_/ \_____\/ \___/_(   \_____\/ \_____\/ \_____\/
 ==============================================================
 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+==============================================================
+johnnyW -- 2019-01-16 02:10
+--------------------------------------------------------------
+- added front-end display of messages for dashboard and teaminbox
+==============================================================
 joanC -- 2019-01-15 23:30
 --------------------------------------------------------------
 - Added teammate section of dashboard
@@ -124,8 +129,8 @@ joanC -- 2019-01-13 23:47
 ==============================================================
 linS -- 2019-01-13 19:12
 --------------------------------------------------------------
-- Edited function bugs in database 
-- updated design doc and recreated component map 
+- Edited function bugs in database
+- updated design doc and recreated component map
 ==============================================================
 thomasZ -- 2019-01-13 19:32
 --------------------------------------------------------------
@@ -182,7 +187,7 @@ frontend registration form
 
 linS -- 2019-01-12 11:28
 --------------------------------------------------------------
-- Combined create tables functions in database 
+- Combined create tables functions in database
 ==============================================================
 
 joanC -- 2019-01-11 13:31
@@ -192,7 +197,7 @@ joanC -- 2019-01-11 13:31
 
 linS -- 2019-01-11 8:15
 --------------------------------------------------------------
-- Wrote functions for avatar in database  
+- Wrote functions for avatar in database
 ==============================================================
 
 thomasZ -- 2019-01-11 01:50

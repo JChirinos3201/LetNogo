@@ -104,7 +104,7 @@ var getUserImage = function (msgID, user) {
             document.getElementById(msgID).src = this.responseText;
         }
     };
-    xhttp.open("GET", `/get_avatar_from_get?username=` + user, true);
+    xhttp.open("GET", `/get_avatar_from_get?username=${user}`, true);
     xhttp.send();
 };
 

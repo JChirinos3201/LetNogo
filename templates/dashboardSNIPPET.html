@@ -16,10 +16,13 @@
       <h2 class="text-center">Recent Team Messages</h2>
       <div id="messages">
         <div class="container-fluid">
-          {% if messages|length > 0 %} {% for message in messages[:5] %}
+          {% if messages|length > 0 %}
+          {% for message in messages[:5] %}
           <div class="row my-2">
             <div class="bg-info w-100 rounded-pill py-2 px-3">
-              <img class="mr-2 rounded-circle" src="" height="30" width="30" onload="getUserImage('{{message[3]}}', '{{message[1]}}')" id="{{message[3]}}"><span class="font-weight-bold">{{message[1]}}</span> said <span class="font-italic">"{{message[2]}}"</span> at <u>{{message[4]}}</u>
+              <img class="mr-2 rounded-circle" src="{{teammate_pfp_urls[message[0]]}}" height="30" width="30" onload="getUserImage('{{message[2]}}', '{{message[0]}}')" id="{{message[3]}}">
+              <span class="font-weight-bold">{{message[0]}}</span> &mdash; <span class="font-italic">{{message[1]}}</span>
+              <small class="float-right">{{message[3]}}</small>
             </div>
           </div>
           {% endfor %} {% else %}
