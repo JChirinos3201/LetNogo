@@ -432,6 +432,12 @@ def get_dashboard():
     teammates = db.get_teammates(pid)
     print('teammates', teammates)
 
+    user_tasks = {}
+    print('\n\n\nTEAMMATES:\n{}\n\n\n\n'.format(teammates))
+    for user in teammates:
+        user_tasks[user[0]] = db.get_tasks_username(pid, user[0])
+    print('\n\n\nUSER TASKS\n{}\n\n\n'.format(user_tasks))
+
     teammate_pfp_urls = {}
     for mate in teammates:
         name = mate[0]
@@ -442,8 +448,8 @@ def get_dashboard():
         teammate_pfp_urls[name] = api.customAvatarLink(eyes, nose, mouth, color)
 
     print('teammate_pfp_urls', teammate_pfp_urls)
-         
-    return render_template('dashboardSNIPPET.html', messages=messages[:5], done=str(done), working=str(working), notstarted=str(notstarted), tasks=[], teammates = teammates, username = username, teammate_pfp_urls = teammate_pfp_urls, p_id = pid, project_name = project_name)
+
+    return render_template('dashboardSNIPPET.html', messages=messages[:5], done=str(done), working=str(working), notstarted=str(notstarted), tasks=[], teammates = teammates, username = username, teammate_pfp_urls = teammate_pfp_urls, p_id = pid, project_name = project_name, teammate_tasks=user_tasks)
 
 
 @app.route('/move_task')

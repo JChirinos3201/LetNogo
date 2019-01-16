@@ -186,7 +186,7 @@ def get_project(id):
     '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    
+
     cmd = 'SELECT p_name FROM projects WHERE pid = "{0}"'.format(id)
     c.execute(cmd)
     selectedVal = c.fetchone()
@@ -195,7 +195,7 @@ def get_project(id):
 
     if selectedVal == None:
         return None
-    
+
     return selectedVal[0]
 
 def get_projects(username, sort=False):
@@ -486,7 +486,7 @@ def add_t_msg(pid, user, msg, msg_id, timestamp):
     c = db.cursor()
 
     data = (pid, user, msg, msg_id, timestamp)
-    
+
     c.execute('INSERT INTO t_msgs VALUES(?, ?, ?, ?, ?)', data)
     db.commit()
     db.close()
@@ -501,9 +501,9 @@ def add_p_msg(pid, address, user, msg, msg_id, timestamp):
     c = db.cursor()
 
     data = (pid, address, user, msg, msg_id, timestamp)
- 
+
     c.execute('INSERT INTO p_msgs VALUES(?, ?, ?, ?, ?, ?)', data)
-    
+
     db.commit()
     db.close()
     return True

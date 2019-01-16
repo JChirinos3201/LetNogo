@@ -2,108 +2,111 @@
 <html lang="en">
 
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='effects.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='effects.css') }}">
 
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='apple-touch-icon.png') }}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon-32x32.png') }}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{url_for('static', filename='favicon-16x16.png')}}">
-    <link rel="manifest" href="{{url_for('static', filename='site.webmanifest')}}">
-    <link rel="mask-icon" href="{{url_for('static', filename='safari-pinned-tab.svg')}}" color="#5bbad5">
-    <meta name="msapplication-TileColor" content="#00aba9">
-    <meta name="theme-color" content="#51ff5d">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='apple-touch-icon.png') }}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon-32x32.png') }}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{{url_for('static', filename='favicon-16x16.png')}}">
+  <link rel="manifest" href="{{url_for('static', filename='site.webmanifest')}}">
+  <link rel="mask-icon" href="{{url_for('static', filename='safari-pinned-tab.svg')}}" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#00aba9">
+  <meta name="theme-color" content="#51ff5d">
 
-    <style>
-    #user_name{
+  <style>
+    #user_name {
       font-size: 20px;
-      }
-      #user_name:hover{
-        color: #e580ff;
-        text-decoration: none;
-      }
-    </style>
+    }
 
-    <title>{{ project_name }} &bull; Tuesday</title>
+    #user_name:hover {
+      color: #e580ff;
+      text-decoration: none;
+    }
+  </style>
+
+  <title>{{ project_name }} &bull; Tuesday</title>
 </head>
 
 <body onload="setup();">
 
 
-    <nav class="navbar navbar-light bg-success">
-        <a class="navbar-brand mb-0" href="/home">
-            <h1><em>Tuesday</em></h1>
-        </a>
-        <div>
-            <a href="/profile"> <img src="" id="avatar" style="border-radius: 25%;" width = 55; height = 55;> </a>
-            <a href="/logout">
+  <nav class="navbar navbar-light bg-success">
+    <a class="navbar-brand mb-0" href="/home">
+      <h1><em>Tuesday</em></h1>
+    </a>
+    <div>
+      <a href="/profile"> <img src="" id="avatar" style="border-radius: 25%;" width = 55; height = 55;> </a>
+      <a href="/logout">
                 <button type="button" class="btn btn-warning">Log out</button>
             </a>
 
-        </div>
-    </nav>
-
-    <div class="container-fluid border-bottom">
-        <div class="row">
-            <div class="col">
-                <h1 class="display-4">{{ project_name }}</h1>
-            </div>
-        </div>
     </div>
+  </nav>
+
+  <div class="container-fluid border-bottom">
+    <div class="row">
+      <div class="col">
+        <h1 class="display-4">{{ project_name }}</h1>
+      </div>
+    </div>
+  </div>
 
 
-    <div class="container-fluid mt-2">
-        <div class="row">
-            <div class="col-md-3 col-lg-2" bg-success id="buttonColumn">
-                <button class="btn btn-block btn-success" type="button" data-toggle="collapse" data-target="#buttons" aria-expanded="false" aria-controls="buttons">Toggle Buttons</button>
-                <div class="btn-group-toggle my-2 collapse show" id="buttons" visible data-toggle="buttons">
+  <div class="container-fluid mt-2">
+    <div class="row">
+      <div class="col-md-3 col-lg-2" bg-success id="buttonColumn">
+        <button class="btn btn-block btn-success" type="button" data-toggle="collapse" data-target="#buttons" aria-expanded="false" aria-controls="buttons">Toggle Buttons</button>
+        <div class="btn-group-toggle my-2 collapse show" id="buttons" visible data-toggle="buttons">
 
-                    <label class="btn btn-warning btn-block active" onclick="displayDash();">
+          <label class="btn btn-warning btn-block active" onclick="displayDash();">
                         <input type="radio" name="options" id="option1" autocomplete="off" checked>Dashboard
                     </label>
-                    <label class="btn btn-warning btn-block" onclick="displayTasks();">
+          <label class="btn btn-warning btn-block" onclick="displayTasks();">
                         <input type="radio" name="options" id="option2" autocomplete="off">To-do
                     </label>
-                    <label class="btn btn-warning btn-block" onclick="displayTeamInbox();">
+          <label class="btn btn-warning btn-block" onclick="displayTeamInbox();">
                         <input type="radio" name="options" id="option3" autocomplete="off">Team Inbox
                     </label>
-                    <label class="btn btn-warning btn-block" onclick="displayPrivateInbox();">
+          <label class="btn btn-warning btn-block" onclick="displayPrivateInbox();">
                         <input type="radio" name="options" id="option4" autocomplete="off">Private  Inbox
                     </label>
-                    <button class="btn btn-block btn-warning" type="button" data-toggle="collapse" data-target="#joinID" aria-expanded="false" aria-controls="joinID">Invite Members</button>
-                    <div class="collapse" id="joinID">
-                        <div class="card card-body">
-                            Other team members can join using this ID: <strong><textarea class="form-control" style="resize: none;" rows="5" id="toClipboard" oninput="resetTextarea('{{p_id}}')" onload="setPID();" spellcheck="false" autocapitalize="off" autocorrect="off">{{p_id}}</textarea></strong>
-                            <button class="btn btn-sm btn-success btn-block" onclick="copyToClipboard();">Copy to clipboard</button>
-                        </div>
-                    </div>
-                </div>
+          <button class="btn btn-block btn-warning" type="button" data-toggle="collapse" data-target="#joinID" aria-expanded="false" aria-controls="joinID">Invite Members</button>
+          <div class="collapse" id="joinID">
+            <div class="card card-body">
+              Other team members can join using this ID: <strong><textarea class="form-control" style="resize: none;" rows="5" id="toClipboard" oninput="resetTextarea('{{p_id}}')" onload="setPID();" spellcheck="false" autocapitalize="off" autocorrect="off">{{p_id}}</textarea></strong>
+              <button class="btn btn-sm btn-success btn-block" onclick="copyToClipboard();">Copy to clipboard</button>
             </div>
-            <div class="my-3 col-md-9 col-lg-10" id="contentColumn">
-
-
-
-
-
-
-
-
-            </div>
+          </div>
         </div>
+      </div>
+      <div class="my-3 col-md-9 col-lg-10" id="contentColumn">
+
+
+
+
+
+
+
+
+
+
+      </div>
     </div>
+  </div>
 
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-    <script src="{{ url_for('static', filename='project.js') }}"></script>
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+  <script src="{{ url_for('static', filename='project.js') }}"></script>
 </body>
 
 </html>

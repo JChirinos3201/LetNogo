@@ -47,52 +47,94 @@
     <div class="col-md">
       <h2 class="text-center">Team Members</h2>
       <div class="container">
-	<div class="row">
-	  <div class="col-md ml-5">
-	    {% for mate in teammates %}
-	    <div class="row">
 
-	      {% if mate[0] != username %}
-        <div class="card mb-4" style="width: 27rem;">
-          <a class="card-header alert-success text-center" data-toggle="collapse" href="#collapse_user{{mate[0]}}" id="user_name">
-            <div class="row">
-              <div style="width:45px; height:45px;">
-                <img class="image-fluid mr-3" src={{ teammate_pfp_urls[mate[0]] }} id="avatar" style="border-radius: 25%;" width = 45; height = 45;>
+
+        <div class="accordion" id="teammateAccordion">
+
+          {% for name, vals in teammate_tasks.items() %}
+          <div class="card">
+            <button class="btn btn-warning btn-block collapsed" type="button" data-toggle="collapse" data-target="#collapse{{name}}" aria-expanded="false" aria-controls="collapse{{name}}" id="heading{{name}}">
+                      {{name}}
+                    </button>
+            <div id="collapse{{name}}" class="collapse" aria-labelledby="heading{{name}}" data-parent="#teammateAccordion">
+              <div class="card-body">
+                <h5 class="card-title">Haven't Started</h5>
+                <ul class="list-group list-group-flush">
+                  {% for task, taskVals in vals.items() %} {% if taskVals[3] == 0 %}
+                  <li class="list-group-item">{{task}}</li>
+                  {% endif %} {% endfor %}
+                </ul>
+                <hr>
+                <h5 class="card-title">Working On</h5>
+                <ul class="list-group list-group-flush">
+                  {% for task, taskVals in vals.items() %} {% if taskVals[3] == 1 %}
+                  <li class="list-group-item">{{task}}</li>
+                  {% endif %} {% endfor %}
+                </ul>
+                <hr>
+                <h5 class="card-title">Done</h5>
+                <ul class="list-group list-group-flush">
+                  {% for task, taskVals in vals.items() %} {% if taskVals[3] == 2 %}
+                  <li class="list-group-item">{{task}}</li>
+                  {% endif %} {% endfor %}
+                </ul>
               </div>
-                <b><i>{{mate[0]}}</i></b>
-              <div style="width:45px; height:45px;">
-              </div>
-            </div>
-          </a>
-          <div class="collapse" id="collapse_user{{mate[0]}}">
-            <div class="card-body">
-                  susan rawr xD<br> put tasks here dx
-            </div>
-            <div id="user-name" class="card-footer alert-success text-center">
-                <a id="user-name">Visit Profile</a>
             </div>
           </div>
-        </div>
-	      {% else %}
-        <div class="card mb-4" style="width: 27rem;">
-          <a class="card-header alert-success text-center" data-toggle="collapse" href="#collapse_user" id="user_name">
+          {% endfor %}
+
+          <!--
+                <div class="row">
+                  <div class="col-md ml-5">
+                    {% for mate in teammates %}
+                    <div class="row">
+
+                      {% if mate[0] != username %}
+                      <div class="card mb-4" style="width: 27rem;">
+                        <a class="card-header alert-success text-center" data-toggle="collapse" href="#collapse_user{{mate[0]}}" id="user_name">
+                          <div class="row">
+                            <div style="width:45px; height:45px;">
+                              <img class="image-fluid mr-3" src={{ teammate_pfp_urls[mate[0]] }} id="avatar" style="border-radius: 25%;" width=4 5; height=4 5;>
+                            </div>
+                            <b><i>{{mate[0]}}</i></b>
+                            <div style="width:45px; height:45px;">
+                            </div>
+                          </div>
+                        </a>
+                        <div class="collapse" id="collapse_user{{mate[0]}}">
+                          <div class="card-body">
+                            susan rawr xD<br> put tasks here dx
+                          </div>
+                          <div id="user-name" class="card-footer alert-success text-center">
+                            <a id="user-name">Visit Profile</a>
+                          </div>
+                        </div>
+                      </div>
+                      {% else %}
+                      <div class="card mb-4" style="width: 27rem;">
+                        <a class="card-header alert-success text-center" data-toggle="collapse" href="#collapse_user" id="user_name">
             <img class="mr-3" src={{ teammate_pfp_urls[mate[0]] }} id="avatar" style="border-radius: 25%;" width = 35; height = 35;>
             <b><i>{{mate[0]}}</i> (YOU)</b>
           </a>
-          <div class="collapse" id="collapse_user">
-            <div class="card-body">
-                  susan rawr xD<br> put tasks here dx
-            </div>
-            <div id="user-name" class="card-footer alert-success text-center">
-                <a >Visit Profile</a>
-            </div>
-          </div>
+                        <div class="collapse" id="collapse_user">
+                          <div class="card-body">
+                            susan rawr xD<br> put tasks here dx
+                          </div>
+                          <div id="user-name" class="card-footer alert-success text-center">
+                            <a>Visit Profile</a>
+                          </div>
+                        </div>
+                      </div>
+                      {% endif %}
+
+
+                    </div>
+                    {% endfor %}
+
+                  </div>
+                </div>
+-->
         </div>
-	      {% endif %}
-
-
-	    </div>
-	    {% endfor %}
-
-	  </div>
-	</div>
+      </div>
+    </div>
+  </div>
