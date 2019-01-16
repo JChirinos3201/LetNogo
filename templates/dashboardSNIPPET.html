@@ -16,8 +16,7 @@
       <h2 class="text-center">Recent Team Messages</h2>
       <div id="messages">
         <div class="container-fluid">
-          {% if messages|length > 0 %}
-          {% for message in messages[:5] %}
+          {% if messages|length > 0 %} {% for message in messages[:5] %}
           <div class="row my-2">
             <div class="bg-info w-100 rounded-pill py-2 px-3">
               <img class="mr-2 rounded-circle" src="{{teammate_pfp_urls[message[0]]}}" height="30" width="30" onload="getUserImage('{{message[2]}}', '{{message[0]}}')" id="{{message[3]}}">
@@ -63,25 +62,25 @@
               <div class="card-body">
                 <h5 class="card-title">Haven't Started</h5>
                 <ul class="list-group list-group-flush">
-                  {% for task, taskVals in vals.items() %} {% if taskVals[3] == 0 %}
-                  <li class="list-group-item">&bull; {{task}}</li>
-                  {% endif %} {% endfor %}
+                  {% if vals[4] == 0 %}
+                  <li class="list-group-item">&bull; {{vals[0]}}</li>
+                  {% endif %}
                 </ul>
               </div>
               <div class="card-body">
                 <h5 class="card-title">Working On</h5>
                 <ul class="list-group list-group-flush">
-                  {% for task, taskVals in vals.items() %} {% if taskVals[3] == 1 %}
-                  <li class="list-group-item">&bull; {{task}}</li>
-                  {% endif %} {% endfor %}
+                  {% if vals[4] == 1 %}
+                  <li class="list-group-item">&bull; {{vals[0]}}</li>
+                  {% endif %}
                 </ul>
               </div>
               <div class="card-body">
                 <h5 class="card-title">Done</h5>
                 <ul class="list-group list-group-flush">
-                  {% for task, taskVals in vals.items() %} {% if taskVals[3] == 2 %}
-                  <li class="list-group-item">&bull; {{task}}</li>
-                  {% endif %} {% endfor %}
+                  {% if vals[4] == 2 %}
+                  <li class="list-group-item">&bull; {{vals[0]}}</li>
+                  {% endif %}
                 </ul>
               </div>
               <div class="card-body">

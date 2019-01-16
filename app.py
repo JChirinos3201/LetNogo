@@ -483,8 +483,9 @@ def get_dashboard():
     user_tasks = {}
     print('\n\n\nTEAMMATES:\n{}\n\n\n\n'.format(teammates))
     for user in teammates:
-        user_tasks[user[0]] = sorted(db.get_tasks_username(pid, user[0]), key=lambda x: x[2])
-    print('\n\n\nUSER TASKS\n{}\n\n\n'.format(user_tasks))
+        user = user[0]
+        user_tasks[user] = sorted(db.get_tasks_username(pid, user), key=lambda x: x[2])
+        print('USER: {}\nTASKS: {}\n\n'.format(user, user_tasks[user]))
 
     teammate_pfp_urls = {}
     for mate in teammates:
