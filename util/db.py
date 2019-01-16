@@ -503,11 +503,18 @@ def set_status(status, taskID):
     c = db.cursor()
 
     print('damn son')
+
+    c.execute('SELECT beenCompleted FROM tasks WHERE taskID=(?)', (taskID,))
+    #print(taskID)
+    been = c.fetchone()[0]
+    print(been)
     
-    if status == 2:
+    
+    if status == 2 and been == 0:
         print('status is 2')
         c.execute('UPDATE tasks SET beenCompleted = 1 WHERE taskID=?', (taskID,)) #setUserBigcoin getUserBigcoin changeUserBigcoin
         c.execute('SELECT priority, username FROM tasks WHERE taskID=?', (taskID,))
+        
         data = c.fetchall()[0]
         p = data[0]
         username = data[1]

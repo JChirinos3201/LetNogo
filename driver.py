@@ -24,7 +24,8 @@ db.create_db()
 #db.setUserBigcoin('sus', 0)
 #set_status(status, taskID)
 #db.add_task('473b1c96-19c1-11e9-b907-00bb60088044', 'sus', 'Macking people', 'macking more', '0', '2002-12-12', '0')
-db.set_status(2, '7e798350-19d5-11e9-a2c2-00bb60088044')
+#db.set_priority(2, '7e798350-19d5-11e9-a2c2-00bb60088044')
+db.set_status(2, '4d3572d8-19d8-11e9-80a9-00bb60088044')
 
 
 if __name__ == '__main__':
