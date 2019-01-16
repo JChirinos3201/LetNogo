@@ -24,7 +24,7 @@ def create_db():
     c.execute("CREATE TABLE IF NOT EXISTS notes(username TEXT, note TEXT)")
     c.execute("CREATE TABLE IF NOT EXISTS quotes (quote TEXT, author TEXT, date TEXT)")
     c.execute("CREATE TABLE IF NOT EXISTS users (user_name TEXT PRIMARY KEY, passwords TEXT)")
-    c.execute("CREATE TABLE IF NOT EXISTS coin (user_name TEXT PRIMARY KEY, bitcoin INTEGER)")
+    c.execute("CREATE TABLE IF NOT EXISTS currency (user_name TEXT PRIMARY KEY, bigcoin INTEGER)")
 
     return True;
 
@@ -97,25 +97,25 @@ def verifyUser(username, password):
         return True
     return False
 
-def getUserBitcoin(username):
+def getUserBigcoin(username):
     '''
-    RETURNS AMOUNT OF bitcoin username HAS
+    RETURNS AMOUNT OF bigcoin username HAS
     '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    c.execute('SELECT bitcoin FROM coin WHERE user_name=?', (username,))
+    c.execute('SELECT bigcoin FROM currency WHERE user_name=?', (username,))
     selectedVal = c.fetchone()
     db.commit()
     db.close()
     return selectedVal[0]
 
-def setUserBitcoin(username, bitcoin):
+def setUserBigcoin(username, bigcoin):
     '''
-    UPDATES AMOUNT OF bitcoin username HAS
+    UPDATES AMOUNT OF bigcoin username HAS
     '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    c.execute('UPDATE coin SET bitcoin = ? WHERE user_name = ?', (bitcoin, username, ))
+    c.execute('UPDATE currency SET bigcoin = ? WHERE user_name = ?', (bigcoin, username, ))
     db.commit()
     db.close()
     return True
