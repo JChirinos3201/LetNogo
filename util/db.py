@@ -221,6 +221,26 @@ def get_projects(username, sort=False):
         return sorted_projects
     return projects
 
+def verify_project(pid):
+    '''
+    RETURNS TRUE IF PID IS AN EXISTING PID
+    ELSE FALSE 
+    '''
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+
+    cmd = 'SELECT pid FROM projects'
+    c.execute(cmd)
+
+    pids = c.fetchall()
+
+    for each in pids:
+        if each[0] == pid:
+            return True
+    return False
+
+    #print(pids)
+
 def remove_project(pid):
     '''
     REMOVE A PROJECT FROM THE PROJECT TABLE GIVEN pid

@@ -154,7 +154,10 @@ def join_project():
         return redirect(url_for('index'))
     id = str(request.form['id'])
     title = db.get_project(id)
-    db.add_project(id, session['username'], title)
+    if db.verify_project(id):
+        db.add_project(id, session['username'], title)
+    else:
+        flash('Project ID does not exist')
     return redirect(url_for('home'))
 
 @app.route('/project/<title>/<id>')
