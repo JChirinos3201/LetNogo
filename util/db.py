@@ -483,7 +483,7 @@ def add_t_msg(pid, user, msg, msg_id, timestamp):
     c = db.cursor()
 
     data = (pid, user, msg, msg_id, timestamp)
-
+    
     c.execute('INSERT INTO t_msgs VALUES(?, ?, ?, ?, ?)', data)
     db.commit()
     db.close()
