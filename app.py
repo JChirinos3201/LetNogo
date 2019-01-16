@@ -225,7 +225,11 @@ def join_project():
 def project(title, id):
     if 'username' not in session:
         return redirect(url_for('index'))
-    return render_template('project.html', username = session['username'], project_name = title, p_id = id)
+
+    username = session['username']
+    money = db.getUserBigcoin(username)
+    
+    return render_template('project.html', username = username, project_name = title, p_id = id, bigcoin = money)
 
 @app.route('/authenticate', methods=['POST'])
 def authenticate():

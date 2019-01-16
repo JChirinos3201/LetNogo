@@ -523,6 +523,7 @@ def set_status(status, taskID):
         db.close()
         
         changeUserBigcoin(username, 50 + 50 * p)
+        
 
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
