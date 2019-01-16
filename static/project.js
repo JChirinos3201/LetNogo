@@ -160,7 +160,7 @@ var submitTeamMsg = function () {
   console.log(msg_to);
   console.log(msg);
   console.log(time);
-  xhttp.open("GET", `/new_tmsg?address=${msg_to}&msg=${msg}&pid=${pid}&timestamp=${time}`, true);
+  xhttp.open("GET", `/new_tmsg?msg=${msg}&pid=${pid}&timestamp=${time}`, true);
   xhttp.send();
 };
 

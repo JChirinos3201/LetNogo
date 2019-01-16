@@ -24,7 +24,12 @@
             border-radius: 10%;
 
         }
-
+        #menu {
+          text-decoration: none;
+          outline: 0;
+        }
+        #colorButton{
+        }
     </style>
 
     <title>{{ username }} &bull; Tuesday</title>
@@ -56,33 +61,48 @@
 
             <div class="col-md">
                 <div class="container">
-                    <div class="row">
-                        <div class="col-md my-3 my-md-0">
-                            <h3 class="h3">Eyes</h3>
+                  <h2 class="h2 text-center"><i>CUSTOMIZE YOUR AVATAR</i></h2>
+                    <div class="row mb-2">
+                        <div class="col-md my-3 my-md-0 text-center">
+                          <a id="menu" data-toggle="collapse" href="#collapse_eyes" role="button"><b><h5 class="alert alert-dark">EYES</h5></b></a>
+                          <div class="collapse mt-2" id="collapse_eyes" align="left">
                             {% for i in eyes %}
-                            <button onmouseenter="updateEyes('{{i}}');" onmouseout="displayCurrentAvatar();" onclick="changeEyes('{{i}}')" type="button" class="btn btn-block btn-light border my-0">{{ i }}</button> {% endfor %}
+                              <button class="btn btn-outline-success ml-1 mb-2" onmouseenter="updateEyes('{{i}}');" onmouseout="displayCurrentAvatar();" onclick="changeEyes('{{i}}')" type="button" class="btn btn-block btn-light border my-0">{{ i }}</button>
+                            {% endfor %}
+                          </div>
                         </div>
-                        <div class="col-md my-3 my-md-0">
-                            <h3 class="h3">Noses</h3>
+                        <div class="col-md my-3 my-md-0 text-center">
+                            <a id="menu" data-toggle="collapse" href="#collapse_noses" role="button"><b><h5 class="alert alert-dark">NOSES</h5></b></a>
+                            <div class="collapse mt-2" id="collapse_noses" align="right">
                             {% for i in noses %}
-                            <button onmouseenter="updateNose('{{i}}');" onmouseout="displayCurrentAvatar();" onclick="changeNose('{{i}}')" type="button" class="btn btn-block btn-light border my-0">{{ i }}</button> {% endfor %}
+                              <button class="btn btn-outline-success ml-1 mb-2" onmouseenter="updateNose('{{i}}');" onmouseout="displayCurrentAvatar();" onclick="changeNose('{{i}}')" type="button" class="btn btn-block btn-light border my-0">{{ i }}</button>
+                            {% endfor %}
+                            </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md my-3 my-md-0">
-                            <h3 class="h3">Mouths</h3>
+                    <div class="row mb-2">
+                        <div class="col-md my-3 my-md-0 text-center">
+                            <a id="menu" data-toggle="collapse" href="#collapse_mouths" role="button"><b><h5 class="alert alert-dark">MOUTHS</h5></b></a>
+                            <div class="collapse mt-2" id="collapse_mouths" align="left">
                             {% for i in mouths %}
-                            <button onmouseenter="updateMouth('{{i}}');" onmouseout="displayCurrentAvatar();" onclick="changeMouth('{{i}}')" type="button" class="btn btn-block btn-light border my-0">{{ i }}</button> {% endfor %}
+                              <button class="btn btn-outline-success ml-1 mb-2" onmouseenter="updateMouth('{{i}}');" onmouseout="displayCurrentAvatar();" onclick="changeMouth('{{i}}')" type="button" class="btn btn-block btn-light border my-0">{{ i }}</button>
+                            {% endfor %}
+                          </div>
                         </div>
-                        <div class="col-md my-3 my-md-0">
-                            <h3 class="h3">Colors</h3>
-                            {% for i in colors %}
-                            <button onmouseenter="updateColor('{{i}}');" onmouseout="displayCurrentAvatar();" onclick="changeColor('{{i}}')" type="button" class="btn btn-block btn-light border my-0" style="background-color: #{{i}};">&nbsp;</button> {% endfor %}
+                        <div class="col-md my-3 my-md-0 text-center">
+                            <a id="menu" data-toggle="collapse" href="#collapse_colors" role="button"><b><h5 class="alert alert-dark">COLORS</h5></b></a>
+                            <div class="collapse mt-2" id="collapse_colors">
+                              {% for i in colors %}
+                                <button id="colorButton" onmouseenter="updateColor('{{i}}');" onmouseout="displayCurrentAvatar();" onclick="changeColor('{{i}}')" type="button" class="btn btn-block btn-light border my-0" style="background-color: #{{i}};">&nbsp;</button>
+                              {% endfor %}
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+
     </div>
 
     <!-- Optional JavaScript -->

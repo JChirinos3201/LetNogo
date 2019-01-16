@@ -86,7 +86,12 @@ def avatar():
     eyes_testing = ['eyes1', 'eyes2', 'eyes3', 'eyes4']
     noses_testing = ['nose2', 'nose3', 'nose4', 'nose5']
     mouths_testing = ['mouth1', 'mouth3', 'mouth5', 'mouth6']
-    color_testing = ['FFFF33', 'C55EB1', '5A6358', '000000']
+    colors = {'red': 'FF3333', 'blue': '4DA6FF', 'green': '66FF99',\
+              'yellow': 'FFFF33', 'orange': 'FFA366', 'purple': 'BF80FF', 'pink': 'C55EB1',\
+              'white': 'FFFFFF', 'grey': '5A6358', 'black': '000000'}
+    color_testing = [colors['red'], colors['blue'], colors['green'], colors['yellow'], colors['orange'],\
+                    colors['purple'], colors['pink'], colors['white'], colors['grey'], colors['black']
+                    ]
 
     url = api.getAvatarLink(str(285), username)
     return render_template('avatar.html', username = username, url = url, eyes = eyes_testing, noses = noses_testing, mouths = mouths_testing, colors = color_testing)
@@ -132,12 +137,11 @@ def new_team_msg():
         return redirect(url_for('index'))
     print(request.args)
     pid = request.args['pid']
-    address = request.args['address']
     user = session['username']
     msg = request.args['msg']
     msg_id = str(uuid.uuid1())
     timestamp = request.args['time']
-    db.add_msg(pid, address, user, msg, msg_id, timestamp)
+    db.add_t_msg(pid, user, msg, msg_id, timestamp)
     return 'sad'
 
 
