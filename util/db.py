@@ -192,6 +192,9 @@ def get_project(id):
     selectedVal = c.fetchone()
 
     db.close()
+
+    if selectedVal == None:
+        return None
     
     return selectedVal[0]
 
