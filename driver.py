@@ -21,7 +21,8 @@ db.create_db()
 #print(db.remove_t_msg('0'))
 #print(db.get_t_msgs('50ea662a-1908-11e9-b3fa-00bb60088044'))
 
-db.verify_project('50ea662a-1908-11e9-b3fa-00bb60088044')
+#db.setUserBigcoin('sus', 0)
+db.changeUserBigcoin('sus', 120)
 
 
 if __name__ == '__main__':
