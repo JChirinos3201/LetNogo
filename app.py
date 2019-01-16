@@ -338,11 +338,12 @@ def get_snippet():
         unstarted = {}
         workingon = {}
         done = {}
-        print(tasks)
+        print('tasks', tasks)
         for key in tasks:
+            print(key)
             if key[2] == 0:
                 unstarted[key[0]] = key
-            elif [key][2] == 1:
+            elif key[2] == 1:
                 workingon[key[0]] = key
             else:
                 done[key[0]] = key
