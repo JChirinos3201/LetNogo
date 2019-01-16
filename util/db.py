@@ -501,6 +501,7 @@ def add_p_msg(pid, address, user, msg, msg_id, timestamp):
     c = db.cursor()
 
     data = (pid, address, user, msg, msg_id, timestamp)
+    print("\n\n\nSENDING PM\n\n\tpid: {}\n\tto: {}\n\tfrom: {}\n\tmsg: {}\n\tmsg ID: {}\n\ttimestamp: {}\n\n\n\n".format(pid, address, user, msg, msg_id, timestamp))
 
     c.execute('INSERT INTO p_msgs VALUES(?, ?, ?, ?, ?, ?)', data)
 

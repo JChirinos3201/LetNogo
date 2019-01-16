@@ -99,7 +99,7 @@ def new_project():
     #data = database.DB_Manager(DB_FILE)
     print(request.form)
     projectName = request.form['newProjectName']
-    if ' ' in projectName or projectName.strip() == '' or '?' in projectName or '#' in projectName:
+    if projectName.strip() == '' or '?' in projectName or '#' in projectName:
         flash('Invalid project name!')
         return redirect(url_for('home'))
     pid = str(uuid.uuid1())
@@ -241,10 +241,24 @@ def get_snippet():
     if snippet == 'privateInbox' and 'username' in session:
         pid = request.args['pid']
         private_messages = db.get_p_msgs(pid)
+        teammates = db.get_teammates(pid)
+        print(teammates)
         print(private_messages)
-        if (private_messages == []):
-            return """<div class="alert alert-warning">You don't have any private messages ;&#40;</div>"""
-        return render_template('{}SNIPPET.html'.format(snippet), private_messages = private_messages)
+        username = session['username']
+        msg_list = []
+        for tup in private_messages:
+            if tup[0] == username:
+                l = list(tup)
+                name = tup[1]
+                eyes = db.get_current(name, 'eyes')
+                nose = db.get_current(name, 'noses')
+                mouth = db.get_current(name, 'mouths')
+                color = db.get_current(name, 'color')
+                url = api.customAvatarLink(eyes, nose, mouth, color)
+                msg_list += [i for i in private_messages] + [url]
+
+        print('MESSAGE LIST\n\t{}\n\n\n'.format(msg_list))
+        return render_template('{}SNIPPET.html'.format(snippet), private_messages = msg_list, teammates=teammates, username=username)
 
     if snippet == 'tasks' and 'username' in session:
         pid = request.args['pid']
@@ -402,6 +416,22 @@ def get_avatar_from_get():
     print('GETTING AVATAR\n\tUsername: {}\n\tURL: {}\n'.format(username, url))
     print(url)
     return url
+
+@app.route('/new_private_message')
+def new_private_message():
+    pid = request.args['pid']
+    address = request.args['address']
+    user = session['username']
+    msg = request.args['msg']
+    msg_id = str(uuid.uuid1())
+    timestamp = request.args['timestamp']
+
+    print("\n\n\nSENDING PM\n\n\tpid: {}\n\tto: {}\n\tfrom: {}\n\tmsg: {}\n\tmsg ID: {}\n\ttimestamp: {}\n\n\n\n".format(pid, address, user, msg, msg_id, timestamp))
+
+    db.add_p_msg(pid, address, user, msg, msg_id, timestamp)
+
+    return "Okie dokie!"
+
 
 @app.route('/delete_private_message')
 def delete_private_message():
