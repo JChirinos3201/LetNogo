@@ -58,7 +58,7 @@ def registerUser(username, password, firstname, lastname, email, phone):
         print('\n\nREGISTERING USER\n\n')
         print('\n\tusername: {}\n\tPassword: {}\n\tFirst: {}\n\tLast: {}\n\tEmail: {}\n\tPhone: {}\n\n\n'.format(username, password, firstname, lastname, email, phone))
         c.execute('INSERT INTO users VALUES (?,?)', (username, password))
-        c.execute('INSERT INTO coin VALUES (?, ?)', (username, 0))
+        c.execute('INSERT INTO currency VALUES (?, ?)', (username, 0))
         c.execute('INSERT INTO profiles VALUES (?,?,?,?,?,?);', (username, firstname, lastname, email, phone, ""))
 
         c.execute('INSERT INTO avatars VALUES (?,?,?,?)', (username, 'eyes', 'eyes1', '0'))
@@ -119,6 +119,21 @@ def setUserBigcoin(username, bigcoin):
     db.commit()
     db.close()
     return True
+
+def changeUserBigcoin(username, delta):
+    '''
+    UPDATES AMOUNT OF bigcoin username HAS BY THE DELTA AMOUNT
+    RETURNS NEW AMOUNT
+    '''
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    c.execute('SELECT bigcoin FROM currency WHERE user_name = ?', (username,))
+    initial_amt = c.fetchone()[0]
+    new_amt = initial_amt + delta
+    c.execute('UPDATE currency SET bigcoin = ? WHERE user_name = ?', (new_amt, username))
+    db.commit()
+    db.close()
+    return new_amt
 
 #======QUOTE FXNS========
 
@@ -489,6 +504,8 @@ def set_status(status, taskID):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
 
+    if status = 2:
+        c.execute('UPDATE tasks SET beenCompleted = 1 WHERE taskID=?', (taskID))
     c.execute('UPDATE tasks SET status = ? WHERE taskID=?', (status, taskID))
 
     db.commit()
