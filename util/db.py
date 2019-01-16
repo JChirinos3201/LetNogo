@@ -504,7 +504,7 @@ def set_status(status, taskID):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
 
-    if status = 2:
+    if status == 2:
         c.execute('UPDATE tasks SET beenCompleted = 1 WHERE taskID=?', (taskID))
     c.execute('UPDATE tasks SET status = ? WHERE taskID=?', (status, taskID))
 
