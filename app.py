@@ -269,7 +269,7 @@ def get_snippet():
 
     if snippet == 'tasks' and 'username' in session:
         pid = request.args['pid']
-        tasks = db.get_tasks_username(pid, session['username'])
+        tasks = sorted(db.get_tasks_username(pid, session['username']), key=lambda x: x[2])
         unstarted = {}
         workingon = {}
         done = {}
@@ -456,7 +456,7 @@ def get_dashboard():
     messages = db.get_t_msgs(pid)
     print("\n\n\nPRIVATE MESSAGES:\n{}\n\n".format(messages))
 
-    tasks = db.get_tasks_pid(pid)
+    tasks = sorted(db.get_tasks_pid(pid), key=lambda x: x[2])
 
     print('\n\n\nTASKS\n')
     for i in tasks:
@@ -483,7 +483,7 @@ def get_dashboard():
     user_tasks = {}
     print('\n\n\nTEAMMATES:\n{}\n\n\n\n'.format(teammates))
     for user in teammates:
-        user_tasks[user[0]] = db.get_tasks_username(pid, user[0])
+        user_tasks[user[0]] = sorted(db.get_tasks_username(pid, user[0]), key=lambda x: x[2])
     print('\n\n\nUSER TASKS\n{}\n\n\n'.format(user_tasks))
 
     teammate_pfp_urls = {}
