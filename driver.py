@@ -22,7 +22,8 @@ db.create_db()
 #print(db.get_t_msgs('50ea662a-1908-11e9-b3fa-00bb60088044'))
 
 #db.setUserBigcoin('sus', 0)
-db.changeUserBigcoin('sus', 120)
+#set_status(status, taskID)
+db.add_task('473b1c96-19c1-11e9-b907-00bb60088044', 'sus', 'Macking people', 'macking more', '0', '2002-12-12', '0')
 
 
 if __name__ == '__main__':

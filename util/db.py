@@ -448,15 +448,13 @@ def get_tasks_username(pid, username):
 
     c.execute('SELECT task, description, priority, due_date, status, taskID FROM tasks where pid=? AND username=?', (pid, username))
 
-    selectedVal = c.fetchall()
-    task_dict = {}
-    for i in selectedVal:
-        task_dict[i[0]] = (i[1], i[2], i[3], i[4], i[5])
-
+    selectedVals = c.fetchall()
+    tasks = []
+    for i in selectedVals:
+        tasks.append(i)
     db.commit()
     db.close()
-
-    return task_dict
+    return tasks
 
 def set_description(description, taskID):
     '''
@@ -505,7 +503,12 @@ def set_status(status, taskID):
     c = db.cursor()
 
     if status == 2:
-        c.execute('UPDATE tasks SET beenCompleted = 1 WHERE taskID=?', (taskID))
+        c.execute('UPDATE tasks SET beenCompleted = 1 WHERE taskID=?', (taskID,)) #setUserBigcoin getUserBigcoin changeUserBigcoin
+        c.execute('SELECT priority, username FROM tasks WHERE taskID=?', (taskID,))
+        data = c.fetchall[0]
+        p = data[0]
+        username = data[1]
+        changeUserBigcoin(username, 50 + 50 * p)
     c.execute('UPDATE tasks SET status = ? WHERE taskID=?', (status, taskID))
 
     db.commit()
