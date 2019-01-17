@@ -3,23 +3,23 @@
   <div class="row">
     {% if private_messages|length > 0 %}
     <div class="col-md my-3 my-md-0">
-    {% for pm in private_messages %}
-      <div class="row my-2">
-        <div class="bg-primary w-100 rounded-pill py-2 px-3" onclick="deleteMessage('{{pm[0][3]}}');">
-          <img class="mr-2 rounded-circle" src="{{ pm[1]  }}" height="30" width="30" onload="getUserImage('{{pm[0][3]}}', '{{pm[0][1]}}')" id="{{pm[0][3]}}"><span class="font-weight-bold">{{pm[0][1]}}</span><span class="font-italic">"{{pm[0][2]}}"</span>
-          <small class="float-right">{{pm[0][4]}}</small>
+      {% for pm in private_messages %}
+        <div class="row my-2">
+          <div class="bg-primary w-100 rounded-pill py-2 px-3" onclick="deleteMessage('{{pm[0][3]}}');">
+            <img class="mr-2 rounded-circle" src="{{ pm[1]  }}" height="30" width="30" onload="getUserImage('{{pm[0][3]}}', '{{pm[0][1]}}')" id="{{pm[0][3]}}"><span class="font-weight-bold">{{pm[0][1]}}</span><span class="font-italic">"{{pm[0][2]}}"</span>
+            <small class="float-right">{{pm[0][4]}}</small>
+          </div>
         </div>
-      </div>
-    </div>
-    {% endfor %} {% else %}
+      {% endfor %}
+      {% else %}
     <div class="alert alert-warning w-100">You don't have any private messages ;&#40;</div>
     {% endif %}
+    </div>
     <div class="col-md my-3 my-md-0">
       {% if teammates|length > 0 %}
       <div class="//collapse mt-1" id="message">
         <div class="card" style="max-width: 27rem;">
           <div class="card-body">
-
             <div class="form-group">
               <label for="selectTo">To:</label>
               <select class="form-control" id="selectTo">
@@ -45,7 +45,7 @@
         </div>
       </div>
       {% else %}
-      <div class="alert alert-warning w-100">There are no members in your group ;&#40;</div>
+        <div class="alert alert-warning w-100">There are no members in your group ;&#40;</div>
       {% endif %}
     </div>
   </div>
