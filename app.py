@@ -596,10 +596,13 @@ def get_data():
         if ipsum[-1] == "'":
             ipsum = ipsum[:-1]
         ipsum = ' '.join(ipsum.split())
-        return ipsum
+        return '"' + ipsum + '"'
     elif type == 'array':
         ipsum = [i.split() for i in ipsum.replace('.', '').split('\\n\\n')]
-        if ipsum[-1] == ["'"]:
+        for i in ipsum:
+            for j in range(len(i)):
+                i[j] = '"' + i[j] + '"'
+        if ipsum[-1] == ['"\'"']:
             ipsum = ipsum[:-1]
         return str(ipsum)
     else:
