@@ -239,7 +239,7 @@ def get_projects(username, sort=False):
 def verify_project(pid):
     '''
     RETURNS TRUE IF PID IS AN EXISTING PID
-    ELSE FALSE 
+    ELSE FALSE
     '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
@@ -441,7 +441,7 @@ def get_tasks_pid(pid):
 
 def get_tasks_username(pid, username):
     '''
-    RETURNS A DICTIONARY OF tasks FOR THE username IN THE FORMAT {task: (description, priority, due_date, status, taskID)}
+    RETURNS A LIST OF TUPLES tasks FOR THE username IN THE FORMAT (task, description, priority, due_date, status, taskID)}
     '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
@@ -497,41 +497,36 @@ def set_due_date(due_date, taskID):
 
 def set_status(status, taskID):
     '''
-    SET THE status OF A ROW IN tasks GIVEN pid, username, AND task
+    SET THE status OF A ROW IN tasks GIVEN status, taskID
     '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
 
-    print('damn son')
-
     c.execute('SELECT beenCompleted FROM tasks WHERE taskID=(?)', (taskID,))
     #print(taskID)
     been = c.fetchone()[0]
-    print(been)
-    
-    
+    print('Moving task {} to {}'.format(taskID, status))
+    print('Task has been completed before?  {}\n\n'.format(been))
+
+
     if status == 2 and been == 0:
-        print('status is 2')
         c.execute('UPDATE tasks SET beenCompleted = 1 WHERE taskID=?', (taskID,)) #setUserBigcoin getUserBigcoin changeUserBigcoin
         c.execute('SELECT priority, username FROM tasks WHERE taskID=?', (taskID,))
-        
+
         data = c.fetchall()[0]
         p = data[0]
         username = data[1]
 
         db.commit()
         db.close()
-        
+
         changeUserBigcoin(username, 50 + 50 * p)
-        
 
-    db = sqlite3.connect(DB_FILE)
-    c = db.cursor()
-    
-    c.execute('UPDATE tasks SET status = ? WHERE taskID=?', (status, taskID))
+    else:
+        c.execute('UPDATE tasks SET status = ? WHERE taskID=?', (status, taskID))
 
-    db.commit()
-    db.close()
+        db.commit()
+        db.close()
 
     return True
 

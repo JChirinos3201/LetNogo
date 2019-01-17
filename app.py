@@ -228,7 +228,7 @@ def project(title, id):
 
     username = session['username']
     money = db.getUserBigcoin(username)
-    
+
     return render_template('project.html', username = username, project_name = title, p_id = id, bigcoin = money)
 
 @app.route('/authenticate', methods=['POST'])
@@ -334,22 +334,17 @@ def get_snippet():
 
     if snippet == 'tasks' and 'username' in session:
         pid = request.args['pid']
-        tasks = sorted(db.get_tasks_username(pid, session['username']), key=lambda x: x[2])
-        unstarted = {}
-        workingon = {}
-        done = {}
-        print('tasks', tasks)
-        for key in tasks:
-            print(key)
-            if key[2] == 0:
-                unstarted[key[0]] = key
-            elif key[2] == 1:
-                workingon[key[0]] = key
-            else:
-                done[key[0]] = key
-        print('UNSTARTED:\n',unstarted)
-        print('WORKINGON:\n',workingon)
-        print('DONE:\n',done)
+        tasks = sorted(db.get_tasks_username(pid, session['username']), key=lambda x: x[2], reverse=True)
+        unstarted = []
+        workingon = []
+        done = []
+        for task in tasks:
+            if task[4] == 0:
+                unstarted.append(task)
+            elif task[4] == 1:
+                workingon.append(task)
+            elif task[4] == 2:
+                done.append(task)
         task_dict = {'unstarted': unstarted, 'workingon': workingon, 'done': done}
         print('TASK_DICT', task_dict)
         return render_template('{}SNIPPET.html'.format(snippet), task_dict = task_dict)
@@ -523,7 +518,7 @@ def get_dashboard():
     messages = db.get_t_msgs(pid)
     print("\n\n\nPRIVATE MESSAGES:\n{}\n\n".format(messages))
 
-    tasks = sorted(db.get_tasks_pid(pid), key=lambda x: x[2])
+    tasks = sorted(db.get_tasks_pid(pid), key=lambda x: x[2], reverse=True)
 
     print('\n\n\nTASKS\n')
     for i in tasks:
@@ -551,7 +546,7 @@ def get_dashboard():
     print('\n\n\nTEAMMATES:\n{}\n\n\n\n'.format(teammates))
     for user in teammates:
         user = user[0]
-        user_tasks[user] = sorted(db.get_tasks_username(pid, user), key=lambda x: x[2])
+        user_tasks[user] = sorted(db.get_tasks_username(pid, user), key=lambda x: x[2], reverse=True)
         print('USER: {}\nTASKS: {}\n\n'.format(user, user_tasks[user]))
 
     teammate_pfp_urls = {}
