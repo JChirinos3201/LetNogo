@@ -19,6 +19,7 @@ DB_FILE = 'data/tuesday.db'
 db.create_db()
 
 @app.route('/')
+''' REGISTER AND LOGIN '''
 def index():
 
     today = datetime.datetime.today().strftime('%Y-%m-%d')
@@ -30,6 +31,7 @@ def index():
     return render_template('index.html', quote = quote)
 
 @app.route('/check_user')
+'''CHECKS IF THE USER IS TAKEN'''
 def check_user():
     user = request.args['user']
     if db.findUser(user):
@@ -37,6 +39,7 @@ def check_user():
     return 'good'
 
 @app.route('/home')
+'''LANDING PAGE WHERE PROJECTS ARE LISTED'''
 def home():
     if 'username' not in session:
         return redirect(url_for('index'))
@@ -46,6 +49,7 @@ def home():
     return render_template('landing.html', username = session['username'], bigcoin = money)
 
 @app.route('/profile')
+'''PROFILE PAGE OF USER'''
 def profile():
     if 'username' not in session:
         return redirect(url_for('index'))
@@ -63,6 +67,7 @@ def profile():
     return render_template('profile.html', username = username, url = url, bigcoin = money)
 
 @app.route('/view_profile/<project_name>/<p_id>')
+'''PROFILE PAGES OF OTHER USERS'''
 def view_profile(project_name, p_id):
     if 'username' not in session:
         return redirect(url_for('index'))
@@ -84,6 +89,7 @@ def view_profile(project_name, p_id):
     return render_template('view_profile.html', username = username, url = url, user_info = user_info, project_name = project_name, p_id = p_id, bigcoin = money)
 
 @app.route('/avatar')
+'''CUSTOMIZATION PAGE/STORE FOR YOUR AVATAR'''
 def avatar():
     if 'username' not in session:
         return redirect(url_for('index'))
@@ -114,6 +120,7 @@ def avatar():
                             bigcoin = money, owned_eyes = owned_eyes, owned_noses = owned_noses, owned_mouths = owned_mouths, owned_colors = owned_colors)
 
 @app.route('/purchase')
+'''PURCHASING FEATURES FOR YOUR AVATAR'''
 def purchase_feature():
     '''
     USER HAS TO BE LOGGED IN TO PURCHASE FEATURE
@@ -168,6 +175,7 @@ def purchase_feature():
 
 
 @app.route('/new_project', methods=["POST"])
+'''CREATES NEW PROJECT AND ENTERS INTO THE DATABASE'''
 def new_project():
     if 'username' not in session:
         return redirect(url_for('index'))
@@ -187,6 +195,7 @@ def new_project():
     return redirect(url_for('home'))
 
 @app.route('/new_task', methods=['GET'])
+'''CREATES NEW TASK AND ENTERS INTO THE DATABASE'''
 def new_task():
     if 'username' not in session:
         return redirect(url_for('index'))
@@ -203,6 +212,7 @@ def new_task():
     return 'sad'
 
 @app.route('/new_tmsg', methods=['GET'])
+'''CREATES NEW TEAM MESSAGE AND ENTERS INTO THE DATABASE'''
 def new_team_msg():
     if 'username' not in session:
         return redirect(url_for('index'))
@@ -217,6 +227,7 @@ def new_team_msg():
 
 
 @app.route('/join_project', methods=["POST"])
+'''JOINS USER TO PROJECT AND ENTERS INTO THE DATABASE'''
 def join_project():
     '''
     user joins a project
@@ -232,6 +243,7 @@ def join_project():
     return redirect(url_for('home'))
 
 @app.route('/project/<title>/<id>')
+'''DISPLAYS PROJECT WITH UNIQUE PROJECT ROUTE'''
 def project(title, id):
     if 'username' not in session:
         return redirect(url_for('index'))
@@ -242,6 +254,8 @@ def project(title, id):
     return render_template('project.html', username = username, project_name = title, p_id = id, bigcoin = money)
 
 @app.route('/authenticate', methods=['POST'])
+'''AUTHENTICATES THE USERNAME AND PASSWORD WHEN LOGGING IN
+   VERIFIES THE INPUTTED INFORMATION WHEN REGISTERING'''
 def authenticate():
     '''
     References DB_FILE and handles authentication and registration
@@ -299,6 +313,7 @@ def authenticate():
     return redirect(url_for('index'))
 
 @app.route('/logout')
+'''KICKS USER OUT OF SESSION AND LOGS USER OUT'''
 def logout():
     '''
     Logs user out if logged if logged in
@@ -311,6 +326,8 @@ def logout():
 
 
 @app.route('/get_snippet')
+'''PULLS UP VARIOUS PIECES OF HTML FOR VARIOUS PARTS OF SITE
+   DEPENDING ON REQUESTED SNIPPET (INFO SENT VIA ARGUMENT)(Joan)'''
 def get_snippet():
     snippet = request.args['snippet']
     print('Getting snippet: {}'.format(snippet))
@@ -380,6 +397,7 @@ def get_snippet():
     return render_template('{}SNIPPET.html'.format(snippet))
 
 @app.route('/get_avatar')
+'''RETRIEVES AND RETURNS CURRENT USER'S AVATAR URL'''
 def get_avatar():
     username = session['username']
 
@@ -394,6 +412,7 @@ def get_avatar():
     return url
 
 @app.route('/get_avatar_json')
+'''RETRIEVES AND RETURNS CURRENT USER'S AVATAR JSON DATA '''
 def get_avatar_json():
     username = session['username']
 
@@ -406,6 +425,7 @@ def get_avatar_json():
     return json.dumps(d)
 
 @app.route('/get_info')
+'''RETRIEVES AND RETURNS CURRENT USER'S PROFILE INFORMATION'''
 def get_info():
     val = request.args['val']
     user = request.args['username']
@@ -415,6 +435,7 @@ def get_info():
     return userInfo[pairs.index(val)]
 
 @app.route('/get_username')
+'''RETRIEVES AND RETURNS CURRENT USER'S USERNAME INFORMATION'''
 def get_username():
     if 'username' in session:
         return session['username']
@@ -422,6 +443,7 @@ def get_username():
         return 'NOT LOGGED IN'
 
 @app.route('/get_profile_button')
+'''CREATES PROFILE PAGE BUTTONS AND TEXT FIELDS WHEN UPDATE INFO BUTTONS CLICKED, LOADS PROFILE PAGE INFO'''
 def get_profile_button():
     user = request.args['username']
     req = request.args['val']
@@ -449,6 +471,7 @@ def get_profile_button():
     return json.dumps(d)
 
 @app.route('/update_info')
+'''PROCESSES INFORMATION TO BE UPDATED IN PROFILE AND ENTERS INTO DATABASE, DENIES UPDATE IF THEY DO NOT MATCH CRITERIA'''
 def update_info():
     username = request.args['username']
     what = request.args['what']
@@ -482,6 +505,7 @@ def update_info():
     return "K we good"
 
 @app.route('/update_avatar')
+'''ADDS A NEWLY PURCHASED FEATURE TO USER'S DATABASE ENTRY AND UPDATES CURRENT AVATAR FEATURE TO THE RECENTLY PURCHASED FEATURE'''
 def update_avatar():
     what = request.args['what']
     newVal = request.args['newVal']
@@ -495,6 +519,7 @@ def update_avatar():
     return "all good, buddy!"
 
 @app.route('/get_avatar_form_get_edition')
+'''GETS AVATAR FORM'''
 def get_avatar_from_get():
     username = request.args['username']
 
@@ -509,6 +534,7 @@ def get_avatar_from_get():
     return url
 
 @app.route('/new_private_message')
+'''CREATES AND ADDS NEW PRIVATE MESSAGE TO THE DATABASE'''
 def new_private_message():
     pid = request.args['pid']
     address = request.args['address']
@@ -525,12 +551,14 @@ def new_private_message():
 
 
 @app.route('/delete_private_message')
+'''REMOVES PRIVATE MESSAGE FROM THE DATABASE'''
 def delete_private_message():
     msgID = request.args['msgID']
     db.remove_msg(msgID, private=1)
     return "All done here, folks!"
 
 @app.route('/get_dashboard')
+'''PROCESSES AND RENDERS THE DASHBOARD AND ITS COMPONENTS FOR DISPLAY'''
 def get_dashboard():
     username = session['username']
     pid = request.args['pid']
@@ -590,6 +618,7 @@ def get_dashboard():
 
 
 @app.route('/move_task')
+'''CHANGES STATUS OF A TASK AND "MOVES IT"'''
 def move_task():
     id = request.args['what']
     moveTo = request.args['where']
@@ -599,6 +628,7 @@ def move_task():
     return "alrighty!"
 
 @app.route('/get_data')
+'''GENERATES TEST DATA GIVEN INPUT PARAMETERS'''
 def get_data():
     wc = int(request.args['wordCount'])
     sc = int(request.args['sentenceCount'])
@@ -669,7 +699,7 @@ def get_data():
 
 
 
-
+'''RUNS THE THING'''
 if __name__ == '__main__':
     app.debug = True
     app.run()
