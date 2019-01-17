@@ -17,17 +17,17 @@ Tuesday -- a web application for collaborators to track projects together and se
 
 ==============================================================
 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-thomasZ -- 2019-01-16 23:27
---------------------------------------------------------------
-- Credited "They Said So" for their quotes
-- Included fact in index that passwords need to be 8 characters at least
-==============================================================
-johnnyW-- 2019-01-16 23:19
+johnnyW-- 2019-01-16 01:38
 --------------------------------------------------------------
 current bugs/lack of quality for purchasing
 1. not changing the onclick method after purchasing each feature to update it; instead im forcing the page to reload
 2. for some reason the colors aren't being purchased; also have to change inner.html of each color button to OWNED after purchase
 - can purchase eyes, noses, and mouths
+==============================================================
+thomasZ -- 2019-01-16 23:27
+--------------------------------------------------------------
+- Credited "They Said So" for their quotes
+- Included fact in index that passwords need to be 8 characters at least
 ==============================================================
 johnnyW-- 2019-01-16 23:19
 --------------------------------------------------------------
