@@ -216,6 +216,7 @@ var getData = function () {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
     if (this.readyState = 4 && this.status == 200) {
+      console.log('Got response');
       var d = document.getElementById('data');
       d.value = this.responseText;
       d.hidden = false;
