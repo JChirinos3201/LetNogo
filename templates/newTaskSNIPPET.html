@@ -4,17 +4,17 @@
   </div>
   <div class="card-body">
     <div class="form-group mb-2">
-      <input type="text" class="form-control" maxlength="50" placeholder="Task" oninput="updateNewTaskCharCount();" id="newTaskName" name="task">
+      <input type="text" class="form-control" maxlength="50" placeholder="Task" oninput="updateNewTaskCharCount();" id="newTaskName" name="task" required>
       <small class="my-0 py-0" id="newTaskCharCount">0/50</small>
     </div>
 
     <div class="form-group mb-2">
-      <input type="text" class="form-control" maxlength="150" placeholder="Description" oninput="updateNewDescriptionCharCount();" id="newTaskDescription" name="description">
+      <input type="text" class="form-control" maxlength="150" placeholder="Description" oninput="updateNewDescriptionCharCount();" id="newTaskDescription" name="description" required>
       <small class="my-0 py-0" id="newTaskDescriptionCount">0/150</small>
     </div>
 
     <div class="form-group mb-2"> Priority
-      <select class="form-control form-control-sm" name="priority" id="priority">
+      <select class="form-control form-control-sm" name="priority" id="priority" required>
         <option value="1">Very Low</option>
         <option value="2">Low</option>
         <option value="3">Medium</option>
@@ -24,10 +24,10 @@
     </div>
 
     <div class="form-group mb-2"> Due Date
-      <input id="date" class="form-control" id="date" type="date" name="due_date" min="">
+      <input id="date" class="form-control" id="date" type="date" name="due_date" min="2019-01-172" required>
     </div>
 
-    <input type="hidden" name="status" value="incomplete">
+
     <button type="button" class="btn btn-warning float-left" onclick="displayTasks();">Cancel</button>
     <button type="button" class="btn btn-success float-right" onclick="submitNewTask();">Create New Task</button>
 
