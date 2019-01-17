@@ -79,6 +79,8 @@ def view_profile(project_name, p_id):
     url = api.customAvatarLink(eyes, nose, mouth, color)
     print(url)
 
+    money = db.getUserBigcoin(session['username'])
+
     return render_template('view_profile.html', username = username, url = url, user_info = user_info, project_name = project_name, p_id = p_id, bigcoin = money)
 
 @app.route('/avatar')
