@@ -8,7 +8,7 @@
         {% for task in task_dict["unstarted"] %}
         <div class="card text-center w-100" style="width: 18rem;">
           <div class="card-body">
-            <h5 class="card-title">{{ task[0] }}</h5>
+            <h5 class="card-title">{{ task[0] }} <span style="color: red; font-weight: 900;">{% for n in range(task[2]) %}!{% endfor %}</span></h5>
             <p class="card-text">{{ task[1] }}</p>
             <p class="card-text">Priority: {{ task[2] }}</p>
             <p class="card-text">Due: {{ task[3] }}</p>
@@ -30,7 +30,7 @@
         {% for task in task_dict["workingon"] %}
         <div class="card text-center w-100" style="width: 18rem;">
           <div class="card-body">
-            <h5 class="card-title">{{ task[0] }}</h5>
+            <h5 class="card-title">{{ task[0] }} <span style="color: red; font-weight: 900;">{% for n in range(task[2]) %}!{% endfor %}</span></h5>
             <p class="card-text">{{ task[1] }}</p>
             <p class="card-text">Priority: {{ task[2] }}</p>
             <p class="card-text">Due: {{ task[3] }}</p>
@@ -52,7 +52,7 @@
         {% for task in task_dict["done"] %}
         <div class="card text-center w-100" style="width: 18rem;">
           <div class="card-body">
-            <h5 class="card-title">{{ task[0] }}</h5>
+            <h5 class="card-title">{{ task[0] }} <span style="color: red; font-weight: 900;">{% for n in range(task[2]) %}!{% endfor %}</span></h5>
             <p class="card-text">{{ task[1] }}</p>
             <p class="card-text">Priority: {{ task[2] }}</p>
             <p class="card-text">Due: {{ task[3] }}</p>
