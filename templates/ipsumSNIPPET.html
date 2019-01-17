@@ -1,0 +1,23 @@
+<div class="container-fluid">
+  <h2 class="display-4">Test Data Generator</h2>
+  <div class="form-group">
+    <label for="sentenceCount">Number of sentences:&nbsp;</label>
+    <input type="number" id="sentenceCount" class="form-control">
+  </div>
+  <div class="form-group">
+    <label for="wordCount">Words per sentence</label>
+    <input type="number" id="wordCount" class="form-control">
+  </div>
+  <label for="choice">Print as...</label>
+  <div class="form-check" id="choice">
+    <input class="form-check-input" type="radio" name="format" id="array" value="array" checked>
+    <label class="form-check-label" for="array">an array</label>
+  </div>
+  <div class="form-check" id="choice">
+    <input class="form-check-input" type="radio" name="format" id="paragraph" value="paragraph">
+    <label class="form-check-label" for="paragraph">a paragraph</label>
+  </div>
+  <button type="button" class="btn btn-success my-2" onclick="getData();">Get test data</button>
+
+  <textarea id="data" class="form-control" rows="10" hidden></textarea>
+</div>

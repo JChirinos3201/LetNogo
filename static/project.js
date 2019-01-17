@@ -191,6 +191,44 @@ var updateMsgs = function () {
 
 };
 
+
+var displayIpsum = function () {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById('contentColumn').innerHTML = this.responseText;
+
+    }
+  };
+  xhttp.open("GET", "/get_snippet?snippet=ipsum", true);
+  xhttp.send();
+};
+
+
+
+var getData = function () {
+  var wc = document.getElementById('wordCount').value;
+  var sc = document.getElementById('sentenceCount').value;
+  var type = document.querySelector('input[name="format"]:checked').value;
+
+  console.log("WC: " + wc + "\nSC: " + sc + "\ntype: " + type);
+
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+    if (this.readyState = 4 && this.status == 200) {
+      var d = document.getElementById('data');
+      d.value = this.responseText;
+      d.hidden = false;
+    }
+  };
+  xhttp.open("GET", "/get_data?sentenceCount=" + sc + "&wordCount=" + wc + "&format=" + type, true);
+  xhttp.send();
+};
+
+
+
+
+
 // update char counts
 
 var updateNewTaskCharCount = function () {
@@ -247,4 +285,4 @@ var moveTo = function (what, where) {
 
 
 
-// lmao
+//
