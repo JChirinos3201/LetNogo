@@ -634,7 +634,7 @@ def get_data():
                 ipsum = ipsum[:-1]
             ipsum = ' '.join(ipsum.split())
             return '"' + ipsum + '"'
-        elif type == 'array':
+        elif format == 'array':
             ipsum = [i.split() for i in ipsum.replace('.', '').split('\\n\\n')]
             for i in ipsum:
                 for j in range(len(i)):
@@ -643,44 +643,28 @@ def get_data():
                 ipsum = ipsum[:-1]
             return str(ipsum)
         else:
-            return 'Invalid format request!'
+            return 'Invalid string format request!'
     elif type == 'integer':
         if format == 'paragraph':
             return 'That doesn\'t make sense...'
         elif format == 'array':
-            outarray = []
+            out = []
             for i in range(sc):
-                subout = "["
-                arr = []
-                for j in range(wc):
-                    arr.append(random.randint(0, 100))
-                subout = ', '.join(subout)
-                subout += "]"
-                outarray += subout
-            out = "[" + ', '.join(outarray) + "]"
-            return out
-
-
+                out.append([random.randint(0, 100) for i in range(wc)])
+            return str(out)
         else:
-            return 'Invalid format request!'
+            return 'Invalid integer format request!'
 
     elif type == 'float':
         if format == 'paragraph':
             return 'That doesn\'t make sense...'
         elif format == 'array':
-            outarray = []
+            out = []
             for i in range(sc):
-                subout = "["
-                arr = []
-                for j in range(wc):
-                    arr.append(random.random() * 100)
-                subout = ', '.join(subout)
-                subout += "]"
-                outarray += subout
-            out = "[" + ', '.join(outarray) + "]"
-            return out
+                out.append([random.random() * 100 for i in range(wc)])
+            return str(out)
         else:
-            return 'Invalid format request!'
+            return 'Invalid float format request!'
 
     else:
         return "Invalid type request!"
