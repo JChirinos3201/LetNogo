@@ -507,10 +507,12 @@ def set_status(status, taskID):
     been = c.fetchone()[0]
     print('Moving task {} to {}'.format(taskID, status))
     print('Task has been completed before?  {}\n\n'.format(been))
-
+    db.close()
 
     if status == 2 and been == 0:
-        c.execute('UPDATE tasks SET beenCompleted = 1 WHERE taskID=?', (taskID,)) #setUserBigcoin getUserBigcoin changeUserBigcoin
+        db = sqlite3.connect(DB_FILE)
+        c = db.cursor()
+        c.execute('UPDATE tasks SET beenCompleted = 1 WHERE taskID=?', (taskID,))
         c.execute('SELECT priority, username FROM tasks WHERE taskID=?', (taskID,))
 
         data = c.fetchall()[0]
@@ -522,11 +524,12 @@ def set_status(status, taskID):
 
         changeUserBigcoin(username, 50 + 50 * p)
 
-    else:
-        c.execute('UPDATE tasks SET status = ? WHERE taskID=?', (status, taskID))
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    c.execute('UPDATE tasks SET status = ? WHERE taskID=?', (status, taskID))
 
-        db.commit()
-        db.close()
+    db.commit()
+    db.close()
 
     return True
 

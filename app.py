@@ -559,6 +559,10 @@ def get_dashboard():
         teammate_pfp_urls[name] = api.customAvatarLink(eyes, nose, mouth, color)
 
     print('teammate_pfp_urls', teammate_pfp_urls)
+    print("TEAMMATETASKS.ITEMS\n\n")
+    for key, val in user_tasks.items():
+        print("KEY: {}\nVAL: {}\n\n".format(key, val))
+    print("\n\nEND")
 
     return render_template('dashboardSNIPPET.html', messages=messages[:5], done=str(done), working=str(working), notstarted=str(notstarted), tasks=[], teammates = teammates, username = username, teammate_pfp_urls = teammate_pfp_urls, p_id = pid, project_name = project_name, teammate_tasks=user_tasks)
 
