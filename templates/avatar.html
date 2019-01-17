@@ -69,15 +69,15 @@
                           <a id="menu" data-toggle="collapse" href="#collapse_eyes" role="button"><b><h5 class="alert alert-dark">EYES</h5></b></a>
                           <div class="collapse mt-2" id="collapse_eyes" align="left">
                             {% for i in eyes %}
-                              <button class="btn btn-outline-success ml-1 mb-2" onmouseenter="updateEyes('{{i}}');" onmouseout="displayCurrentAvatar();" onclick="changeEyes('{{i}}')" type="button" class="btn btn-block btn-light border my-0">{{ i }}</button>
+                              <button class="btn btn-outline-success ml-1 mb-2" onmouseenter="updateEyes('{{i}}');" onmouseout="displayCurrentAvatar();" onclick="changeEyes('{{i}}')" type="button" class="btn btn-block btn-light border my-0">Eyes {{ loop.index }}</button>
                             {% endfor %}
                           </div>
                         </div>
                         <div class="col-md my-3 my-md-0 text-center">
                             <a id="menu" data-toggle="collapse" href="#collapse_noses" role="button"><b><h5 class="alert alert-dark">NOSES</h5></b></a>
-                            <div class="collapse mt-2" id="collapse_noses" align="right">
+                            <div class="collapse mt-2" id="collapse_noses" align="left">
                             {% for i in noses %}
-                              <button class="btn btn-outline-success ml-1 mb-2" onmouseenter="updateNose('{{i}}');" onmouseout="displayCurrentAvatar();" onclick="changeNose('{{i}}')" type="button" class="btn btn-block btn-light border my-0">{{ i }}</button>
+                              <button class="btn btn-outline-success ml-1 mb-2" onmouseenter="updateNose('{{i}}');" onmouseout="displayCurrentAvatar();" onclick="changeNose('{{i}}')" type="button" class="btn btn-block btn-light border my-0">Nose {{ loop.index}}</button>
                             {% endfor %}
                             </div>
                         </div>
@@ -87,7 +87,7 @@
                             <a id="menu" data-toggle="collapse" href="#collapse_mouths" role="button"><b><h5 class="alert alert-dark">MOUTHS</h5></b></a>
                             <div class="collapse mt-2" id="collapse_mouths" align="left">
                             {% for i in mouths %}
-                              <button class="btn btn-outline-success ml-1 mb-2" onmouseenter="updateMouth('{{i}}');" onmouseout="displayCurrentAvatar();" onclick="changeMouth('{{i}}')" type="button" class="btn btn-block btn-light border my-0">{{ i }}</button>
+                              <button class="btn btn-outline-success ml-1 mb-2" onmouseenter="updateMouth('{{i}}');" onmouseout="displayCurrentAvatar();" onclick="changeMouth('{{i}}')" type="button" class="btn btn-block btn-light border my-0">Mouth {{ loop.index }}</button>
                             {% endfor %}
                           </div>
                         </div>
