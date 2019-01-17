@@ -21,6 +21,7 @@ joanC -- 2019-01-17 08:30
 --------------------------------------------------------------
 - Fixed sending team messages
 - BUG: For most/all of our text inputs, ampersands break the code. This is because we are inserting the input directly into the URL. There must be some JS way of constructing a valid URL and some python way of decoding it
+  - https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Sending_forms_through_JavaScript#Using_XMLHttpRequest_and_the_FormData_object
 ==============================================================
 thomasZ -- 2019-01-17 09:30
 --------------------------------------------------------------
