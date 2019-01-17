@@ -111,7 +111,7 @@ def getUserBigcoin(username):
 
 def setUserBigcoin(username, bigcoin):
     '''
-    UPDATES AMOUNT OF bigcoin username HAS
+    SETS AMOUNT OF bigcoin username HAS
     '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
@@ -498,6 +498,7 @@ def set_due_date(due_date, taskID):
 def set_status(status, taskID):
     '''
     SET THE status OF A ROW IN tasks GIVEN status, taskID
+    ADDS CURRENCY TO currency WHEN TASK MOVED TO DONE AND IT IS YOUR FIRST TIME MOVING IT TO DONE
     '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
