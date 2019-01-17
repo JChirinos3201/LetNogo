@@ -220,9 +220,10 @@ var displayIpsum = function () {
 var getData = function () {
   var wc = document.getElementById('wordCount').value;
   var sc = document.getElementById('sentenceCount').value;
-  var type = document.querySelector('input[name="format"]:checked').value;
+  var format = document.querySelector('input[name="format"]:checked').value;
+  var type = document.querySelector('input[name="type"]:checked').value;
 
-  console.log("WC: " + wc + "\nSC: " + sc + "\ntype: " + type);
+  console.log("WC: " + wc + "\nSC: " + sc + "\ntype: " + type + "\nformat: " + format);
 
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
@@ -233,7 +234,7 @@ var getData = function () {
       d.hidden = false;
     }
   };
-  xhttp.open("GET", "/get_data?sentenceCount=" + sc + "&wordCount=" + wc + "&format=" + type, true);
+  xhttp.open("GET", "/get_data?sentenceCount=" + sc + "&wordCount=" + wc + "&format=" + format + "&type=" + type, true);
   xhttp.send();
 };
 

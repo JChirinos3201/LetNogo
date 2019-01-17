@@ -5,7 +5,7 @@
 import os
 
 from flask import Flask, render_template, redirect, url_for, session, request, flash, get_flashed_messages
-import datetime, uuid, re, json
+import datetime, uuid, re, json, random
 
 from util import db, api
 
@@ -600,27 +600,69 @@ def move_task():
 
 @app.route('/get_data')
 def get_data():
-    wc = request.args['wordCount']
-    sc = request.args['sentenceCount']
-    type = request.args['format']
+    wc = int(request.args['wordCount'])
+    sc = int(request.args['sentenceCount'])
+    format = request.args['format']
+    type = request.args['type']
 
-    ipsum = api.getIpsum(wc, sc);
-    if type == 'paragraph':
-        ipsum = ipsum.replace('\\n', ' ')
-        if ipsum[-1] == "'":
-            ipsum = ipsum[:-1]
-        ipsum = ' '.join(ipsum.split())
-        return '"' + ipsum + '"'
-    elif type == 'array':
-        ipsum = [i.split() for i in ipsum.replace('.', '').split('\\n\\n')]
-        for i in ipsum:
-            for j in range(len(i)):
-                i[j] = '"' + i[j] + '"'
-        if ipsum[-1] == ['"\'"']:
-            ipsum = ipsum[:-1]
-        return str(ipsum)
+    if type == "string":
+        ipsum = api.getIpsum(wc, sc);
+        if format == 'paragraph':
+            ipsum = ipsum.replace('\\n', ' ')
+            if ipsum[-1] == "'":
+                ipsum = ipsum[:-1]
+            ipsum = ' '.join(ipsum.split())
+            return '"' + ipsum + '"'
+        elif type == 'array':
+            ipsum = [i.split() for i in ipsum.replace('.', '').split('\\n\\n')]
+            for i in ipsum:
+                for j in range(len(i)):
+                    i[j] = '"' + i[j] + '"'
+            if ipsum[-1] == ['"\'"']:
+                ipsum = ipsum[:-1]
+            return str(ipsum)
+        else:
+            return 'Invalid format request!'
+    elif type == 'integer':
+        if format == 'paragraph':
+            return 'That doesn\'t make sense...'
+        elif format == 'array':
+            outarray = []
+            for i in range(sc):
+                subout = "["
+                arr = []
+                for j in range(wc):
+                    arr.append(random.randint(0, 100))
+                subout = ', '.join(subout)
+                subout += "]"
+                outarray += subout
+            out = "[" + ', '.join(outarray) + "]"
+            return out
+
+
+        else:
+            return 'Invalid format request!'
+
+    elif type == 'float':
+        if format == 'paragraph':
+            return 'That doesn\'t make sense...'
+        elif format == 'array':
+            outarray = []
+            for i in range(sc):
+                subout = "["
+                arr = []
+                for j in range(wc):
+                    arr.append(random.random() * 100)
+                subout = ', '.join(subout)
+                subout += "]"
+                outarray += subout
+            out = "[" + ', '.join(outarray) + "]"
+            return out
+        else:
+            return 'Invalid format request!'
+
     else:
-        return 'Something went wrong!'
+        return "Invalid type request!"
 
 
 
