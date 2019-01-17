@@ -222,6 +222,9 @@ var getData = function () {
   var sc = document.getElementById('sentenceCount').value;
   var format = document.querySelector('input[name="format"]:checked').value;
   var type = document.querySelector('input[name="type"]:checked').value;
+  var d = document.getElementById('data');
+
+  d.value = "Loading...";
 
   console.log("WC: " + wc + "\nSC: " + sc + "\ntype: " + type + "\nformat: " + format);
 
@@ -229,7 +232,6 @@ var getData = function () {
   xhttp.onreadystatechange = function () {
     if (this.readyState = 4 && this.status == 200) {
       console.log('Got response');
-      var d = document.getElementById('data');
       d.value = this.responseText;
       d.hidden = false;
     }
