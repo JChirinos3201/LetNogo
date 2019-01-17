@@ -328,16 +328,18 @@ def get_snippet():
         print(teammates)
         print('private messages', private_messages)
         msg_list = []
+
         for tup in private_messages:
-            if tup[0] == username:
-                l = list(tup)
-                name = tup[1]
-                eyes = db.get_current(name, 'eyes')
-                nose = db.get_current(name, 'noses')
-                mouth = db.get_current(name, 'mouths')
-                color = db.get_current(name, 'color')
-                url = api.customAvatarLink(eyes, nose, mouth, color)
-                msg_list = private_messages + [url]
+            print('\ntup', tup)
+            name = tup[1]
+            eyes = db.get_current(name, 'eyes')
+            nose = db.get_current(name, 'noses')
+            mouth = db.get_current(name, 'mouths')
+            color = db.get_current(name, 'color')
+            url = api.customAvatarLink(eyes, nose, mouth, color)
+
+            msg_list.append([tup, url])
+        
 
         print('\n\n\nMESSAGE LIST\n\t{}\n\n\n'.format(msg_list))
         return render_template('{}SNIPPET.html'.format(snippet), private_messages = msg_list, teammates=teammates, username=username)

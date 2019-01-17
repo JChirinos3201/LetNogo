@@ -21,11 +21,12 @@ db.create_db()
 #print(db.remove_t_msg('0'))
 #print(db.get_t_msgs('50ea662a-1908-11e9-b3fa-00bb60088044'))
 
-#db.setUserBigcoin('sus', 0)
+db.setUserBigcoin('user1', '5000')
+print('bigcoins: ', db.getUserBigcoin('user1'))
 #set_status(status, taskID)
 #db.add_task('473b1c96-19c1-11e9-b907-00bb60088044', 'sus', 'Macking people', 'macking more', '0', '2002-12-12', '0')
 #db.set_priority(2, '7e798350-19d5-11e9-a2c2-00bb60088044')
-db.set_status(2, '4d3572d8-19d8-11e9-80a9-00bb60088044')
+#db.set_status(2, '4d3572d8-19d8-11e9-80a9-00bb60088044')
 
 
 if __name__ == '__main__':
