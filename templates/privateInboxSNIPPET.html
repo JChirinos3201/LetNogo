@@ -6,7 +6,10 @@
       {% for pm in private_messages %}
         <div class="row my-2">
           <div class="bg-primary w-100 rounded-pill py-2 px-3" onclick="deleteMessage('{{pm[0][3]}}');">
-            <img class="mr-2 rounded-circle" src="{{ pm[1]  }}" height="30" width="30" onload="getUserImage('{{pm[0][3]}}', '{{pm[0][1]}}')" id="{{pm[0][3]}}"><span class="font-weight-bold">{{pm[0][1]}}</span><span class="font-italic">"{{pm[0][2]}}"</span>
+	    <a href="/view_profile/{{ project_name }}/{{ p_id }}?username={{ pm[0][1] }}" style="text-decoration:none;outline:0">
+              <img class="mr-2 rounded-circle" src="{{ pm[1]  }}" height="30" width="30" onload="getUserImage('{{pm[0][3]}}', '{{pm[0][1]}}')" id="{{pm[0][3]}}">
+	    </a>
+	    <span class="font-weight-bold">{{pm[0][1]}}</span><span class="font-italic">"{{pm[0][2]}}"</span>
             <small class="float-right">{{pm[0][4]}}</small>
           </div>
         </div>

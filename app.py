@@ -81,11 +81,19 @@ def view_profile(project_name, p_id):
     color = db.get_current(username, 'color')
 
     url = api.customAvatarLink(eyes, nose, mouth, color)
+
+    my_eyes = db.get_current(session['username'], 'eyes')
+    my_nose = db.get_current(session['username'], 'noses')
+    my_mouth = db.get_current(session['username'], 'mouths')
+    my_color = db.get_current(session['username'], 'color')
+    
+    my_url = api.customAvatarLink(my_eyes, my_nose, my_mouth, my_color)
+    
     print(url)
 
     money = db.getUserBigcoin(session['username'])
 
-    return render_template('view_profile.html', username = username, url = url, user_info = user_info, project_name = project_name, p_id = p_id, bigcoin = money)
+    return render_template('view_profile.html', username = username, url = url, my_url = my_url, user_info = user_info, project_name = project_name, p_id = p_id, bigcoin = money)
 
 @app.route('/avatar')
 def avatar():
@@ -350,7 +358,7 @@ def get_snippet():
 
 
         print('\n\n\nMESSAGE LIST\n\t{}\n\n\n'.format(msg_list))
-        return render_template('{}SNIPPET.html'.format(snippet), private_messages = msg_list, teammates=teammates, username=username)
+        return render_template('{}SNIPPET.html'.format(snippet), private_messages = msg_list, teammates=teammates, username=username, p_id = pid, project_name = db.get_project(p_id))
 
     if snippet == 'tasks' and 'username' in session:
         pid = request.args['pid']
