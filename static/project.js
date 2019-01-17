@@ -196,7 +196,7 @@ var updateMsgs = function () {
 var updateNewTaskCharCount = function () {
   var name = document.getElementById('newTaskName').value;
   var length = name.length;
-  document.getElementById('newTaskCharCount').innerHTML = length + "/100";
+  document.getElementById('newTaskCharCount').innerHTML = length + "/50";
 };
 var updateNewDescriptionCharCount = function () {
   var name = document.getElementById('newTaskDescription').value;
