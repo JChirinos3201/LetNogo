@@ -19,6 +19,7 @@ Tuesday -- a web application for collaborators to track projects together and se
 thomasZ -- 2019-01-16 23:27
 --------------------------------------------------------------
 - Credited "They Said So" for their quotes
+- Included fact in index that passwords need to be 8 characters at least
 ==============================================================
 johnnyW-- 2019-01-16 23:19
 --------------------------------------------------------------
