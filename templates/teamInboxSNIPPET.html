@@ -7,7 +7,9 @@
       {% for msg in team_messages %}
       <div class="row my-2 pb-2">
         <div class="bg-info w-100 rounded-pill py-2 px-3">
-          <img class="mr-2 rounded-circle" src="{{teammate_pfp_urls[msg[0]]}}" height="30" width="30" id="{{msg[3]}}">
+	  <a href="/view_profile/{{ project_name  }}/{{ pid }}?username={{ msg[0] }}" style="text-decoration:none;outline:0">
+            <img class="mr-2 rounded-circle" src="{{teammate_pfp_urls[msg[0]]}}" height="30" width="30" id="{{msg[3]}}">
+	  </a>
           <span class="font-weight-bold">{{msg[0]}}</span> "<span class="font-italic">{{msg[1]}}</span>"
           <small class="float-right">{{msg[3]}}</small>
         </div>
