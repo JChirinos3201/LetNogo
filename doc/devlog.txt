@@ -17,7 +17,11 @@ Tuesday -- a web application for collaborators to track projects together and se
 
 ==============================================================
 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-thomasZ -- 2019-01-17 14:13
+thomasZ -- 2019-01-17 18:52
+--------------------------------------------------------------
+- Moved Add Task button to the top of the container
+==============================================================
+thomasZ -- 2019-01-17 18:20
 --------------------------------------------------------------
 - Made avatar icons in messages clickable wherever messages are
 - Removed underlining when one hovers over pfp avatar
