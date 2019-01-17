@@ -4,7 +4,7 @@
     {% if private_messages|length > 0 %} {% for pm in private_messages %}
     <div class="row my-2">
       <div class="bg-primary w-100 rounded-pill py-2 px-3" onclick="deleteMessage('{{pm[3]}}');">
-        <img class="mr-2 rounded-circle" src="" height="30" width="30" onload="getUserImage('{{pm[3]}}', '{{pm[1]}}')" id="{{pm[3]}}"><span class="font-weight-bold">{{pm[1]}}</span> said <span class="font-italic">"{{pm[2]}}"</span> at <u>{{pm[4]}}</u>
+        <img class="mr-2 rounded-circle" src="" height="30" width="30" onload="getUserImage('{{pm[3]}}', '{{pm[1]}}')" id="{{pm[3]}}"><span class="font-weight-bold">{{pm[1]}}</span> said <span class="font-italic">"{{pm[2]}}"</span> to <b>{{ pm[0] }}</b> at <u>{{pm[4]}}</u>
       </div>
     </div>
     {% endfor %} {% else %}

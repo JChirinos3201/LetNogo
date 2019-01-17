@@ -319,12 +319,12 @@ def get_snippet():
         return render_template('{}SNIPPET.html'.format(snippet), projectDict=projectDict)
 
     if snippet == 'privateInbox' and 'username' in session:
+        username = session['username']
         pid = request.args['pid']
-        private_messages = db.get_p_msgs(pid)
+        private_messages = db.get_p_msgs(pid, username)
         teammates = db.get_teammates(pid)
         print(teammates)
-        print(private_messages)
-        username = session['username']
+        print('private messages', private_messages)
         msg_list = []
         for tup in private_messages:
             if tup[0] == username:
@@ -335,9 +335,9 @@ def get_snippet():
                 mouth = db.get_current(name, 'mouths')
                 color = db.get_current(name, 'color')
                 url = api.customAvatarLink(eyes, nose, mouth, color)
-                msg_list += [i for i in private_messages] + [url]
+                msg_list = private_messages + [url]
 
-        print('MESSAGE LIST\n\t{}\n\n\n'.format(msg_list))
+        print('\n\n\nMESSAGE LIST\n\t{}\n\n\n'.format(msg_list))
         return render_template('{}SNIPPET.html'.format(snippet), private_messages = msg_list, teammates=teammates, username=username)
 
     if snippet == 'tasks' and 'username' in session:

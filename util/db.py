@@ -607,14 +607,14 @@ def get_t_msgs(pid):
     print(messages)
     return messages
 
-def get_p_msgs(pid):
+def get_p_msgs(pid, username):
     '''
     RETURNS A LIST OF MESSAGE TUPLES GIVEN pid
     '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
 
-    c.execute('SELECT address, user, msg, msg_id, timestamp FROM p_msgs WHERE pid=?', (pid,))
+    c.execute('SELECT address, user, msg, msg_id, timestamp FROM p_msgs WHERE pid=? AND user=? OR address=?', (pid, username, username))
     selectedVal = c.fetchall()
     messages = []
     for i in selectedVal:
