@@ -92,9 +92,9 @@ def avatar():
     eyes_price = {'eyes1':0, 'eyes10':1250, 'eyes2':1250, 'eyes3':1250, 'eyes4':1250, 'eyes6':2500, 'eyes9':2500, 'eyes5':5000, 'eyes7':5000}
     noses_price = {'nose2':0, 'nose3':1250, 'nose4':1250, 'nose5':1250, 'nose6':2500, 'nose7':2500, 'nose8':5000, 'nose9':5000}
     mouths_price = {'mouth1':0, 'mouth3':1250, 'mouth5':1250, 'mouth6':1250, 'mouth7':2500, 'mouth9':2500, 'mouth10':5000, 'mouth11':5000}
-    colors_price = {'yellow':('FFFF33', 0), 'red':('FF3333', 1250), 'blue': ('4DA6FF', 1250), 'green':('66FF99', 1250),\
-                    'orange':('FFA366', 1250), 'purple':('BF80FF', 2500), 'pink':('C55EB1', 2500),\
-                    'white':('FFFFFF', 5000), 'grey':('5A6358', 5000), 'black':('000000', 5000)}
+    colors_price = {'FF3333':0, 'FF3333':1250, '4DA6FF':1250, '66FF99':1250,\
+                    'FFA366':1250, 'BF80FF': 2500, 'C55EB1':2500,\
+                    'FFFFFF':5000, '5A6358': 5000, '000000': 5000}
 
     owned_eyes = db.get_value(username, 'eyes').split(',')
     owned_noses = db.get_value(username, 'noses').split(',')
@@ -155,11 +155,11 @@ def purchase_feature():
         else:
             return 'shucks susan broke'
     if feature == 'color':
-        colors_price = {'yellow':('FF3333', 0), 'red':('FF3333', 1250), 'blue': ('4DA6FF', 1250), 'green':('66FF99', 1250),\
-                        'orange':('FFA366', 1250), 'purple':('BF80FF', 2500), 'pink':('C55EB1', 2500),\
-                        'white':('FFFFFF', 5000), 'grey':('5A6358', 5000), 'black':('000000', 5000)}
-        if bigcoin >= colors_price[value][1]:
-            price_after_purchase = bigcoin - colors_price[value][1]
+        colors_price = {'FF3333':0, 'FF3333':1250, '4DA6FF':1250, '66FF99':1250,\
+                        'FFA366':1250, 'BF80FF': 2500, 'C55EB1':2500,\
+                        'FFFFFF':5000, '5A6358': 5000, '000000': 5000}
+        if bigcoin >= colors_price[value]:
+            price_after_purchase = bigcoin - colors_price[value]
             db.setUserBigcoin(username, price_after_purchase)
             db.add_value(value, username, feature)
             return 'dang susan got the bread'
@@ -339,7 +339,7 @@ def get_snippet():
             url = api.customAvatarLink(eyes, nose, mouth, color)
 
             msg_list.append([tup, url])
-        
+
 
         print('\n\n\nMESSAGE LIST\n\t{}\n\n\n'.format(msg_list))
         return render_template('{}SNIPPET.html'.format(snippet), private_messages = msg_list, teammates=teammates, username=username)
