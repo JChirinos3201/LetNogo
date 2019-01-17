@@ -110,3 +110,45 @@ var changeColor = function (newVal) {
     xhttp.open("GET", "/update_avatar?what=color&newVal=" + newVal, true);
     xhttp.send();
 };
+
+var confirmPurchase = function (cash, feature, newVal, price) {
+    /*
+    if (cash < price) {
+      alert(`You cannot afford ${newVal}! It costs ${price} BigCoins!`);
+    }
+    else (confirm(`${newVal.italics()} costs ${price}. Are you sure you want to purchase ${newVal.italics()}?`)) {
+      purchaseFeature(feature, newVal);
+    }*/
+    console.log(cash, feature, newVal, price);
+    if (cash < price){
+      window.alert(`You cannot afford ${newVal}! It costs ${price} BigCoins!`);
+    }
+    else if (confirm(`${newVal} costs ${price}.\nAre you sure you want to purchase ${newVal}?`)) {
+      var newPrice = cash - price;
+      purchaseFeature(feature, newVal, newPrice);
+    }
+};
+
+var updateFeature = function (newVal, newPrice){
+    console.log(newVal);
+    if (document.getElementById(newVal).innerHTML == 'PURCHASE'){
+      document.getElementById(newVal).innerHTML = 'OWNED';
+    }else{
+      document.getElementById(newVal).className = "btn btn-success ml-1 mb-2";
+    }
+    document.getElementById('bigcoins').innerHTML = newPrice
+    window.location.reload()
+
+}
+
+var purchaseFeature = function (feature, newVal, newPrice) {
+    console.log(feature, newVal);
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function (){
+      if (this.readyState === 4 && this.status === 200) {
+        updateFeature(newVal, newPrice);
+      }
+    }
+    xhttp.open("GET", `/purchase?feature=${feature}&value=${newVal}`, true);
+    xhttp.send();
+};

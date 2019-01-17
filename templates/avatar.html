@@ -28,8 +28,6 @@
           text-decoration: none;
           outline: 0;
         }
-        #colorButton{
-        }
     </style>
 
     <title>{{ username }} &bull; Tuesday</title>
@@ -44,8 +42,8 @@
         </a>
         <div>
 	  <img src="/static/BigCoin.png" width = 20; height = 20;>
-	  <text class="mr-3">{{ bigcoin }}</text>
-            <a href="/profile"> <img src="" id="avatar" style="border-radius: 25%;" width = 55; height = 55;> </a>
+	  <text id="bigcoins" class="mr-3">{{ bigcoin }}</text>
+            <a href="/profile"> <img src="{{url}}" id="avatar" style="border-radius: 25%;" width = 55; height = 55;> </a>
             <a href="/logout">
                     <button type="button" class="btn btn-warning">Log out</button>
             </a>
@@ -57,7 +55,7 @@
 
         <div class="row">
             <div class="col-md text-center sticky-top bg-white">
-                <img id='avatarBoi' src="https://api.adorable.io/avatars/face/eyes1/nose1/mouth1/color1" class="img-fluid img-thumbnail">
+                <img id='avatarBoi' src="{{url}}" class="img-fluid img-thumbnail">
                 <h2 class="h2 my-2">{{username }}</h2>
             </div>
 
@@ -68,17 +66,25 @@
                         <div class="col-md my-3 my-md-0 text-center">
                           <a id="menu" data-toggle="collapse" href="#collapse_eyes" role="button"><b><h5 class="alert alert-dark">EYES</h5></b></a>
                           <div class="collapse mt-2" id="collapse_eyes" align="left">
-                            {% for i in eyes %}
-                              <button class="btn btn-outline-success ml-1 mb-2" onmouseenter="updateEyes('{{i}}');" onmouseout="displayCurrentAvatar();" onclick="changeEyes('{{i}}')" type="button" class="btn btn-block btn-light border my-0">Eyes {{ loop.index }}</button>
+                            {% for eye, value in eyes.items() %}
+                              {% if eye in owned_eyes %}
+                                <button id="{{eye}}" class="btn btn-success ml-1 mb-2" onmouseenter="updateEyes('{{eye}}');" onmouseout="displayCurrentAvatar();" onclick="changeEyes('{{eye}}')" type="button" class="btn btn-block btn-light border my-0">Eyes {{ loop.index }}</button>
+                              {% else %}
+                                <button id="{{eye}}" class="btn btn-outline-secondary ml-1 mb-2" onmouseenter="updateEyes('{{eye}}');" onmouseout="displayCurrentAvatar();" onclick="confirmPurchase({{bigcoin}}, 'eyes', '{{eye}}', {{value}})" type="button" class="btn btn-block btn-light border my-0">Eyes {{ loop.index }}</button>
+                              {% endif %}
                             {% endfor %}
                           </div>
                         </div>
                         <div class="col-md my-3 my-md-0 text-center">
                             <a id="menu" data-toggle="collapse" href="#collapse_noses" role="button"><b><h5 class="alert alert-dark">NOSES</h5></b></a>
                             <div class="collapse mt-2" id="collapse_noses" align="left">
-                            {% for i in noses %}
-                              <button class="btn btn-outline-success ml-1 mb-2" onmouseenter="updateNose('{{i}}');" onmouseout="displayCurrentAvatar();" onclick="changeNose('{{i}}')" type="button" class="btn btn-block btn-light border my-0">Nose {{ loop.index}}</button>
-                            {% endfor %}
+                              {% for nose, value in noses.items() %}
+                                {% if nose in owned_noses %}
+                                  <button id="{{nose}}" class="btn btn-success ml-1 mb-2" onmouseenter="updateNose('{{nose}}');" onmouseout="displayCurrentAvatar();" onclick="changeNose('{{nose}}')" type="button" class="btn btn-block btn-light border my-0">Nose {{ loop.index }}</button>
+                                {% else %}
+                                  <button id="{{nose}}" class="btn btn-outline-secondary ml-1 mb-2" onmouseenter="updateNose('{{nose}}');" onmouseout="displayCurrentAvatar();" onclick="confirmPurchase({{bigcoin}}, 'noses', '{{nose}}', {{value}})" type="button" class="btn btn-block btn-light border my-0">Nose {{ loop.index }}</button>
+                                {% endif %}
+                              {% endfor %}
                             </div>
                         </div>
                     </div>
@@ -86,16 +92,24 @@
                         <div class="col-md my-3 my-md-0 text-center">
                             <a id="menu" data-toggle="collapse" href="#collapse_mouths" role="button"><b><h5 class="alert alert-dark">MOUTHS</h5></b></a>
                             <div class="collapse mt-2" id="collapse_mouths" align="left">
-                            {% for i in mouths %}
-                              <button class="btn btn-outline-success ml-1 mb-2" onmouseenter="updateMouth('{{i}}');" onmouseout="displayCurrentAvatar();" onclick="changeMouth('{{i}}')" type="button" class="btn btn-block btn-light border my-0">Mouth {{ loop.index }}</button>
-                            {% endfor %}
+                              {% for mouth, value in mouths.items() %}
+                                {% if mouth in owned_mouths %}
+                                  <button id="{{mouth}}" class="btn btn-success ml-1 mb-2" onmouseenter="updateMouth('{{mouth}}');" onmouseout="displayCurrentAvatar();" onclick="changeMouth('{{mouth}}')" type="button" class="btn btn-block btn-light border my-0">Mouth {{ loop.index }}</button>
+                                {% else %}
+                                  <button id="{{mouth}}" class="btn btn-outline-secondary ml-1 mb-2" onmouseenter="updateMouth('{{mouth}}');" onmouseout="displayCurrentAvatar();" onclick="confirmPurchase({{bigcoin}}, 'mouths', '{{mouth}}', {{value}})" type="button" class="btn btn-block btn-light border my-0">Mouth {{ loop.index }}</button>
+                                {% endif %}
+                              {% endfor %}
                           </div>
                         </div>
                         <div class="col-md my-3 my-md-0 text-center">
                             <a id="menu" data-toggle="collapse" href="#collapse_colors" role="button"><b><h5 class="alert alert-dark">COLORS</h5></b></a>
                             <div class="collapse mt-2" id="collapse_colors">
-                              {% for i in colors %}
-                                <button id="colorButton" onmouseenter="updateColor('{{i}}');" onmouseout="displayCurrentAvatar();" onclick="changeColor('{{i}}')" type="button" class="btn btn-block btn-light border my-0" style="background-color: #{{i}};">&nbsp;</button>
+                              {% for color, value in colors.items() %}
+                                {% if value[0] in owned_colors %}
+                                  <button id="{{value[0]}}" onmouseenter="updateColor('{{value[0]}}');" onmouseout="displayCurrentAvatar();" onclick="changeColor('{{value[0]}}')" type="button" class="btn btn-block btn-light border my-0" style="background-color: #{{value[0]}};">&nbsp;OWNED</button>
+                                {% else %}
+                                  <button id="{{value[0]}}" onmouseenter="updateColor('{{value[0]}}');" onmouseout="displayCurrentAvatar();" onclick="confirmPurchase({{bigcoin}}, 'color', '{{value[0]}}', '{{value[1]}}')" type="button" class="btn btn-block btn-light border my-0" style="background-color: #{{value[0]}};">&nbsp;PURCHASE</button>
+                                {% endif %}
                               {% endfor %}
                             </div>
                         </div>
