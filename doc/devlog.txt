@@ -17,9 +17,20 @@ Tuesday -- a web application for collaborators to track projects together and se
 
 ==============================================================
 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-joanC -- 2019-01-17 8:30
+thomasZ -- 2019-01-17 09:30
+--------------------------------------------------------------
+- Defined money for view_profile
+- Added checks for update profile (in app.py); no flashing though
+- Fixed diamond icon not displaying in project
+==============================================================
+joanC -- 2019-01-17 08:30
 --------------------------------------------------------------
 - Added Test Data Generation
+==============================================================
+thomasZ -- 2019-01-17 07:30
+--------------------------------------------------------------
+- I think I made private messages actually private now
+(meaning that only user and recipient of a message can see that message)
 ==============================================================
 johnnyW-- 2019-01-16 01:38
 --------------------------------------------------------------
