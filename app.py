@@ -584,8 +584,26 @@ def move_task():
 
     return "alrighty!"
 
+@app.route('/get_data')
+def get_data():
+    wc = request.args['wordCount']
+    sc = request.args['sentenceCount']
+    type = request.args['format']
 
-
+    ipsum = api.getIpsum(wc, sc);
+    if type == 'paragraph':
+        ipsum = ipsum.replace('\\n', ' ')
+        if ipsum[-1] == "'":
+            ipsum = ipsum[:-1]
+        ipsum = ' '.join(ipsum.split())
+        return ipsum
+    elif type == 'array':
+        ipsum = [i.split() for i in ipsum.replace('.', '').split('\\n\\n')]
+        if ipsum[-1] == ["'"]:
+            ipsum = ipsum[:-1]
+        return str(ipsum)
+    else:
+        return 'Something went wrong!'
 
 
 

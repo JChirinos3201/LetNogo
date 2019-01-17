@@ -79,16 +79,16 @@ def updateQuote():
 ################################################### IPSUM API #################################################
 def getIpsum(numWords, numPara):
 
-    base_url = "http://dinoipsum.herokuapp.com/api/?format=json"
+    base_url = "http://dinoipsum.herokuapp.com/api/?format=text"
     words = "&words=" + str(numWords)
     paragraphs = "&paragraphs=" + str(numPara)
     url = base_url + words + paragraphs
-    header = {
-            "Accept": "application/json",
-            }
+    # header = {
+    #         "Accept": "application/json",
+    #         }
 
 
-    r = request.Request(url, headers = header )
+    r = request.Request(url)
 
     try:
         raw = request.urlopen(r).read()
@@ -96,12 +96,8 @@ def getIpsum(numWords, numPara):
         print("Error: Something went wrong with the request")
         return "Error: Something went wrong with the request"
 
-
-
-    data = json.loads(raw)
-
-    print(data)
-    return data
+    print(str(raw)[2:])
+    return str(raw)[2:]
 
 
 ################################################### AVATAR API #################################################
