@@ -15,6 +15,13 @@ Tuesday -- a web application for collaborators to track projects together and se
    \:\/.:| |\:\____/\\ ..::/ / \:\/___/\\:\_\ \ \\:\_\ \ \
     \____/_/ \_____\/ \___/_(   \_____\/ \_____\/ \_____\/
 ==============================================================
+joanC -- 2019-01-16 03:16
+--------------------------------------------------------------
+- Rectified issues with tasks not moving
+- Fixed residual issues from changing db getter fxns for tasks
+  - Specifically, the dashboard teammate accordion
+- Removed herobrine
+==============================================================
 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 thomasZ and johnnyW -- 2019-01-16 18:00
 --------------------------------------------------------------
