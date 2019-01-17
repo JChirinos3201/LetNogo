@@ -451,17 +451,27 @@ def update_info():
     newVal = request.args['newVal']
 
     if what == 'first':
-        db.set_first_name(username, newVal)
+        if newVal == '':
+            return "bro, that's an empty string"
+        else:
+            db.set_first_name(username, newVal)
     elif what == 'last':
-        db.set_last_name(username, newVal)
+        if newVal == '':
+            return "bro, that's also an empty string"
+        else:
+            db.set_last_name(username, newVal)
     elif what == 'email':
-        if '@' not in newVal or '.' not in newVal:
-            # do something here helppppppppppppppppppppppppppppppppppppp
-            return 'nou'
+        if '@' not in newVal or '.' not in newVal or len(newVal) == 0 or ' ' in newVal:
+            # doesn't update if one of these things are true
+            return "don't change the email"
         else:
             db.set_email(username, newVal)
     elif what == 'phone':
-        db.set_phone(username, newVal)
+        if newVal.lower().islower():
+            print('there are letters in this')
+            return "don't change the phone number"
+        else:
+            db.set_phone(username, newVal)
     elif what == 'bio':
         db.set_bio(username, newVal)
 
