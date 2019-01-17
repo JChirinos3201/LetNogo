@@ -206,12 +206,12 @@ def new_task():
 def new_team_msg():
     if 'username' not in session:
         return redirect(url_for('index'))
-    print(request.args)
+    print("SENDING NEW TEAM MESSAGE\n request.args: {}".format(request.args))
     pid = request.args['pid']
     user = session['username']
     msg = request.args['msg']
     msg_id = str(uuid.uuid1())
-    timestamp = request.args['time']
+    timestamp = request.args['timestamp']
     db.add_t_msg(pid, user, msg, msg_id, timestamp)
     return 'sad'
 
@@ -363,8 +363,8 @@ def get_snippet():
 
     if snippet == 'teamInbox' and 'username' in session:
         pid = request.args['pid']
-        team_messages = db.get_t_msgs(pid)
-        print(team_messages)
+        team_messages = db.get_t_msgs(pid)[::-1]
+        print("TEAM MESSAGES:\n{}".format(team_messages))
         teammates = db.get_teammates(pid)
         teammate_pfp_urls = {}
         for mate in teammates:

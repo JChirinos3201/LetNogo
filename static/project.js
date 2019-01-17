@@ -142,14 +142,11 @@ var submitNewTask = function () {
 // msg fxns
 
 var submitTeamMsg = function () {
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      displayTeamInbox();
-    }
-  };
-  var msg_to = document.getElementById('address').value;
-  var msg = document.getElementById('msg').value;
+  var msg = encodeURIComponent(document.getElementById('msg').value);
+  if (msg == "") {
+    console.log("not sending because blank message!");
+    return;
+  }
   currentDate = new Date();
   year = currentDate.getFullYear();
   month = currentDate.getMonth() + 1;
@@ -157,10 +154,24 @@ var submitTeamMsg = function () {
   hour = currentDate.getHours();
   minute = currentDate.getMinutes();
   var time = `${year}/${month}/${day} - ${hour}:${minute}`;
-  console.log(msg_to);
   console.log(msg);
   console.log(time);
-  xhttp.open("GET", `/new_tmsg?msg=${msg}&pid=${pid}&timestamp=${time}`, true);
+
+  var url = `/new_tmsg?msg=${msg}&pid=${pid}&timestamp=${time}`;
+  console.log("URL BEFORE URL\n" + url)
+
+  url = encodeURI(url);
+  console.log("URL AFTER URL\n" + url)
+
+
+  // xhttp
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      displayTeamInbox();
+    }
+  };
+  xhttp.open("GET", url, true);
   xhttp.send();
 };
 
