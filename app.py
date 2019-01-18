@@ -567,7 +567,7 @@ def get_dashboard():
     project_name = db.get_project(pid)
     print("\n\n\nPID: {}\n\n\n".format(pid))
 
-    messages = db.get_t_msgs(pid)
+    messages = sorted(db.get_t_msgs(pid), key=lambda x: x[3], reverse=True)
     print("\n\n\nPRIVATE MESSAGES:\n{}\n\n".format(messages))
 
     tasks = sorted(db.get_tasks_pid(pid), key=lambda x: x[2], reverse=True)
