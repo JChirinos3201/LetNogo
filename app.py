@@ -6,7 +6,7 @@ import os
 
 from flask import Flask, render_template, redirect, url_for, session, request, flash, get_flashed_messages
 import datetime, uuid, re, json, random
-from urllib.parse import pqs
+from urllib.parse import parse_qs as pqs
 
 from util import db, api
 
@@ -210,12 +210,14 @@ def new_task():
     print(request.args)
     # pid TEXT, username TEXT, task TEXT, description TEXT, priority INT, due_date TEXT, status TEXT)
 
-    task = pqs("t=" + request.args['task'])['t']
-    description = pqs("t=" + request.args['description'])['t']
-    priority = pqs("t=" + request.args['priority'])['t']
-    due_date = pqs("t=" + request.args['due_date'])['t']
-    status = pqs("t=" + request.args['status'])['t']
-    pid = pqs("t=" + request.args['pid'])['t']
+    task = pqs("t=" + request.args['task'])['t'][0]
+    description = pqs("t=" + request.args['description'])['t'][0]
+    priority = pqs("t=" + request.args['priority'])['t'][0]
+    print('PRIORITY: {}'.format(priority))
+    priority = int(priority)
+    due_date = pqs("t=" + request.args['due_date'])['t'][0]
+    status = int(pqs("t=" + request.args['status'])['t'][0])
+    pid = pqs("t=" + request.args['pid'])['t'][0]
     db.add_task(pid, session['username'], task, description, priority, due_date, status)
     return 'sad'
 
@@ -225,11 +227,11 @@ def new_team_msg():
     if 'username' not in session:
         return redirect(url_for('index'))
     print("SENDING NEW TEAM MESSAGE\n request.args: {}".format(request.args))
-    pid = pqs("t=" + request.args['pid'])['t']
+    pid = pqs("t=" + request.args['pid'])['t'][0]
     user = session['username']
-    msg = pqs("t=" + request.args['msg'])['t']
+    msg = pqs("t=" + request.args['msg'])['t'][0]
     msg_id = str(uuid.uuid1())
-    timestamp = pqs("t=" + request.args['timestamp'])['t']
+    timestamp = pqs("t=" + request.args['timestamp'])['t'][0]
     db.add_t_msg(pid, user, msg, msg_id, timestamp)
     return 'sad'
 
@@ -473,9 +475,9 @@ def get_profile_button():
 @app.route('/update_info')
 def update_info():
     '''PROCESSES INFORMATION TO BE UPDATED IN PROFILE AND ENTERS INTO DATABASE, DENIES UPDATE IF THEY DO NOT MATCH CRITERIA'''
-    username = pqs("t=" + request.args['username'])['t']
-    what = pqs("t=" + request.args['what'])['t']
-    newVal = pqs("t=" + request.args['newVal'])['t']
+    username = pqs("t=" + request.args['username'])['t'][0]
+    what = pqs("t=" + request.args['what'])['t'][0]
+    newVal = pqs("t=" + request.args['newVal'])['t'][0]
 
     if what == 'first':
         if newVal == '':
@@ -537,11 +539,11 @@ def get_avatar_from_get():
 def new_private_message():
     '''CREATES AND ADDS NEW PRIVATE MESSAGE TO THE DATABASE'''
     pid = request.args['pid']
-    address = pqs("t=" + request.args['address'])['t']
+    address = pqs("t=" + request.args['address'])['t'][0]
     user = session['username']
-    msg = pqs("t=" + request.args['msg'])['t']
+    msg = pqs("t=" + request.args['msg'])['t'][0]
     msg_id = str(uuid.uuid1())
-    timestamp = pqs("t=" + request.args['timestamp'])['t']
+    timestamp = pqs("t=" + request.args['timestamp'])['t'][0]
 
     print("\n\n\nSENDING PM\n\n\tpid: {}\n\tto: {}\n\tfrom: {}\n\tmsg: {}\n\tmsg ID: {}\n\ttimestamp: {}\n\n\n\n".format(pid, address, user, msg, msg_id, timestamp))
 
@@ -630,8 +632,8 @@ def move_task():
 @app.route('/get_data')
 def get_data():
     '''GENERATES TEST DATA GIVEN INPUT PARAMETERS'''
-    wc = int(pqs("t=" + request.args['wordCount'])['t'])
-    sc = int(pqs("t=" + request.args['sentenceCount'])['t'])
+    wc = int(pqs("t=" + request.args['wordCount'])['t'][0])
+    sc = int(pqs("t=" + request.args['sentenceCount'])['t'][0])
     format = request.args['format']
     type = request.args['type']
 
