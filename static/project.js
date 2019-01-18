@@ -126,10 +126,10 @@ var submitNewTask = function () {
       displayTasks();
     }
   };
-  var task = document.getElementById('newTaskName').value;
-  var desc = document.getElementById('newTaskDescription').value;
-  var prio = document.getElementById('priority').value;
-  var date = document.getElementById('date').value;
+  var task = encodeURIComponent(document.getElementById('newTaskName').value);
+  var desc = encodeURIComponent(document.getElementById('newTaskDescription').value);
+  var prio = encodeURIComponent(document.getElementById('priority').value);
+  var date = encodeURIComponent(document.getElementById('date').value);
   console.log(task);
   console.log(desc);
   console.log(prio);
@@ -153,15 +153,11 @@ var submitTeamMsg = function () {
   day = currentDate.getDate();
   hour = currentDate.getHours();
   minute = currentDate.getMinutes();
-  var time = `${year}/${month}/${day} - ${hour}:${minute}`;
+  var time = encodeURIComponent(`${year}/${month}/${day} - ${hour}:${minute}`);
   console.log(msg);
   console.log(time);
 
   var url = `/new_tmsg?msg=${msg}&pid=${pid}&timestamp=${time}`;
-  console.log("URL BEFORE URL\n" + url)
-
-  url = encodeURI(url);
-  console.log("URL AFTER URL\n" + url)
 
 
   // xhttp
@@ -182,7 +178,7 @@ var submitPrivateMsg = function () {
       displayPrivateInbox();
     }
   };
-  var msg_to = document.getElementById('selectTo').value;
+  var msg_to = encodeURIComponent(document.getElementById('selectTo').value);
   var msg = encodeURIComponent(document.getElementById('msg').value);
   currentDate = new Date();
   year = currentDate.getFullYear();
@@ -190,16 +186,12 @@ var submitPrivateMsg = function () {
   day = currentDate.getDate();
   hour = currentDate.getHours();
   minute = currentDate.getMinutes();
-  var time = `${year}/${month}/${day} - ${hour}:${minute}`;
+  var time = encodeURIComponent(`${year}/${month}/${day} - ${hour}:${minute}`);
   console.log(msg_to);
   console.log(msg);
   console.log(time);
   xhttp.open("GET", `/new_private_message?address=${msg_to}&msg=${msg}&pid=${pid}&timestamp=${time}`, true);
   xhttp.send();
-};
-
-var updateMsgs = function () {
-
 };
 
 
@@ -218,10 +210,10 @@ var displayIpsum = function () {
 
 
 var getData = function () {
-  var wc = document.getElementById('wordCount').value;
-  var sc = document.getElementById('sentenceCount').value;
-  var format = document.querySelector('input[name="format"]:checked').value;
-  var type = document.querySelector('input[name="type"]:checked').value;
+  var wc = encodeURIComponent(document.getElementById('wordCount').value);
+  var sc = encodeURIComponent(document.getElementById('sentenceCount').value);
+  var format = encodeURIComponent(document.querySelector('input[name="format"]:checked').value);
+  var type = encodeURIComponent(document.querySelector('input[name="type"]:checked').value);
   var d = document.getElementById('data');
 
   d.value = "Loading...";
