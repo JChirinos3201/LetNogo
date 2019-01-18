@@ -191,7 +191,7 @@ def new_project():
     #data = database.DB_Manager(DB_FILE)
     print(request.form)
     projectName = request.form['newProjectName']
-    if projectName.strip() == '' or '?' in projectName or '#' in projectName:
+    if len(projectName.strip()) != len(projectName):
         flash('Invalid project name!')
         return redirect(url_for('home'))
     pid = str(uuid.uuid1())
