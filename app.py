@@ -71,8 +71,9 @@ def view_profile(project_name, p_id):
     '''PROFILE PAGES OF OTHER USERS'''
     if 'username' not in session:
         return redirect(url_for('index'))
-    username = pqs('user=' + request.args['username'])['user']
+    username = pqs('user=' + request.args['username'])['user'][0]
 
+    print('username', username)
     user_info = db.get_info(username)
     print(user_info)
 
