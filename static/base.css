@@ -1,1 +1,50 @@
-.navbarTitle {}
+/*
+colors
+#261628
+#348aa7
+#e08dac
+#59c9a5
+#e6f14a
+*/
+
+.bg-success{
+  background-color: #59c9a5!important
+}
+
+.bg-info{
+  background-color:#348aa7!important
+}
+
+.bg-primary{
+  background-color:#348aa7!important
+}
+
+.btn-warning{
+  background-color: #e6f14a;
+  border-color: #e6f14a;
+}
+.btn-warning:hover{
+  background-color: #939a30;
+  border-color: #e6f14a;
+}
+
+.btn-warning:active{
+  background-color: #939a30;
+  border-color: #e6f14a;
+}
+
+.btn-warning:focus{
+  background-color: #939a30;
+  border-color: #e6f14a;
+}
+
+.btn-primary{
+  background-color: #348aa7;
+}
+.btn-primary:hover{
+  background-color: #22586b;
+}
+
+.alert-dark{
+  background-color: #e08dac!important
+}
