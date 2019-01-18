@@ -45,6 +45,26 @@ colors
   background-color: #22586b;
 }
 
+.btn-success{
+  background-color: #59c9a5!important;
+  border-color:#59c9a5!important;
+}
+
+.btn-success:hover{
+  background-color: #316e5a!important;
+  border-color:#316e5a!important;
+}
+
 .alert-dark{
   background-color: #e08dac!important
+}
+
+.btn-outline-secondary{
+  border-color:#261628!important;
+  color: #261628;
+}
+
+.btn-outline-secondary:hover{
+  background-color:#261628!important;
+  color: #e08dac;
 }
