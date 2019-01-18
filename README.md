@@ -1,6 +1,9 @@
 # Team LetNogo
 # Project Tuesday
-#### By Joan Chirinos, Susan Lin, Johnny Wong, and Thomas Zhao
+#### By Joan Chirinos (Project Manager, Frontend (HTML, JS, app.py))
+#### Susan Lin (Database, API)
+#### Johnny Wong (Database, Frontend (HTML, JS, app.py))
+#### and Thomas Zhao (API, Frontend (HTML, app.py), Database)
 
 Project managing website. Projects can be created and can be shared with other members. Members can send out the project ID for other teammates to search up and join. When teammates join, tasks may be delegated. Once a task is assigned or added, the user’s feed will update. Each member will also be able to comment on the completeness of their tasks (not started, working on it, done, etc.)
 
