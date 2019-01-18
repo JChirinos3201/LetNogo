@@ -19,10 +19,10 @@
           {% if messages|length > 0 %} {% for message in messages[:5] %}
           <div class="row my-2">
             <div class="bg-info w-100 rounded-pill py-2 px-3">
-	      <a href="/view_profile/{{ project_name  }}/{{ p_id }}?username={{ message[0] }}" style="text-decoration:none;outline:0">
+              <a href="/view_profile/{{ project_name  }}/{{ p_id }}?username={{ message[0] }}" style="text-decoration:none;outline:0">
 		<img class="mr-2 rounded-circle" src="{{teammate_pfp_urls[message[0]]}}" height="30" width="30" onload="getUserImage('{{message[2]}}', '{{message[0]}}')" id="{{message[3]}}">
 	      </a>
-	      <span class="font-weight-bold">{{message[0]}}</span> "<span class="font-italic">{{message[1]}}</span>"
+              <span class="font-weight-bold">{{message[0]}}</span> "<span class="font-italic">{{message[1]}}</span>"
               <small class="float-right">{{message[3]}}</small>
             </div>
           </div>
@@ -36,11 +36,20 @@
       <div id="workingOn">
 
         <div class="container-fluid">
-          {% if tasks|length > 0 %} {% for task in tasks %}
-          <div class="row">
-            &nbsp;{{ task }}
+
+          {% if user_tasks|length > 0 %}
+          <div class="card">
+            <div class="card-body">
+              <ul class="list-group list-group-flush">
+                {% for task in user_tasks %}
+                <li class="list-group-item">
+                  &nbsp;{{ task[0] }} <span style="color: red; font-weight: 900;">{% for n in range(task[2]) %}!{% endfor %}</span>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
           </div>
-          {% endfor %} {% else %}
+          {% else %}
           <div class="alert alert-warning">You aren't currently working on anything!</div>
           {% endif %}
         </div>
@@ -98,3 +107,4 @@
       </div>
     </div>
   </div>
+</div>

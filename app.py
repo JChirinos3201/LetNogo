@@ -594,12 +594,12 @@ def get_dashboard():
     teammates = db.get_teammates(pid)
     print('teammates', teammates)
 
-    user_tasks = {}
+    teammate_tasks = {}
     print('\n\n\nTEAMMATES:\n{}\n\n\n\n'.format(teammates))
     for user in teammates:
         user = user[0]
-        user_tasks[user] = sorted(db.get_tasks_username(pid, user), key=lambda x: x[2], reverse=True)
-        print('USER: {}\nTASKS: {}\n\n'.format(user, user_tasks[user]))
+        teammate_tasks[user] = sorted(db.get_tasks_username(pid, user), key=lambda x: x[2], reverse=True)
+        print('USER: {}\nTASKS: {}\n\n'.format(user, teammate_tasks[user]))
 
     teammate_pfp_urls = {}
     for mate in teammates:
@@ -612,11 +612,18 @@ def get_dashboard():
 
     print('teammate_pfp_urls', teammate_pfp_urls)
     print("TEAMMATETASKS.ITEMS\n\n")
-    for key, val in user_tasks.items():
+    for key, val in teammate_tasks.items():
         print("KEY: {}\nVAL: {}\n\n".format(key, val))
     print("\n\nEND")
 
-    return render_template('dashboardSNIPPET.html', messages=messages[:5], done=str(done), working=str(working), notstarted=str(notstarted), tasks=[], teammates = teammates, username = username, teammate_pfp_urls = teammate_pfp_urls, p_id = pid, project_name = project_name, teammate_tasks=user_tasks)
+    raw_user_tasks = sorted(db.get_tasks_username(pid, username), key=lambda x: x[2], reverse=True)
+    user_tasks = []
+    for i in raw_user_tasks:
+        if i[4] == 1:
+            user_tasks.append(i)
+
+
+    return render_template('dashboardSNIPPET.html', messages=messages[:5], done=str(done), working=str(working), notstarted=str(notstarted), user_tasks=user_tasks, teammates = teammates, username = username, teammate_pfp_urls = teammate_pfp_urls, p_id = pid, project_name = project_name, teammate_tasks=teammate_tasks)
 
 
 @app.route('/move_task')
