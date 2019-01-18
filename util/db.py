@@ -76,7 +76,7 @@ def findUser(username):
     CHECKS IF username IS UNIQUE
     '''
     users = getUsers()
-    return username in users
+    return username in users.keys()
 
 def verifyUser(username, password):
     '''
